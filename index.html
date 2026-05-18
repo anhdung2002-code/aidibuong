@@ -35,6 +35,8 @@
     const IconClipboardList = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="M12 11h4"></path><path d="M12 16h4"></path><path d="M8 11h.01"></path><path d="M8 16h.01"></path></svg>);
     const IconBrainCircuit = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 4.5a2.5 2.5 0 0 0-4.96-.46 2.5 2.5 0 0 0-1.98 3 2.5 2.5 0 0 0-1.32 4.24 3 3 0 0 0 .34 5.58 2.5 2.5 0 0 0 2.96 3.08 2.5 2.5 0 0 0 4.91.05L12 20V4.5Z"></path><path d="M16 8V5c0-1.1.9-2 2-2"></path><path d="M12 13h4"></path><path d="M12 17h6"></path><path d="M21 9h-4"></path><path d="M22 13h-2"></path><path d="M21 17h-3"></path></svg>);
     const IconSave = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>);
+    const IconPill = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 0 0-7-7l-10 10a4.95 4.95 0 0 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg>);
+    const IconSearch = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>);
     const IconTrash2 = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" x2="10" y1="11" y2="17"></line><line x1="14" x2="14" y1="11" y2="17"></line></svg>);
     const IconPlus = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>);
     const IconChevronDown = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>);
@@ -61,11 +63,12 @@
           <main className="flex-grow p-4 overflow-y-auto pb-24 scrollbar-hide">
             {activeTab === 'sbar' && <SBARModule />}
             {activeTab === 'protocols' && <ProtocolModule />}
+            {activeTab === 'drugs' && <DrugDatabaseModule />}
             {activeTab === 'pimping' && <PimpingModule />}
           </main>
 
           {/* Bottom Navigation */}
-          <nav className="bg-white border-t border-slate-200 absolute bottom-0 w-full flex justify-around p-2 shadow-[0_-10px_20px_rgba(0,0,0,0.05)] z-20 shrink-0 pb-safe">
+          <nav className="bg-white border-t border-slate-200 absolute bottom-0 w-full flex justify-around gap-1 p-2 shadow-[0_-10px_20px_rgba(0,0,0,0.05)] z-20 shrink-0 pb-safe">
             <NavButton 
               icon={<IconClipboardList size={24} />}
               label="SBAR Giao Bệnh" 
@@ -79,8 +82,14 @@
               onClick={() => setActiveTab('protocols')} 
             />
             <NavButton 
+              icon={<IconPill size={24} />} 
+              label="Thuốc" 
+              isActive={activeTab === 'drugs'} 
+              onClick={() => setActiveTab('drugs')} 
+            />
+            <NavButton 
               icon={<IconBrainCircuit size={24} />} 
-              label="Tư Duy (Anki)" 
+              label="Tư Duy" 
               isActive={activeTab === 'pimping'} 
               onClick={() => setActiveTab('pimping')} 
             />
@@ -93,7 +102,7 @@
       return (
         <button 
           onClick={onClick}
-          className={`flex flex-col items-center p-2 rounded-lg transition-colors w-1/3 ${
+          className={`flex flex-col items-center p-2 rounded-lg transition-colors flex-1 min-w-0 ${
             isActive ? 'text-blue-700 font-semibold' : 'text-slate-500 hover:text-blue-500'
           }`}
         >
@@ -510,6 +519,730 @@
             {isOpen ? <IconChevronUp size={20} className="text-slate-400" /> : <IconChevronDown size={20} className="text-slate-400" />}
           </button>
           {isOpen && <div className="p-4 border-t border-slate-100 bg-slate-50">{children}</div>}
+        </div>
+      );
+    }
+
+
+
+    /* ==========================================
+       MODULE 4: DRUG DATABASE + SEARCH
+       ========================================== */
+    const DRUGS = [
+      {
+        name: "Adrenaline",
+        aliases: "epinephrine vận mạch sốc phản vệ TCM",
+        group: "Thuốc vận mạch",
+        dose: "TTM: 0,01-1 µg/kg/phút, thường 0,1-0,5 µg/kg/phút. Sốc phản vệ: Adrenaline 1mg/ml tiêm bắp theo phác đồ.",
+        route: "TTM / TB tùy chỉ định",
+        solvent: "Dextrose 5% khi truyền tĩnh mạch",
+        preparation: "Công thức nhanh TTM: số mg = 0,3 × cân nặng (kg), pha Dex 5% đủ 50ml ở trẻ em hoặc 25ml ở sơ sinh. Tốc độ ml/giờ = liều µg/kg/phút × 10.",
+        example: "Trẻ 8kg, liều 0,1 µg/kg/phút: 2,4mg pha Dex 5% đủ 50ml, truyền 1ml/giờ.",
+        diseases: ["Cấp cứu", "Sốc", "Tay chân miệng", "Sốc phản vệ"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Noradrenaline",
+        aliases: "norepinephrine norad vận mạch sốc",
+        group: "Thuốc vận mạch",
+        dose: "TTM: 0,01-1 µg/kg/phút, thường 0,1-0,5 µg/kg/phút.",
+        route: "TTM",
+        solvent: "Dextrose 5%",
+        preparation: "Công thức nhanh: số mg = 0,3 × cân nặng (kg), pha Dex 5% đủ 50ml ở trẻ em hoặc 25ml ở sơ sinh. Tốc độ ml/giờ = liều µg/kg/phút × 10.",
+        example: "Trẻ 8kg, liều 0,1 µg/kg/phút: 2,4mg pha Dex 5% đủ 50ml, truyền 1ml/giờ.",
+        diseases: ["Cấp cứu", "Sốc", "Tay chân miệng"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Dopamin",
+        aliases: "dopamine vận mạch sốc",
+        group: "Thuốc vận mạch",
+        dose: "TTM: 2-20 µg/kg/phút, nồng độ không quá 6mg/ml.",
+        route: "TTM",
+        solvent: "Dextrose 5%",
+        preparation: "Công thức nhanh: số mg = 3 × cân nặng (kg), pha Dex 5% đủ 50ml; tốc độ ml/giờ = liều µg/kg/phút.",
+        example: "Trẻ 8kg, liều 5 µg/kg/phút: 24mg pha Dex 5% đủ 50ml, truyền 5ml/giờ.",
+        diseases: ["Cấp cứu", "Sốc"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Dobutamin",
+        aliases: "dobutamine vận mạch tăng co bóp TCM phù phổi",
+        group: "Thuốc vận mạch",
+        dose: "TTM: 2-20 µg/kg/phút, nồng độ không quá 6mg/ml.",
+        route: "TTM",
+        solvent: "Dextrose 5%",
+        preparation: "Công thức nhanh: số mg = 3 × cân nặng (kg), pha Dex 5% đủ 50ml; tốc độ ml/giờ = liều µg/kg/phút.",
+        example: "Trẻ 8kg, liều 5 µg/kg/phút: 24mg pha Dex 5% đủ 50ml, truyền 5ml/giờ.",
+        diseases: ["Cấp cứu", "Sốc", "Tay chân miệng", "Tim mạch"],
+        source: "Thuốc KH / phác đồ TCM trong app"
+      },
+      {
+        name: "Milrinone",
+        aliases: "milrinon TCM tăng huyết áp phù phổi",
+        group: "Thuốc vận mạch",
+        dose: "Theo phác đồ TCM: cân nhắc khi tăng huyết áp, rối loạn thần kinh thực vật nặng; thường dùng truyền tĩnh mạch theo y lệnh hồi sức.",
+        route: "TTM",
+        solvent: "Theo quy định khoa hồi sức",
+        preparation: "Không có trong file Thuốc KH; đặt ở đây để lọc theo bệnh Tay chân miệng.",
+        example: "Dùng trong TCM độ 3 khi tăng huyết áp theo phác đồ hồi sức.",
+        diseases: ["Tay chân miệng", "Hồi sức"],
+        source: "Phác đồ TCM trong app"
+      },
+      {
+        name: "Adenosine",
+        aliases: "krenosin SVT tim nhanh kịch phát",
+        group: "Thuốc vận mạch",
+        dose: "0,1mg/kg/liều TM nhanh; nếu không hiệu quả sau 2 phút tăng gấp đôi liều; tối đa 12mg.",
+        route: "TM nhanh",
+        solvent: "Không pha truyền thường quy",
+        preparation: "Tiêm nhanh, flush nhanh sau thuốc.",
+        example: "Trẻ 10kg: Krenosin 6mg/2ml, dùng 1mg (0,3ml) TM nhanh; sau 2 phút không hiệu quả dùng 2mg (0,6ml).",
+        diseases: ["Tim mạch", "Cấp cứu"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Amiodarone",
+        aliases: "rối loạn nhịp tim nhanh thất",
+        group: "Thuốc vận mạch",
+        dose: "Tấn công 5-10mg/kg/giờ, tổng liều 20mg/kg. Duy trì 5-10 µg/kg/phút.",
+        route: "TMC / TTM",
+        solvent: "Dextrose 5%",
+        preparation: "Pha với Dex 5% đủ 25ml khi truyền duy trì.",
+        example: "Trẻ 8kg: 80mg TMC; sau đó 60mg pha Dex 5% đủ 25ml, truyền 1ml/giờ tương ứng 5 µg/kg/phút.",
+        diseases: ["Tim mạch", "Cấp cứu"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Prostaglandin E1 (Alprostadil)",
+        aliases: "PGE1 alprostadil tim bẩm sinh ống động mạch",
+        group: "Thuốc vận mạch",
+        dose: "Thường dùng 10ng/kg/phút = 0,01 µg/kg/phút.",
+        route: "TTM",
+        solvent: "Dextrose 5%",
+        preparation: "Cân nặng × 30 = số µg thuốc pha trong 50ml Dex 5%. Tốc độ ml/giờ = 0,1 × số ng/kg/phút.",
+        example: "Trẻ 3kg: Alprostadil 90µg pha Dex 5% đủ 50ml, truyền 1ml/giờ ở liều 10ng/kg/phút.",
+        diseases: ["Tim mạch", "Sơ sinh", "Cấp cứu"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Diazepam",
+        aliases: "seduxen co giật an thần",
+        group: "Thuốc an thần - chống co giật",
+        dose: "Bơm hậu môn 0,5mg/kg/liều. TMC 0,2mg/kg/liều. TTM 0,1mg/kg/giờ, tối đa 0,5mg/kg/giờ.",
+        route: "Bơm hậu môn / TMC / TTM",
+        solvent: "Dextrose 5% khi truyền",
+        preparation: "TTM: 2,5 × cân nặng = số mg pha Dex 5% đủ 25ml; 1ml/giờ = 0,1mg/kg/giờ.",
+        example: "Trẻ 3kg: Diazepam 7,5mg pha Dex 5% đủ 25ml, truyền 1ml/giờ.",
+        diseases: ["Co giật", "Thần kinh", "Cấp cứu"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Midazolam",
+        aliases: "an thần co giật đặt nội khí quản",
+        group: "Thuốc an thần - chống co giật",
+        dose: "Sơ sinh: TMC 0,05-0,15mg/kg, TTM 0,01-0,06mg/kg/giờ. Trẻ em: TMC 0,2mg/kg/liều, bơm mũi 0,3mg/kg/liều, TTM 1-2 µg/kg/phút; tối đa 6 µg/kg/phút.",
+        route: "TMC / TTM / bơm mũi",
+        solvent: "Dextrose 5%",
+        preparation: "TTM: 2,5 × cân nặng = số mg pha Dex 5% đủ 25ml; 1ml/giờ = 0,1mg/kg/giờ.",
+        example: "Trẻ 3kg: Midazolam 7,5mg pha Dex 5% đủ 25ml, truyền 1ml/giờ.",
+        diseases: ["Co giật", "Thần kinh", "Cấp cứu", "Hồi sức"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Fentanyl",
+        aliases: "fetanyl fentanyl giảm đau an thần",
+        group: "Thuốc an thần - giảm đau",
+        dose: "Sơ sinh: 0,5-4 µg/kg/liều, lặp lại mỗi 2-4 giờ TMC. Trẻ em: TMC 1µg/kg/lần; TTM 1-2µg/kg/giờ.",
+        route: "TMC / TTM",
+        solvent: "Dextrose 5%",
+        preparation: "0,025 × cân nặng = số mg pha trong Dex 5% đủ 25ml; 1ml/giờ = 1µg/kg/giờ.",
+        example: "Trẻ 5kg: Fentanyl 0,125mg pha Dex 5% đủ 25ml, truyền 1ml/giờ.",
+        diseases: ["Hồi sức", "Đặt nội khí quản", "Giảm đau"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Phenobarbital",
+        aliases: "garnotal barbit chống co giật TCM",
+        group: "Thuốc an thần - chống co giật",
+        dose: "TTM: 15-20mg/kg, tối đa 30mg/kg. Trong TCM độ 2b: 10-20mg/kg IV 30 phút; độ 2a có thể uống 5-7mg/kg/ngày chia 2 lần theo phác đồ trong app.",
+        route: "TTM / uống theo phác đồ",
+        solvent: "Nước cất",
+        preparation: "20 × cân nặng = X mg, pha với NS/nước cất đủ V = X/5 ml; truyền trong 30 phút.",
+        example: "Trẻ 5kg: 100mg pha nước cất đủ 20ml, truyền 40ml/giờ.",
+        diseases: ["Co giật", "Tay chân miệng", "Meningitis", "Encephalitis", "Thần kinh"],
+        source: "Thuốc KH / phác đồ TCM trong app"
+      },
+      {
+        name: "Morphin",
+        aliases: "morphine giảm đau an thần",
+        group: "Thuốc an thần - giảm đau",
+        dose: "TMC 0,1mg/kg/liều. TTM 20-40µg/kg/giờ, thường lấy 20µg/kg/giờ.",
+        route: "TMC / TTM",
+        solvent: "Dextrose 5%",
+        preparation: "Cân nặng = số mg pha trong Dex 5% đủ 25ml. TTM 0,5ml/giờ = 20µg/kg/giờ; 1ml/giờ = 40µg/kg/giờ.",
+        example: "Trẻ 8kg: Morphin 8mg pha Dex 5% đủ 25ml; truyền 0,5ml/giờ hoặc 1ml/giờ tùy liều.",
+        diseases: ["Hồi sức", "Giảm đau", "Đặt nội khí quản"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Rocuronium",
+        aliases: "giãn cơ đặt nội khí quản",
+        group: "Thuốc giãn cơ",
+        dose: "TMC 0,6mg/kg để đặt nội khí quản. TTM duy trì 0,3-0,6mg/kg/giờ.",
+        route: "TMC / TTM",
+        solvent: "Dextrose 5%",
+        preparation: "7,5 × cân nặng = số mg pha Dex 5% đủ 25ml; truyền 1ml/giờ = 0,3mg/kg/giờ.",
+        example: "Trẻ 5kg: 3mg TMC để đặt NKQ; duy trì 22,5mg pha Dex 5% đủ 25ml, truyền 1ml/giờ.",
+        diseases: ["Đặt nội khí quản", "Hồi sức", "Cấp cứu"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Azithromycin",
+        aliases: "zaromax kháng sinh viêm phổi",
+        group: "Kháng sinh - kháng virus",
+        dose: "Uống thường dùng 10mg/kg/ngày.",
+        route: "Uống",
+        solvent: "Không áp dụng",
+        preparation: "Tính theo cân nặng và hàm lượng gói/viên sẵn có.",
+        example: "Bé 24kg: Zaromax 250mg, 1 gói × 1 cữ uống.",
+        diseases: ["Sởi", "Viêm phổi", "Nhiễm khuẩn"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Amoxicillin - clavulanic",
+        aliases: "amoxcillin clavulanate midagentin augmentin",
+        group: "Kháng sinh - kháng virus",
+        dose: "Viêm mũi họng: 15mg/kg × 3 cữ hoặc 25mg/kg × 2 cữ. Viêm phổi: 30mg/kg × 3 cữ.",
+        route: "Uống",
+        solvent: "Không áp dụng",
+        preparation: "Tính theo thành phần amoxicillin và hàm lượng chế phẩm.",
+        example: "Bé 15kg viêm loét họng: Midagentin 250mg, 1 gói × 3 cữ uống.",
+        diseases: ["Sởi", "Viêm phổi", "Nhiễm khuẩn"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Ampicillin",
+        aliases: "kháng sinh sơ sinh meningitis listeria",
+        group: "Kháng sinh - kháng virus",
+        dose: "TMC theo tuổi/cân nặng và bệnh cảnh; ví dụ trong nguồn: trẻ 12 ngày tuổi 3kg dùng 0,15g × 3 TMC.",
+        route: "TMC",
+        solvent: "Theo hướng dẫn pha của thuốc",
+        preparation: "Tính liều theo cân nặng/tuổi và pha theo nồng độ khuyến cáo tại khoa.",
+        example: "Trẻ 12 ngày tuổi 3kg: Ampicillin 1g, dùng 0,15g × 3 TMC.",
+        diseases: ["Meningitis", "Nhiễm khuẩn", "Sơ sinh"],
+        source: "Thuốc KH / WHO meningitis khi nguy cơ Listeria"
+      },
+      {
+        name: "Cefotaxime",
+        aliases: "cefotaxim kháng sinh meningitis",
+        group: "Kháng sinh - kháng virus",
+        dose: "TMC theo bệnh cảnh; ví dụ nguồn: trẻ 3 tháng 7kg viêm phổi dùng 0,35g × 3 TMC.",
+        route: "TMC",
+        solvent: "Theo hướng dẫn pha của thuốc",
+        preparation: "Tính theo cân nặng và số lần dùng/ngày.",
+        example: "Bé 3 tháng, 7kg viêm phổi: Cefotaxime 1g, dùng 0,35g × 3 TMC.",
+        diseases: ["Meningitis", "Viêm phổi", "Nhiễm khuẩn"],
+        source: "Thuốc KH / WHO meningitis"
+      },
+      {
+        name: "Ceftriaxone",
+        aliases: "ceftriaxon poltraxone viêm màng não",
+        group: "Kháng sinh - kháng virus",
+        dose: "TMC thường 80mg/kg × 1; nếu liều cao >1g có thể chia 40mg/kg × 2. Nhiễm khuẩn nặng/viêm màng não: 100mg/kg/ngày. Không viêm màng não tối đa 2g/ngày; viêm màng não mủ tối đa 4g/ngày.",
+        route: "TMC / TTM",
+        solvent: "NS khi truyền theo ví dụ",
+        preparation: "Nếu liều cao cần pha truyền và chia cữ theo y lệnh.",
+        example: "Trẻ 8kg: 0,64g × 1 TMC hoặc 0,32g × 2 TMC. Bé 30kg viêm màng não: 1,5g pha 50ml NS, truyền 100ml/giờ × 2 cữ.",
+        diseases: ["Meningitis", "Sốc nhiễm khuẩn", "Sởi", "Nhiễm khuẩn"],
+        source: "Thuốc KH / WHO meningitis"
+      },
+      {
+        name: "Ceftazidime",
+        aliases: "ceftazidim",
+        group: "Kháng sinh - kháng virus",
+        dose: "TMC thường 50mg/kg × 3.",
+        route: "TMC",
+        solvent: "Theo hướng dẫn pha của thuốc",
+        preparation: "Tính theo cân nặng và chia 3 cữ.",
+        example: "Trẻ 10kg: Ceftazidime 0,5g × 3 TMC.",
+        diseases: ["Nhiễm khuẩn", "Viêm phổi", "Sốc nhiễm khuẩn"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Amikacin",
+        aliases: "aminoglycoside",
+        group: "Kháng sinh - kháng virus",
+        dose: "TTM thường dùng 15mg/kg × 1 ở trẻ em, truyền 30-60 phút.",
+        route: "TTM",
+        solvent: "Dung dịch pha sẵn tùy chế phẩm",
+        preparation: "Tam suất từ nồng độ dung dịch pha sẵn để tính ml.",
+        example: "Trẻ 50kg: Vinphacine 500mg/100ml, dùng 0,75g (150ml), truyền 300ml/giờ × 1 lần.",
+        diseases: ["Nhiễm khuẩn", "Sốc nhiễm khuẩn"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Gentamycin",
+        aliases: "gentamicin aminoglycoside",
+        group: "Kháng sinh - kháng virus",
+        dose: "TB: trẻ em dùng liều 5mg/kg × 1.",
+        route: "TB",
+        solvent: "Không áp dụng",
+        preparation: "Tính theo cân nặng và hàm lượng ống thuốc.",
+        example: "Trẻ 10kg: Gentamycin 0,05g × 1 TB.",
+        diseases: ["Nhiễm khuẩn", "Sơ sinh"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Cefepime",
+        aliases: "maxapin",
+        group: "Kháng sinh - kháng virus",
+        dose: "TMC: trẻ em 50mg/kg × 3.",
+        route: "TMC",
+        solvent: "Theo hướng dẫn pha của thuốc",
+        preparation: "Tính theo cân nặng, chia 3 cữ.",
+        example: "Trẻ 3 tháng 6kg: Maxapin 1g, 0,3g × 3 TMC.",
+        diseases: ["Nhiễm khuẩn", "Sốc nhiễm khuẩn"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Metronidazole",
+        aliases: "metronidazol kỵ khí",
+        group: "Kháng sinh - kháng virus",
+        dose: "TTM trong 30 phút; ví dụ dùng 30mg/kg × 3.",
+        route: "TTM",
+        solvent: "Dung dịch pha sẵn",
+        preparation: "Tam suất theo nồng độ chai pha sẵn.",
+        example: "Trẻ 20kg: Metronidazole 0,5g/100ml NS, dùng 0,6g (120ml), truyền 240ml/giờ × 3.",
+        diseases: ["Nhiễm khuẩn", "Ổ bụng", "Sốc nhiễm khuẩn"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Ciprofloxacin",
+        aliases: "cipro quinolone",
+        group: "Kháng sinh - kháng virus",
+        dose: "TTM 30 phút; tính theo dung dịch pha sẵn.",
+        route: "TTM",
+        solvent: "Dung dịch pha sẵn",
+        preparation: "Tam suất theo nồng độ chai pha sẵn.",
+        example: "Trẻ sơ sinh 5kg: Ciprofloxacin 200mg/100ml, dùng 0,125g (62,5ml), truyền 125ml/giờ.",
+        diseases: ["Nhiễm khuẩn", "Meningitis dự phòng tiếp xúc não mô cầu theo WHO: ciprofloxacin uống ở người tiếp xúc khi phù hợp"],
+        source: "Thuốc KH / WHO meningitis prophylaxis"
+      },
+      {
+        name: "Levofloxacin",
+        aliases: "levof quinolone",
+        group: "Kháng sinh - kháng virus",
+        dose: "TTM trong 30 phút; tính theo dung dịch pha sẵn.",
+        route: "TTM",
+        solvent: "Dung dịch pha sẵn",
+        preparation: "Tam suất theo nồng độ chai pha sẵn.",
+        example: "Trẻ 4 tuổi 16kg: Levofloxacin 0,5g/100ml, dùng 0,16g (32ml), truyền 64ml/giờ.",
+        diseases: ["Nhiễm khuẩn", "Viêm phổi"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Meropenem",
+        aliases: "carbapenem nhiễm trùng nặng",
+        group: "Kháng sinh - kháng virus",
+        dose: "TMC/TTM với NS 10-20mg/ml. Ví dụ NTSS: 30mg/kg × 3; trẻ lớn tùy bệnh cảnh.",
+        route: "TMC / TTM",
+        solvent: "Normal saline",
+        preparation: "Pha NS đạt nồng độ 10-20mg/ml khi truyền.",
+        example: "Trẻ 25 ngày tuổi 4kg NTSS: 0,12g × 3 TMC. Trẻ 20kg: 800mg pha NS đủ 40ml, truyền 15ml/giờ trong 3 giờ.",
+        diseases: ["Sốc nhiễm khuẩn", "Nhiễm khuẩn", "Meningitis"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Imipenem",
+        aliases: "carbapenem",
+        group: "Kháng sinh - kháng virus",
+        dose: "TTM trong 1 giờ. Ví dụ 25mg/kg × 4.",
+        route: "TTM",
+        solvent: "Dung dịch pha sẵn/NS tùy chế phẩm",
+        preparation: "Tam suất theo nồng độ dung dịch.",
+        example: "Trẻ 10kg: Imipenem 0,5g/100ml NS, dùng 0,25g (50ml), truyền 50ml/giờ × 4 cữ.",
+        diseases: ["Sốc nhiễm khuẩn", "Nhiễm khuẩn"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Vancomycin",
+        aliases: "vanco tụ cầu MRSA viêm màng não",
+        group: "Kháng sinh - kháng virus",
+        dose: "TTM trong 1 giờ; ví dụ 15mg/kg × 4.",
+        route: "TTM",
+        solvent: "Normal saline",
+        preparation: "Pha với NS đạt 5mg/ml; số ml NS = số mg/5.",
+        example: "Trẻ 50kg: Vancomycin 0,75g pha NS đủ 150ml, truyền 150ml/giờ × 4 cữ.",
+        diseases: ["Meningitis", "Sốc nhiễm khuẩn", "Nhiễm khuẩn"],
+        source: "Thuốc KH / WHO meningitis khi kháng cephalosporin cao"
+      },
+      {
+        name: "Colistin",
+        aliases: "colistimethate đa kháng",
+        group: "Kháng sinh - kháng virus",
+        dose: "TTM 10.000UI/ml trong 1 giờ; ví dụ 30.000UI/kg × 3 cữ.",
+        route: "TTM",
+        solvent: "Normal saline",
+        preparation: "Pha đạt 10.000UI/ml.",
+        example: "Trẻ 10kg: Colistin 300.000UI pha NS đủ 30ml, truyền 30ml/giờ × 3 cữ.",
+        diseases: ["Nhiễm khuẩn đa kháng", "Sốc nhiễm khuẩn"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Linezolid",
+        aliases: "linzezolid linezolid MRSA VRE",
+        group: "Kháng sinh - kháng virus",
+        dose: "TTM; chế phẩm pha sẵn. Ví dụ 10mg/kg/lần theo minh họa nguồn.",
+        route: "TTM",
+        solvent: "Không cần dung môi, có pha sẵn",
+        preparation: "Tam suất theo nồng độ chai pha sẵn.",
+        example: "Trẻ 10 tuổi 40kg: Linezolid 0,6g/300ml, dùng 400mg (200ml), truyền 200ml/giờ.",
+        diseases: ["Nhiễm khuẩn", "Sốc nhiễm khuẩn"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Clindamycin",
+        aliases: "clinda kỵ khí tụ cầu",
+        group: "Kháng sinh - kháng virus",
+        dose: "TTM pha loãng nồng độ ≤18mg/ml trong 60 phút. Ví dụ 10mg/kg × 3 cữ.",
+        route: "TTM",
+        solvent: "Normal saline",
+        preparation: "Pha loãng đạt nồng độ ≤18mg/ml.",
+        example: "Trẻ 20kg: Clindamycin 200mg pha đủ 20ml NS, truyền 20ml/giờ × 3 cữ.",
+        diseases: ["Nhiễm khuẩn", "Viêm phổi", "Da mô mềm"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Acyclovir",
+        aliases: "aciclovir HSV viêm não herpes",
+        group: "Kháng sinh - kháng virus",
+        dose: "Điều trị HSV: trẻ <12 tuổi 15mg/kg × 3 cữ; trẻ ≥12 tuổi 10mg/kg × 3 cữ.",
+        route: "TTM",
+        solvent: "Normal saline",
+        preparation: "Tỉ lệ pha 1/5 với NS, nồng độ 5mg/ml. Tốc độ truyền theo nguồn: >1 giờ.",
+        example: "Bé 20kg, 6 tuổi: Antopi 250mg, dùng 300mg pha NS đủ 60ml, truyền 40ml/giờ × 3 cữ.",
+        diseases: ["HSV-1 Encephalitis", "Encephalitis", "Viêm não", "Meningitis"],
+        source: "Thuốc KH / UpToDate HSV"
+      },
+      {
+        name: "Mannitol",
+        aliases: "tăng áp lực nội sọ phù não",
+        group: "Thuốc khác",
+        dose: "TTM 0,25-1g/kg/liều mỗi 4-6 giờ; thường dùng 1g/kg/liều trong 30 phút.",
+        route: "TTM",
+        solvent: "Dung dịch Mannitol pha sẵn",
+        preparation: "Tính từ nồng độ chai Mannitol 20g/100ml (20%).",
+        example: "Trẻ 32kg: Mannitol 20% dùng 32g (160ml), truyền 320ml/giờ × 3 lần; báo bác sĩ trước truyền.",
+        diseases: ["Encephalitis", "Meningitis", "Tăng áp lực nội sọ", "Hồi sức"],
+        source: "Thuốc KH / WHO meningitis khi tăng áp lực nội sọ"
+      },
+      {
+        name: "Furosemid",
+        aliases: "furosemide lợi tiểu phù phổi",
+        group: "Thuốc khác",
+        dose: "Uống 1-2mg/kg/liều. TMC 1mg/kg/liều. TTM 1-2mg/kg/liều.",
+        route: "Uống / TMC / TTM",
+        solvent: "Nước cất khi pha viên theo ví dụ; tùy chế phẩm",
+        preparation: "Có thể pha Agifuros 40mg với 5ml nước cất trong ví dụ uống/gavage.",
+        example: "Trẻ 8kg: Agifuros 40mg pha 5ml nước cất, lấy 1ml uống/gavage tương ứng 8mg; hoặc 8mg TMC.",
+        diseases: ["Tay chân miệng", "Phù phổi", "Hồi sức", "Tim mạch"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Omeprazole",
+        aliases: "omeprazol PPI dạ dày",
+        group: "Thuốc khác",
+        dose: "Uống 1mg/kg/liều. TMC 1mg/kg/liều. TTM 1mg/kg/ngày.",
+        route: "Uống / TMC / TTM",
+        solvent: "NS theo ví dụ truyền",
+        preparation: "Pha theo chế phẩm và đường dùng.",
+        example: "Trẻ 20kg: Omeprazole 40mg, dùng 20mg × 1 TMC; Atimezon 20mg pha đủ 20ml NS, truyền 40ml/giờ × 2 cữ.",
+        diseases: ["Hồi sức", "Tiêu hóa", "Dự phòng xuất huyết tiêu hóa"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Huyết thanh kháng nọc độc rắn",
+        aliases: "rắn lục tre antivenom",
+        group: "Thuốc khác",
+        dose: "Test trong da huyết thanh kháng nọc độc rắn lục tre 1% lấy 0,2ml, đọc sau 15 phút. Trước truyền: Adrenaline 1‰ 0,01ml/kg TDD theo nguồn.",
+        route: "Trong da test / TTM",
+        solvent: "Normal saline",
+        preparation: "Huyết thanh kháng nọc rắn 6 lọ pha với NS đủ 50-100ml, truyền trong 1 giờ.",
+        example: "Trẻ 15kg: Adrenaline 1‰ 0,15ml TDD trước truyền huyết thanh kháng nọc rắn.",
+        diseases: ["Cấp cứu", "Rắn cắn", "Chống độc"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Dexamethasone",
+        aliases: "corticoid viêm màng não rút nội khí quản",
+        group: "Thuốc khác",
+        dose: "Trước rút NKQ 1-3 ngày, dùng trong 3 ngày: 0,6mg/kg/ngày chia 3 lần/ngày TMC. Trong viêm màng não: dùng corticoid cùng liều kháng sinh đầu theo khuyến cáo WHO khi nghi viêm màng não vi khuẩn.",
+        route: "TMC / IV",
+        solvent: "Theo chế phẩm",
+        preparation: "Chia 3 lần/ngày theo nguồn Thuốc KH khi dùng trước rút NKQ.",
+        example: "Trẻ 10kg: Dexamethasone 2mg × 3 lần TMC.",
+        diseases: ["Meningitis", "Hồi sức", "Rút nội khí quản"],
+        source: "Thuốc KH / WHO meningitis"
+      },
+      {
+        name: "Hydrocortison",
+        aliases: "hydrocortisone corticoid",
+        group: "Thuốc khác",
+        dose: "Liều đầu 2mg/kg/lần TMC. Các liều sau 0,5-1mg/kg/lần mỗi 6-8 giờ.",
+        route: "TMC",
+        solvent: "Theo chế phẩm",
+        preparation: "Tính liều theo cân nặng và khoảng cách liều.",
+        example: "Trẻ 10kg: Hydrocortison 20mg TMC, sau đó 5mg × 4 cữ TMC.",
+        diseases: ["Cấp cứu", "Hồi sức", "Dị ứng"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "N-Acetylcystein",
+        aliases: "NAC giải độc paracetamol",
+        group: "Thuốc khác",
+        dose: "Liều 1: 150mg/kg trong 1 giờ, max 15g. Liều 2: 12,5mg/kg/giờ × 4 giờ, max 5g/giờ. Liều 3: 6,25mg/kg/giờ × 16 giờ, max 12g/20 giờ.",
+        route: "TTM",
+        solvent: "Dextrose 5%",
+        preparation: "Cách nhanh: liều 1 pha 3ml/kg, chảy 3ml/kg/giờ; liều 2 pha 4ml/kg, chảy 1ml/kg/giờ; liều 3 pha 8ml/kg, chảy 0,5ml/kg/giờ. Có thể gộp liều 2+3 pha 12ml/kg.",
+        example: "Bé 14kg: liều 1 2100mg pha đủ 42ml, truyền 42ml/giờ; sau đó theo liều 2 và 3 như nguồn.",
+        diseases: ["Chống độc", "Quá liều Paracetamol", "Cấp cứu"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Zentomyces",
+        aliases: "men vi sinh tiêu hóa",
+        group: "Thuốc khác",
+        dose: "1 gói × 2-3 lần/ngày.",
+        route: "Uống",
+        solvent: "Không áp dụng",
+        preparation: "Pha/uống theo hướng dẫn chế phẩm.",
+        example: "1 gói × 2-3 lần/ngày.",
+        diseases: ["Tiêu hóa", "Chăm sóc hỗ trợ"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Zinc",
+        aliases: "kẽm tiêu chảy",
+        group: "Thuốc khác",
+        dose: "<6 tháng: 1 viên × 1 lần. >6 tháng: 2 viên × 1 lần.",
+        route: "Uống",
+        solvent: "Không áp dụng",
+        preparation: "Theo hàm lượng viên tại khoa.",
+        example: "Dùng theo nhóm tuổi như nguồn.",
+        diseases: ["Tiêu chảy", "Tiêu hóa", "Chăm sóc hỗ trợ"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Vitamin A",
+        aliases: "sởi measles thiếu vitamin A",
+        group: "Thuốc khác",
+        dose: "<6 tháng: 50.000UI × 1 lần/ngày. 6-12 tháng: 100.000UI × 1 lần/ngày. >12 tháng: 200.000UI × 1 lần/ngày.",
+        route: "Uống",
+        solvent: "Không áp dụng",
+        preparation: "Dùng theo tuổi; trong bệnh Sởi thường dùng theo hướng dẫn BYT.",
+        example: "Trẻ >12 tháng: 200.000UI × 1 lần/ngày.",
+        diseases: ["Sởi", "Chăm sóc hỗ trợ"],
+        source: "Thuốc KH / BYT Sởi"
+      },
+      {
+        name: "L-Bio",
+        aliases: "men vi sinh probiotic",
+        group: "Thuốc khác",
+        dose: "1 gói × 3 cữ.",
+        route: "Uống",
+        solvent: "Không áp dụng",
+        preparation: "Pha/uống theo hướng dẫn chế phẩm.",
+        example: "1 gói × 3 cữ.",
+        diseases: ["Tiêu hóa", "Chăm sóc hỗ trợ"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Varogel",
+        aliases: "ngậm miệng loét miệng",
+        group: "Thuốc khác",
+        dose: "1/3 gói × 3, ngậm miệng.",
+        route: "Ngậm miệng",
+        solvent: "Không áp dụng",
+        preparation: "Dùng tại chỗ theo hướng dẫn.",
+        example: "Varogel 1/3 gói × 3.",
+        diseases: ["Tay chân miệng", "Loét miệng", "Chăm sóc hỗ trợ"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Rectiofar",
+        aliases: "bơm hậu môn táo bón",
+        group: "Thuốc khác",
+        dose: "Trẻ nhỏ khoảng <5 tuổi: 2-3 ống × 2 lần. Trẻ lớn >7 tuổi: 5 ống × 2 lần.",
+        route: "Bơm hậu môn",
+        solvent: "Không áp dụng",
+        preparation: "Dùng đường hậu môn theo hướng dẫn chế phẩm.",
+        example: "Trẻ nhỏ <5 tuổi: 2-3 ống × 2 lần.",
+        diseases: ["Tiêu hóa", "Táo bón", "Chăm sóc hỗ trợ"],
+        source: "Thuốc KH"
+      },
+      {
+        name: "Clorpheniramin 4mg",
+        aliases: "chlorpheniramine dị ứng ngứa",
+        group: "Thuốc khác",
+        dose: "<2 tuổi: 1mg (1/4 viên) × 2 cữ. 2-6 tuổi: 1mg × 4 cữ. 6-12 tuổi: 2mg (1/2 viên) × 4 cữ. >12 tuổi: 4mg (1 viên) × 4 cữ.",
+        route: "Uống",
+        solvent: "Không áp dụng",
+        preparation: "Chia viên 4mg theo liều tuổi.",
+        example: "Trẻ 6-12 tuổi: 1/2 viên × 4 cữ.",
+        diseases: ["Dị ứng", "Chăm sóc hỗ trợ"],
+        source: "Thuốc KH"
+      }
+    ];
+
+    function normalizeText(str) {
+      return (str || '')
+        .toString()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/đ/g, 'd');
+    }
+
+    function DrugDatabaseModule() {
+      const [query, setQuery] = useState('');
+      const [selectedDisease, setSelectedDisease] = useState('Tất cả');
+      const [selectedGroup, setSelectedGroup] = useState('Tất cả');
+      const [openIndex, setOpenIndex] = useState(null);
+
+      const diseases = ['Tất cả', ...Array.from(new Set(DRUGS.flatMap(d => d.diseases))).sort((a, b) => a.localeCompare(b, 'vi'))];
+      const groups = ['Tất cả', ...Array.from(new Set(DRUGS.map(d => d.group))).sort((a, b) => a.localeCompare(b, 'vi'))];
+      const q = normalizeText(query);
+
+      const filteredDrugs = DRUGS.filter(drug => {
+        const haystack = normalizeText([
+          drug.name, drug.aliases, drug.group, drug.dose, drug.route, drug.solvent,
+          drug.preparation, drug.example, drug.source, ...(drug.diseases || [])
+        ].join(' '));
+        const matchQuery = !q || haystack.includes(q);
+        const matchDisease = selectedDisease === 'Tất cả' || drug.diseases.includes(selectedDisease);
+        const matchGroup = selectedGroup === 'Tất cả' || drug.group === selectedGroup;
+        return matchQuery && matchDisease && matchGroup;
+      });
+
+      return (
+        <div className="space-y-4 pb-6">
+          <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+            <div className="bg-blue-50 p-4 border-b border-blue-100">
+              <h2 className="font-bold text-blue-800 text-lg flex items-center gap-2"><IconPill size={20} /> Tra cứu thuốc</h2>
+              <p className="text-xs text-blue-700 mt-1">Tìm theo tên thuốc, nhóm thuốc, bệnh liên quan, liều, đường dùng hoặc dung môi.</p>
+            </div>
+            <div className="p-4 space-y-3">
+              <div className="relative">
+                <IconSearch size={18} className="absolute left-3 top-3 text-slate-400" />
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="VD: acyclovir, TCM, sốc, Dex 5%, viêm màng não..."
+                  className="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <select
+                  value={selectedDisease}
+                  onChange={(e) => { setSelectedDisease(e.target.value); setOpenIndex(null); }}
+                  className="w-full p-2 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  {diseases.map(d => <option key={d} value={d}>{d}</option>)}
+                </select>
+                <select
+                  value={selectedGroup}
+                  onChange={(e) => { setSelectedGroup(e.target.value); setOpenIndex(null); }}
+                  className="w-full p-2 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  {groups.map(g => <option key={g} value={g}>{g}</option>)}
+                </select>
+              </div>
+
+              <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+                {['Tất cả', 'Tay chân miệng', 'Sởi', 'Meningitis', 'Encephalitis', 'HSV-1 Encephalitis', 'Sốc', 'Co giật', 'Cấp cứu'].map(d => (
+                  <button
+                    key={d}
+                    onClick={() => { setSelectedDisease(d); setOpenIndex(null); }}
+                    className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs border ${selectedDisease === d ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-600 border-slate-300'}`}
+                  >
+                    {d}
+                  </button>
+                ))}
+              </div>
+
+              <div className="text-xs text-slate-500 flex justify-between items-center">
+                <span>Tìm thấy <strong>{filteredDrugs.length}</strong> thuốc</span>
+                {(query || selectedDisease !== 'Tất cả' || selectedGroup !== 'Tất cả') && (
+                  <button onClick={() => { setQuery(''); setSelectedDisease('Tất cả'); setSelectedGroup('Tất cả'); setOpenIndex(null); }} className="text-blue-600 font-medium">Xóa lọc</button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-50 text-yellow-800 p-3 rounded-lg border border-yellow-200 flex gap-2 items-start text-xs">
+            <IconAlertTriangle className="flex-shrink-0 mt-0.5" size={16} />
+            <p>Dữ liệu dùng để nhắc nhanh tại giường. Luôn đối chiếu phác đồ bệnh viện, chức năng gan thận, tuổi, cân nặng, chống chỉ định, nồng độ thuốc sẵn có và y lệnh bác sĩ trước khi dùng.</p>
+          </div>
+
+          <div className="space-y-3">
+            {filteredDrugs.length === 0 ? (
+              <div className="text-center text-slate-400 bg-white rounded-xl border border-slate-200 p-8">Không tìm thấy thuốc phù hợp.</div>
+            ) : (
+              filteredDrugs.map((drug, index) => (
+                <DrugCard
+                  key={`${drug.name}-${index}`}
+                  drug={drug}
+                  isOpen={openIndex === index}
+                  onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+                />
+              ))
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    function DrugCard({ drug, isOpen, onToggle }) {
+      return (
+        <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+          <button onClick={onToggle} className="w-full p-4 text-left flex items-start justify-between gap-3 hover:bg-slate-50">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h3 className="font-bold text-slate-800">{drug.name}</h3>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 border border-slate-200">{drug.group}</span>
+              </div>
+              <p className="text-xs text-slate-500 mt-1 line-clamp-2">{drug.dose}</p>
+              <div className="flex flex-wrap gap-1 mt-2">
+                {drug.diseases.slice(0, 4).map(d => <span key={d} className="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">{d}</span>)}
+              </div>
+            </div>
+            {isOpen ? <IconChevronUp size={20} className="text-slate-400 flex-shrink-0" /> : <IconChevronDown size={20} className="text-slate-400 flex-shrink-0" />}
+          </button>
+          {isOpen && (
+            <div className="border-t border-slate-100 bg-slate-50 p-4 text-sm space-y-3">
+              <DrugInfoRow label="Liều" value={drug.dose} />
+              <DrugInfoRow label="Đường dùng" value={drug.route} />
+              <DrugInfoRow label="Dung môi" value={drug.solvent} />
+              <DrugInfoRow label="Cách pha / lưu ý" value={drug.preparation} />
+              <DrugInfoRow label="Ví dụ" value={drug.example} />
+              <div>
+                <div className="text-xs uppercase tracking-wide text-slate-400 font-bold mb-1">Bệnh / tình huống liên quan</div>
+                <div className="flex flex-wrap gap-1">{drug.diseases.map(d => <span key={d} className="text-xs bg-white text-slate-600 border border-slate-200 px-2 py-1 rounded-full">{d}</span>)}</div>
+              </div>
+              <p className="text-[11px] text-slate-400">Nguồn: {drug.source}</p>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    function DrugInfoRow({ label, value }) {
+      return (
+        <div>
+          <div className="text-xs uppercase tracking-wide text-slate-400 font-bold mb-1">{label}</div>
+          <div className="text-slate-700 leading-relaxed">{value}</div>
         </div>
       );
     }
