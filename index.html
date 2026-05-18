@@ -790,16 +790,23 @@
         { name: 'Morphin', group: 'An thần - giảm đau', diseases: ['Đau', 'Thở máy'], dose: 'TMC 0,1 mg/kg/liều; TTM 20-40 µg/kg/giờ', route: 'TMC/TTM', solvent: 'Dextrose 5%', note: 'Theo dõi suy hô hấp, tụt HA.' },
         { name: 'Rocuronium', group: 'An thần - giãn cơ', diseases: ['Đặt nội khí quản'], dose: 'TMC 0,6 mg/kg đặt NKQ; duy trì 0,3-0,6 mg/kg/giờ', route: 'TMC/TTM', solvent: 'Dextrose 5%', note: 'Chỉ dùng khi kiểm soát đường thở và an thần đầy đủ.' },
         { name: 'Acyclovir/Aciclovir', group: 'Kháng virus', diseases: ['Viêm não', 'HSV-1 encephalitis'], dose: 'Thường 10 mg/kg mỗi 8 giờ IV ở trẻ lớn/người lớn; trẻ nhỏ theo tuổi/phác đồ đơn vị', route: 'TMC/TTM', solvent: 'NaCl 0,9% hoặc Dextrose 5%', note: 'Dùng sớm khi nghi HSV/VZV hoặc viêm não chưa rõ nguyên nhân; chỉnh liều theo thận, bù dịch.' },
-        { name: 'Ceftriaxone', group: 'Kháng sinh', diseases: ['Viêm màng não', 'Sởi biến chứng', 'Nhiễm khuẩn nặng'], dose: 'Theo chỉ định/nhiễm khuẩn; viêm màng não dùng liều cao theo phác đồ', route: 'TMC/TTM', solvent: '-', note: 'WHO meningitis: ceftriaxone hoặc cefotaxime là lựa chọn kinh nghiệm trong nghi viêm màng não do vi khuẩn.' },
-        { name: 'Cefotaxime', group: 'Kháng sinh', diseases: ['Viêm màng não', 'Sởi biến chứng', 'Nhiễm khuẩn nặng'], dose: 'Theo cân nặng và vị trí nhiễm khuẩn', route: 'TMC/TTM', solvent: '-', note: 'Có trong phác đồ sởi biến chứng loét giác mạc/bội nhiễm và nghi viêm màng não.' },
-        { name: 'Ampicillin/Amoxicillin', group: 'Kháng sinh', diseases: ['Viêm màng não', 'Sởi biến chứng'], dose: 'Theo tuổi, cân nặng và chỉ định', route: 'Uống/TMC', solvent: '-', note: 'Sởi: viêm tai giữa dùng Amoxicillin hoặc Amoxicillin-clavulanic; WHO meningitis: thêm Ampicillin/Amoxicillin khi nguy cơ Listeria.' },
+        { name: 'Ceftriaxone', group: 'Kháng sinh', diseases: ['Viêm màng não', 'Sởi biến chứng', 'Nhiễm khuẩn nặng'], dose: 'Trẻ ≥4 tuần: thường 50 mg/kg/liều mỗi 24 giờ, tối đa 2 g/liều. Viêm màng não/nhiễm khuẩn nặng: 50 mg/kg/liều mỗi 12 giờ, tối đa 2 g/liều, hoặc 100 mg/kg/liều mỗi 24 giờ, tối đa 4 g/ngày.', route: 'TMC/TTM', solvent: '-', note: 'Tránh ở sơ sinh/corrected GA thấp, vàng da hoặc đang dùng dung dịch chứa calci; chỉnh theo thận khi suy thận nặng. WHO meningitis: ceftriaxone hoặc cefotaxime là lựa chọn kinh nghiệm.' },
+        { name: 'Cefotaxime', group: 'Kháng sinh', diseases: ['Viêm màng não', 'Sởi biến chứng', 'Nhiễm khuẩn nặng'], dose: 'Trẻ >4 tuần: 50 mg/kg/liều mỗi 6 giờ, tối đa 2 g/liều; viêm màng não có thể 200-225 mg/kg/ngày chia mỗi 6 giờ, theo phác đồ đơn vị.', route: 'TMC/TTM', solvent: '-', note: 'Ưu tiên hơn ceftriaxone ở sơ sinh khi cần cephalosporin thế hệ 3. Có trong phác đồ sởi biến chứng loét giác mạc/bội nhiễm và nghi viêm màng não.' },
+        { name: 'Ceftazidime', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng', 'Pseudomonas'], dose: 'Trẻ ≥4 tuần: 50 mg/kg/liều mỗi 8 giờ, tối đa 2 g/liều; nhiễm rất nặng/Pseudomonas có thể cần liều cao theo ID. Chỉnh liều theo thận.', route: 'TTM/TMC', solvent: '-', note: 'Phủ Pseudomonas; không phải lựa chọn đơn độc cho viêm màng não cộng đồng nếu chưa rõ tác nhân.' },
+        { name: 'Cefepime', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng', 'Pseudomonas'], dose: 'Trẻ ≥4 tuần: 50 mg/kg/liều mỗi 8 giờ, tối đa 2 g/liều. Chỉnh liều theo thận.', route: 'TTM/TMC', solvent: '-', note: 'Cephalosporin thế hệ 4; cân nhắc trong nhiễm Gram âm/Pseudomonas theo phác đồ đơn vị.' },
+        { name: 'Ciprofloxacin', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng', 'Pseudomonas'], dose: 'Uống: 10-15 mg/kg/liều mỗi 12 giờ, tối đa 750 mg/liều. IV: 10 mg/kg/liều mỗi 8-12 giờ, tối đa 400 mg/liều. Chỉnh liều theo thận.', route: 'Uống/TM', solvent: '-', note: 'Chỉ dùng khi có chỉ định rõ/kháng sinh đồ hoặc dị ứng beta-lactam; cân nhắc nguy cơ gân, khớp, QT.' },
+        { name: 'Levofloxacin', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng', 'Pseudomonas'], dose: '6 tháng-<5 tuổi: 10 mg/kg/liều mỗi 12 giờ. ≥5 tuổi: 10 mg/kg/liều mỗi 24 giờ, tối đa 750 mg/ngày. Chỉnh liều theo thận.', route: 'Uống/TM', solvent: '-', note: 'Dùng khi cần fluoroquinolone theo chỉ định/kháng sinh đồ; lưu ý QT, gân/khớp.' },
+        { name: 'Ampicillin/Amoxicillin', group: 'Kháng sinh', diseases: ['Viêm màng não', 'Sởi biến chứng'], dose: 'Amoxicillin uống: 15-25 mg/kg/liều mỗi 8 giờ, tối đa 1 g/liều; nhiễm nặng 30 mg/kg/liều mỗi 8 giờ. Amoxicillin/Ampicillin IV: thường 25 mg/kg/liều mỗi 8 giờ; nhiễm nặng/viêm màng não 50 mg/kg/liều mỗi 4-6 giờ, tối đa 2 g/liều, theo ID/phác đồ.', route: 'Uống/TMC', solvent: '-', note: 'Sởi: viêm tai giữa dùng Amoxicillin hoặc Amoxicillin-clavulanic; WHO meningitis: thêm Ampicillin/Amoxicillin khi nguy cơ Listeria.' },
         { name: 'Amoxicillin-clavulanic', group: 'Kháng sinh', diseases: ['Sởi biến chứng', 'Viêm tai giữa', 'Loét giác mạc'], dose: 'Viêm mũi họng 15 mg/kg x 3 hoặc 25 mg/kg x 2; viêm phổi có thể 30 mg/kg x 3', route: 'Uống', solvent: '-', note: 'Sởi: dùng trong viêm tai giữa, loét giác mạc/loét miệng theo chỉ định.' },
         { name: 'Metronidazole', group: 'Kháng sinh', diseases: ['Sởi biến chứng', 'Loét miệng'], dose: 'Sởi loét miệng: 7,5 mg/kg/lần x 3 lần/ngày trong 5 ngày', route: 'Uống/TM', solvent: '-', note: 'Phối hợp Amoxicillin trong loét miệng theo BYT sởi 2025.' },
-        { name: 'Vancomycin', group: 'Kháng sinh', diseases: ['Viêm màng não', 'Nhiễm khuẩn nặng'], dose: 'Theo cân nặng, chức năng thận và nồng độ thuốc', route: 'TTM', solvent: '-', note: 'Cân nhắc thêm khi vùng có phế cầu kháng penicillin/cephalosporin thế hệ 3.' },
+        { name: 'Vancomycin', group: 'Kháng sinh', diseases: ['Viêm màng não', 'Nhiễm khuẩn nặng'], dose: 'Trẻ ≥4 tuần: khởi đầu 15 mg/kg/liều mỗi 6 giờ, tối đa 750 mg/liều khởi đầu; hiệu chỉnh theo chức năng thận và TDM/AUC hoặc trough theo quy định đơn vị.', route: 'TTM', solvent: '-', note: 'Cân nhắc thêm khi vùng có phế cầu kháng penicillin/cephalosporin thế hệ 3 hoặc nghi MRSA. Luôn theo dõi nồng độ thuốc và độc tính thận.' },
+        { name: 'Linezolid', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng', 'MRSA/VRE'], dose: '<12 tuổi: 10 mg/kg/liều mỗi 8 giờ. ≥12 tuổi: 600 mg mỗi 12 giờ. Có thể uống hoặc IV, sinh khả dụng uống cao.', route: 'Uống/TM', solvent: '-', note: 'Cân nhắc MRSA/VRE khi vancomycin không phù hợp hoặc theo kháng sinh đồ; theo dõi công thức máu, serotonin syndrome.' },
+        { name: 'Colistin/Colistimethate sodium', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng', 'Gram âm đa kháng'], dose: 'Chỉ dùng theo ID/kháng sinh đồ. Gợi ý CMS: liều nạp và duy trì tính theo colistin base activity hoặc IU theo cân nặng và chức năng thận; bắt buộc kiểm tra quy đổi chế phẩm.', route: 'TTM/khí dung', solvent: '-', note: 'Nguy cơ độc thận/độc thần kinh cao; không tự quy đổi mg CMS ↔ CBA ↔ IU. Cần phác đồ đơn vị.' },
         { name: 'Azithromycin', group: 'Kháng sinh', diseases: ['Hô hấp'], dose: '10 mg/kg/ngày', route: 'Uống', solvent: '-', note: 'Theo nguồn Thuốc KH.' },
-        { name: 'Amikacin', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng'], dose: 'Theo cân nặng và chức năng thận', route: 'TTM/TMC', solvent: '-', note: 'Theo dõi thận và thính lực.' },
-        { name: 'Gentamycin', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng'], dose: 'Theo cân nặng và chức năng thận', route: 'TTM/TMC', solvent: '-', note: 'Theo dõi thận và thính lực.' },
-        { name: 'Meropenem/Imipenem', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng'], dose: 'Theo cân nặng, chức năng thận và vị trí nhiễm khuẩn', route: 'TTM', solvent: '-', note: 'Dự phòng kháng thuốc theo kháng sinh đồ/đơn vị.' },
+        { name: 'Amikacin', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng'], dose: 'Thường 15 mg/kg/liều mỗi 24 giờ IV/IM; nhiễm nặng có thể 15-20 mg/kg/liều mỗi 24 giờ tùy phác đồ. Hiệu chỉnh theo thận và TDM.', route: 'TTM/TMC', solvent: '-', note: 'Theo dõi thận, thính lực và nồng độ thuốc khi dùng kéo dài/nặng.' },
+        { name: 'Gentamicin/Gentamycin', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng'], dose: 'Trẻ em thường 5-7,5 mg/kg/liều mỗi 24 giờ hoặc chia theo phác đồ; sơ sinh theo tuổi thai/tuổi sau sinh. Hiệu chỉnh theo thận và TDM.', route: 'TTM/TMC', solvent: '-', note: 'Theo dõi creatinine, thính lực và nồng độ thuốc. Tên trong file gốc: Gentamycin.' },
+        { name: 'Meropenem', group: 'Kháng sinh', diseases: ['Viêm màng não', 'Nhiễm khuẩn nặng'], dose: 'Trẻ ≥3 tháng: thường 20 mg/kg/liều mỗi 8 giờ, tối đa 1 g/liều. Viêm màng não/nhiễm rất nặng/Pseudomonas: 40 mg/kg/liều mỗi 8 giờ, tối đa 2 g/liều. Chỉnh liều theo thận.', route: 'TTM', solvent: '-', note: 'Dùng theo kháng sinh đồ/khuyến cáo kiểm soát kháng sinh. Không phủ MRSA/Stenotrophomonas.' },
+        { name: 'Imipenem-cilastatin', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng'], dose: 'Trẻ ≥3 tháng: thường 15-25 mg/kg/liều mỗi 6 giờ, tối đa 500 mg/liều hoặc 2 g/ngày; tránh/ thận trọng trong viêm màng não do nguy cơ co giật, ưu tiên meropenem nếu cần carbapenem CNS.', route: 'TTM', solvent: '-', note: 'Chỉnh liều theo thận; hội chẩn nhiễm/kháng sinh đồ khi dùng.' },
         { name: 'Mannitol', group: 'Khác', diseases: ['Viêm não', 'Tăng áp lực nội sọ', 'TCM độ 2b'], dose: '0,25-1 g/kg/liều mỗi 4-6 giờ, thường 1 g/kg trong 30 phút', route: 'TTM', solvent: '-', note: 'Dùng khi tăng áp lực nội sọ/phù não theo chỉ định.' },
         { name: 'Furosemide', group: 'Khác', diseases: ['Phù phổi', 'Quá tải dịch'], dose: 'Uống 1-2 mg/kg/liều; TMC 1 mg/kg/liều', route: 'Uống/TMC', solvent: '-', note: 'Theo dõi điện giải và nước tiểu.' },
         { name: 'Omeprazole', group: 'Khác', diseases: ['Bảo vệ dạ dày'], dose: 'Uống/TMC 1 mg/kg/liều; TTM 1 mg/kg/ngày', route: 'Uống/TMC/TTM', solvent: 'NaCl 0,9%', note: 'Theo chỉ định.' },
@@ -810,8 +817,37 @@
         { name: 'Vitamin A', group: 'Vitamin/kẽm', diseases: ['Sởi'], dose: '<6 tháng 50.000 IU/ngày; 6-12 tháng 100.000 IU/ngày; >12 tháng 200.000 IU/ngày', route: 'Uống', solvent: '-', note: 'Sởi: dùng liều cao, thường 2 ngày liên tiếp; cân nhắc nhắc lại theo nguy cơ thiếu vitamin A/suy dinh dưỡng.' },
         { name: 'Zinc', group: 'Vitamin/kẽm', diseases: ['Tiêu chảy'], dose: '<6 tháng 1 viên x 1 lần/ngày; >6 tháng 2 viên x 1 lần/ngày', route: 'Uống', solvent: '-', note: 'Theo nguồn Thuốc KH.' },
         { name: 'N-Acetylcysteine', group: 'Khác', diseases: ['Ngộ độc paracetamol'], dose: 'Liều truyền theo phác đồ 3 giai đoạn', route: 'TTM', solvent: 'Dextrose 5%', note: 'Theo nguồn Thuốc KH.' },
+
+        { name: 'Paracetamol', group: 'Hạ sốt - giảm đau', diseases: ['Tay chân miệng', 'Sốt cao khó kiểm soát', 'Đau'], dose: '10-15 mg/kg/liều mỗi 4-6 giờ khi sốt/đau; tối đa theo phác đồ đơn vị.', route: 'Uống/đặt hậu môn/TM', solvent: '-', note: 'Dùng theo cân nặng và dạng bào chế; tránh quá liều, lưu ý bệnh gan.' },
+        { name: 'Prostaglandin E1 (Alprostadil/PGE1)', group: 'Tim mạch', diseases: ['Tim bẩm sinh phụ thuộc ống động mạch', 'Sốc tim'], dose: 'Thường 10 ng/kg/phút = 0,01 µg/kg/phút TTM; chỉnh theo đáp ứng và tác dụng phụ.', route: 'TTM', solvent: 'Dextrose 5%', note: 'Theo Thuốc KH: CN x 30 = số µg thuốc pha trong D5% đủ 50 ml; ml/giờ = 0,1 x liều ng/kg/phút. Theo dõi ngưng thở, tụt HA, sốt.' },
+        { name: 'Clindamycin', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn da mô mềm', 'MRSA cộng đồng', 'Nhiễm khuẩn kỵ khí'], dose: 'Trẻ em thường 10-25 mg/kg/ngày chia mỗi 8 giờ; nhiễm trung bình-nặng 30-40 mg/kg/ngày chia mỗi 6-8 giờ.', route: 'Uống/TM', solvent: 'NaCl 0,9%', note: 'Theo Thuốc KH: TTM pha loãng nồng độ ≤18 mg/ml trong 60 phút. Cân nhắc C. difficile và kháng sinh đồ.' },
+        { name: 'Huyết thanh kháng nọc độc rắn', group: 'Giải độc - huyết thanh', diseases: ['Rắn cắn', 'Sốc phản vệ nguy cơ'], dose: 'Liều tùy loại rắn và mức độ nhiễm độc; ví dụ nguồn Thuốc KH ghi rắn lục tre 6 lọ pha NS 50-100 ml truyền 1 giờ.', route: 'TTM', solvent: 'NaCl 0,9%', note: 'Theo Thuốc KH: test trong da 0,2 ml, đọc sau 15 phút; chuẩn bị adrenaline 1‰ 0,01 ml/kg TDD trước/trong xử trí phản vệ theo phác đồ.' },
+        { name: 'Zentomyces', group: 'Men vi sinh - tiêu hóa', diseases: ['Tiêu chảy'], dose: '1 gói x 2-3 lần/ngày.', route: 'Uống', solvent: '-', note: 'Theo nguồn Thuốc KH.' },
+        { name: 'L-Bio', group: 'Men vi sinh - tiêu hóa', diseases: ['Tiêu chảy'], dose: '1 gói x 3 cữ/ngày.', route: 'Uống', solvent: '-', note: 'Theo nguồn Thuốc KH.' },
+        { name: 'Varogel', group: 'Tiêu hóa - niêm mạc', diseases: ['Loét miệng', 'Đau miệng'], dose: '1/3 gói x 3 lần/ngày, ngậm miệng.', route: 'Ngậm/uống', solvent: '-', note: 'Theo nguồn Thuốc KH.' },
+        { name: 'Rectiofar', group: 'Tiêu hóa - thụt tháo', diseases: ['Táo bón'], dose: 'Trẻ nhỏ <5 tuổi: 2-3 ống x 2 lần; trẻ lớn >7 tuổi: 5 ống x 2 lần.', route: 'Bơm hậu môn', solvent: '-', note: 'Theo nguồn Thuốc KH; dùng theo đánh giá lâm sàng, tránh lạm dụng.' },
         { name: 'Chlorpheniramine 4 mg', group: 'Khác', diseases: ['Dị ứng'], dose: '<2 tuổi 1 mg x2; 2-6 tuổi 1 mg x4; 6-12 tuổi 2 mg x4; >12 tuổi 4 mg x4', route: 'Uống', solvent: '-', note: 'Theo nguồn Thuốc KH.' }
       ];
+
+      const mixingExamples = {
+        'Ampicillin/Amoxicillin': 'VD Ampicillin: trẻ 12 ngày tuổi 3 kg → Ampicillin 1 g, lấy 0,15 g x 3 cữ TMC. Pha hoàn nguyên theo nồng độ khoa đang dùng, dùng ngay sau pha.',
+        'Cefotaxime': 'VD trẻ 3 tháng 7 kg viêm phổi → Cefotaxime 0,35 g x 3 cữ TMC. Có thể hoàn nguyên lọ 1 g rồi rút liều; truyền/chích theo quy trình khoa.',
+        'Ceftriaxone': 'VD trẻ 8 kg → 0,64 g x 1 TMC hoặc 0,32 g x 2. VD viêm màng não trẻ 30 kg → 1,5 g pha NaCl 0,9% đủ 50 ml, TTM 100 ml/giờ x 2 cữ.',
+        'Ceftazidime': 'VD trẻ 10 kg → Ceftazidime 0,5 g x 3 cữ TMC. Hoàn nguyên lọ 1 g rồi rút 1/2 liều, pha loãng theo quy trình đơn vị.',
+        'Cefepime': 'VD trẻ 3 tháng 6 kg → Cefepime/Maxapin 1 g, lấy 0,3 g x 3 cữ TMC. Hoàn nguyên lọ, rút đúng liều và pha loãng trước truyền nếu TTM.',
+        'Metronidazole': 'VD trẻ 5 tuổi 20 kg, dùng 30 mg/kg/ngày chia 3 → mỗi cữ 0,2 g; nếu dùng chai 0,5 g/100 ml thì lấy 40 ml/cữ, truyền 30 phút. Nguồn cũ có ví dụ 0,6 g = 120 ml, cần kiểm tra lại số cữ/liều trước dùng.',
+        'Ciprofloxacin': 'VD trẻ 5 kg → Ciprofloxacin 200 mg/100 ml, liều 0,125 g = 62,5 ml, TTM 125 ml/giờ trong 30 phút.',
+        'Levofloxacin': 'VD trẻ 4 tuổi 16 kg → Levofloxacin 0,5 g/100 ml, liều 0,16 g = 32 ml, TTM 64 ml/giờ trong 30 phút.',
+        'Amikacin': 'VD trẻ 50 kg, liều 15 mg/kg/ngày → 750 mg. Nếu Vinphacine 500 mg/100 ml: lấy 150 ml, TTM 300 ml/giờ trong 30 phút hoặc chỉnh 30–60 phút theo khoa.',
+        'Gentamicin/Gentamycin': 'VD trẻ 10 kg, liều 5 mg/kg/ngày → Gentamicin 0,05 g x 1 TB/TM. Nếu truyền TM, pha loãng và truyền theo quy trình khoa, theo dõi TDM khi cần.',
+        'Meropenem': 'VD trẻ 25 ngày tuổi 4 kg NTSS → Meropenem 0,12 g x 3 TMC (30 mg/kg x 3). VD trẻ 20 kg → 800 mg pha NaCl 0,9% đủ 40 ml, TTM 15 ml/giờ trong 3 giờ.',
+        'Imipenem-cilastatin': 'VD trẻ 10 kg → Imipenem 0,25 g. Nếu chai 0,5 g/100 ml NaCl 0,9%: lấy 50 ml, TTM 50 ml/giờ x 4 cữ.',
+        'Vancomycin': 'VD trẻ 50 kg, liều 15 mg/kg x 4 → 0,75 g/cữ. Pha NaCl 0,9% để nồng độ khoảng 5 mg/ml: 750 mg đủ 150 ml, TTM 150 ml/giờ trong 1 giờ.',
+        'Linezolid': 'VD trẻ 10 tuổi 40 kg → Linezolid 400 mg. Nếu chai 0,6 g/300 ml: lấy 200 ml, TTM 200 ml/giờ trong 1 giờ.',
+        'Colistin/Colistimethate sodium': 'VD trẻ 10 kg → Colistin TZF 300.000 UI pha NaCl 0,9% đủ 30 ml, TTM 30 ml/giờ x 3 cữ (30.000 UI/kg/cữ). Bắt buộc kiểm tra đơn vị IU/CMS/CBA của chế phẩm.',
+        'Clindamycin': 'VD trẻ 20 kg → Clindamycin 200 mg pha NaCl 0,9% đủ 20 ml, TTM 20 ml/giờ x 3 cữ; giữ nồng độ ≤18 mg/ml, truyền khoảng 60 phút.',
+        'Acyclovir/Aciclovir': 'VD trẻ 6 tuổi 20 kg → Acyclovir 300 mg pha NaCl 0,9% đủ 60 ml (5 mg/ml), TTM 40 ml/giờ x 3 cữ; truyền ≥1 giờ, bù dịch và chỉnh liều theo thận.'
+      };
 
       const groups = ['Tất cả', ...Array.from(new Set(drugs.map(d => d.group)))];
       const diseaseTree = {
@@ -835,11 +871,20 @@
         ],
         'Nhiễm khuẩn nặng/sốc': [
           'Tất cả phân độ/biến chứng', 'Sốc', 'Sốc tim', 'Sốc giãn mạch', 'Nhiễm khuẩn nặng'
+        ],
+        'Rắn cắn': [
+          'Tất cả phân độ/biến chứng', 'Nhiễm độc rắn lục/rắn độc', 'Nguy cơ phản vệ khi truyền huyết thanh'
+        ],
+        'Tiêu hóa': [
+          'Tất cả phân độ/biến chứng', 'Tiêu chảy', 'Táo bón', 'Loét miệng/đau miệng', 'Ngộ độc paracetamol'
+        ],
+        'Tim mạch': [
+          'Tất cả phân độ/biến chứng', 'Tim bẩm sinh phụ thuộc ống động mạch', 'SVT/loạn nhịp'
         ]
       };
       const procedures = [
         'Tất cả thủ thuật', 'Đặt nội khí quản', 'Thở máy/an thần giảm đau', 'Chống co giật cấp',
-        'Vận mạch/sốc', 'Tăng áp lực nội sọ', 'Kháng sinh kinh nghiệm viêm màng não', 'Truyền IVIG'
+        'Vận mạch/sốc', 'Tăng áp lực nội sọ', 'Kháng sinh kinh nghiệm viêm màng não', 'Kháng sinh nhiễm khuẩn nặng/Gram âm', 'Truyền IVIG', 'Truyền PGE1', 'Truyền huyết thanh kháng nọc rắn', 'Bơm hậu môn/thụt tháo', 'Điều trị ngộ độc paracetamol'
       ];
 
       const diseaseAliases = {
@@ -847,7 +892,10 @@
         'Sởi': ['Sởi'],
         'Viêm màng não': ['Viêm màng não'],
         'Viêm não': ['Viêm não', 'HSV-1 encephalitis'],
-        'Nhiễm khuẩn nặng/sốc': ['Sốc', 'Nhiễm khuẩn nặng', 'Sốc tim']
+        'Nhiễm khuẩn nặng/sốc': ['Sốc', 'Nhiễm khuẩn nặng', 'Sốc tim'],
+        'Rắn cắn': ['Rắn cắn', 'Huyết thanh kháng nọc độc rắn'],
+        'Tiêu hóa': ['Tiêu chảy', 'Táo bón', 'Loét miệng', 'Ngộ độc paracetamol', 'Zentomyces', 'L-Bio', 'Varogel', 'Rectiofar', 'N-Acetylcysteine'],
+        'Tim mạch': ['Tim bẩm sinh phụ thuộc ống động mạch', 'SVT', 'Loạn nhịp', 'PGE1', 'Adenosine', 'Amiodarone']
       };
 
       const nodeDrugMap = {
@@ -865,8 +913,8 @@
         'Viêm phổi/suy hô hấp': ['Ceftriaxone', 'Cefotaxime', 'Amoxicillin-clavulanic', 'Azithromycin', 'IVIG/Gammaglobulin'],
         'Viêm não': ['Acyclovir/Aciclovir', 'Diazepam', 'Midazolam', 'Phenobarbital', 'Mannitol', 'IVIG/Gammaglobulin', 'Methylprednisolone'],
         'Viêm tai giữa': ['Amoxicillin-clavulanic', 'Ampicillin/Amoxicillin'],
-        'Loét giác mạc/loét miệng': ['Amoxicillin-clavulanic', 'Metronidazole', 'Cefotaxime'],
-        'Tiêu chảy': ['Zinc'],
+        'Loét giác mạc/loét miệng': ['Amoxicillin-clavulanic', 'Metronidazole', 'Cefotaxime', 'Varogel'],
+        'Tiêu chảy': ['Zinc', 'Zentomyces', 'L-Bio'],
         'Sởi nặng/tăng đáp ứng viêm': ['IVIG/Gammaglobulin', 'Vitamin A', 'Ceftriaxone', 'Cefotaxime'],
         'Nghi viêm màng não vi khuẩn': ['Ceftriaxone', 'Cefotaxime', 'Dexamethasone'],
         'Nguy cơ phế cầu kháng thuốc': ['Vancomycin', 'Ceftriaxone', 'Cefotaxime'],
@@ -880,7 +928,14 @@
         'Sốc': ['Adrenaline', 'Noradrenaline', 'Dopamin', 'Dobutamin', 'Hydrocortisone'],
         'Sốc tim': ['Dobutamin', 'Milrinone', 'Adrenaline'],
         'Sốc giãn mạch': ['Noradrenaline', 'Adrenaline', 'Hydrocortisone'],
-        'Nhiễm khuẩn nặng': ['Ceftriaxone', 'Cefotaxime', 'Vancomycin', 'Meropenem/Imipenem', 'Amikacin', 'Gentamycin']
+        'Nhiễm khuẩn nặng': ['Ceftriaxone', 'Cefotaxime', 'Vancomycin', 'Meropenem', 'Imipenem-cilastatin', 'Amikacin', 'Gentamicin/Gentamycin', 'Ceftazidime', 'Cefepime', 'Ciprofloxacin', 'Levofloxacin', 'Linezolid', 'Clindamycin', 'Colistin/Colistimethate sodium'],
+        'Nhiễm độc rắn lục/rắn độc': ['Huyết thanh kháng nọc độc rắn'],
+        'Nguy cơ phản vệ khi truyền huyết thanh': ['Adrenaline', 'Huyết thanh kháng nọc độc rắn', 'Hydrocortisone'],
+        'Táo bón': ['Rectiofar'],
+        'Loét miệng/đau miệng': ['Varogel', 'Metronidazole', 'Amoxicillin-clavulanic'],
+        'Ngộ độc paracetamol': ['N-Acetylcysteine'],
+        'Tim bẩm sinh phụ thuộc ống động mạch': ['Prostaglandin E1 (Alprostadil/PGE1)'],
+        'SVT/loạn nhịp': ['Adenosine', 'Amiodarone']
       };
 
       const procedureDrugMap = {
@@ -889,13 +944,18 @@
         'Chống co giật cấp': ['Diazepam', 'Midazolam', 'Phenobarbital'],
         'Vận mạch/sốc': ['Adrenaline', 'Noradrenaline', 'Dopamin', 'Dobutamin', 'Milrinone', 'Hydrocortisone'],
         'Tăng áp lực nội sọ': ['Mannitol', 'Furosemide'],
-        'Kháng sinh kinh nghiệm viêm màng não': ['Ceftriaxone', 'Cefotaxime', 'Ampicillin/Amoxicillin', 'Vancomycin', 'Dexamethasone'],
-        'Truyền IVIG': ['IVIG/Gammaglobulin']
+        'Kháng sinh kinh nghiệm viêm màng não': ['Ceftriaxone', 'Cefotaxime', 'Ampicillin/Amoxicillin', 'Vancomycin', 'Meropenem', 'Dexamethasone'],
+        'Kháng sinh nhiễm khuẩn nặng/Gram âm': ['Ceftriaxone', 'Cefotaxime', 'Ceftazidime', 'Cefepime', 'Meropenem', 'Imipenem-cilastatin', 'Amikacin', 'Gentamicin/Gentamycin', 'Ciprofloxacin', 'Levofloxacin', 'Colistin/Colistimethate sodium', 'Linezolid', 'Clindamycin'],
+        'Truyền IVIG': ['IVIG/Gammaglobulin'],
+        'Truyền PGE1': ['Prostaglandin E1 (Alprostadil/PGE1)'],
+        'Truyền huyết thanh kháng nọc rắn': ['Huyết thanh kháng nọc độc rắn', 'Adrenaline', 'Hydrocortisone'],
+        'Bơm hậu môn/thụt tháo': ['Rectiofar'],
+        'Điều trị ngộ độc paracetamol': ['N-Acetylcysteine']
       };
 
       const normalized = (value) => value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
       const q = normalized(query.trim());
-      const textOf = (d) => [d.name, d.group, d.diseases.join(' '), d.dose, d.route, d.solvent, d.note].join(' ');
+      const textOf = (d) => [d.name, d.group, d.diseases.join(' '), d.dose, d.route, d.solvent, d.note, mixingExamples[d.name] || ''].join(' ');
       const nameInList = (drug, list) => (list || []).some(name => drug.name === name || drug.name.includes(name) || name.includes(drug.name));
       const matchesDiseaseTree = (drug) => {
         if (drugTab !== 'disease') return true;
@@ -985,6 +1045,12 @@
                 <div className="mt-3 space-y-1 text-sm text-slate-700">
                   <p><strong>Liều:</strong> {drug.dose}</p>
                   <p><strong>Dung môi:</strong> {drug.solvent}</p>
+                  {mixingExamples[drug.name] && (
+                    <div className="mt-2 rounded-lg bg-amber-50 border border-amber-100 p-2 text-amber-900">
+                      <p className="font-semibold">Ví dụ cách pha / truyền:</p>
+                      <p>{mixingExamples[drug.name]}</p>
+                    </div>
+                  )}
                   <p><strong>Ghi chú:</strong> {drug.note}</p>
                 </div>
                 <div className="flex flex-wrap gap-1 mt-3">
