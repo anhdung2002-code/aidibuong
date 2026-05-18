@@ -770,7 +770,10 @@
     function DrugDatabaseModule() {
       const [query, setQuery] = useState('');
       const [category, setCategory] = useState('Tất cả');
-      const [disease, setDisease] = useState('Tất cả');
+      const [drugTab, setDrugTab] = useState('disease');
+      const [selectedDisease, setSelectedDisease] = useState('Tất cả bệnh');
+      const [selectedNode, setSelectedNode] = useState('Tất cả phân độ/biến chứng');
+      const [selectedProcedure, setSelectedProcedure] = useState('Tất cả thủ thuật');
 
       const drugs = [
         { name: 'Adrenaline', group: 'Vận mạch', diseases: ['Sốc', 'TCM độ 4'], dose: '0,01-1 µg/kg/phút, thường 0,1-0,5', route: 'TTM', solvent: 'Dextrose 5%', note: 'Pha nhanh: 0,3 x cân nặng (mg) pha D5% đủ 50 ml; tốc độ ml/giờ = liều µg/kg/phút x 10.' },
@@ -811,15 +814,112 @@
       ];
 
       const groups = ['Tất cả', ...Array.from(new Set(drugs.map(d => d.group)))];
-      const diseases = ['Tất cả', ...Array.from(new Set(drugs.flatMap(d => d.diseases)))];
+      const diseaseTree = {
+        'Tay chân miệng': [
+          'Tất cả phân độ/biến chứng', 'Độ 1', 'Độ 2a', 'Độ 2b', 'Độ 3', 'Độ 4',
+          'Biến chứng thần kinh/co giật', 'Rối loạn thần kinh thực vật - tăng HA',
+          'Suy hô hấp - tuần hoàn', 'Phù phổi/sốc', 'Sốt cao khó kiểm soát'
+        ],
+        'Sởi': [
+          'Tất cả phân độ/biến chứng', 'Không biến chứng', 'Viêm phổi/suy hô hấp',
+          'Viêm não', 'Viêm tai giữa', 'Loét giác mạc/loét miệng', 'Tiêu chảy',
+          'Sởi nặng/tăng đáp ứng viêm'
+        ],
+        'Viêm màng não': [
+          'Tất cả phân độ/biến chứng', 'Nghi viêm màng não vi khuẩn', 'Nguy cơ phế cầu kháng thuốc',
+          'Nguy cơ Listeria', 'Co giật cấp', 'Tăng áp lực nội sọ'
+        ],
+        'Viêm não': [
+          'Tất cả phân độ/biến chứng', 'Nghi HSV/VZV', 'Co giật', 'Tăng áp lực nội sọ',
+          'Viêm não tự miễn/ADEM', 'Cần an thần/thở máy'
+        ],
+        'Nhiễm khuẩn nặng/sốc': [
+          'Tất cả phân độ/biến chứng', 'Sốc', 'Sốc tim', 'Sốc giãn mạch', 'Nhiễm khuẩn nặng'
+        ]
+      };
+      const procedures = [
+        'Tất cả thủ thuật', 'Đặt nội khí quản', 'Thở máy/an thần giảm đau', 'Chống co giật cấp',
+        'Vận mạch/sốc', 'Tăng áp lực nội sọ', 'Kháng sinh kinh nghiệm viêm màng não', 'Truyền IVIG'
+      ];
+
+      const diseaseAliases = {
+        'Tay chân miệng': ['TCM', 'Tay chân miệng'],
+        'Sởi': ['Sởi'],
+        'Viêm màng não': ['Viêm màng não'],
+        'Viêm não': ['Viêm não', 'HSV-1 encephalitis'],
+        'Nhiễm khuẩn nặng/sốc': ['Sốc', 'Nhiễm khuẩn nặng', 'Sốc tim']
+      };
+
+      const nodeDrugMap = {
+        'Độ 1': ['Vitamin A'],
+        'Độ 2a': ['Phenobarbital', 'Paracetamol'],
+        'Độ 2b': ['Phenobarbital', 'IVIG/Gammaglobulin', 'Mannitol'],
+        'Độ 3': ['Milrinone', 'Dobutamin', 'Phenobarbital', 'Midazolam', 'IVIG/Gammaglobulin', 'Methylprednisolone'],
+        'Độ 4': ['Adrenaline', 'Dobutamin', 'Milrinone', 'Furosemide', 'Rocuronium', 'Midazolam', 'Fentanyl', 'Morphin'],
+        'Biến chứng thần kinh/co giật': ['Phenobarbital', 'Midazolam', 'Diazepam', 'Mannitol', 'IVIG/Gammaglobulin'],
+        'Rối loạn thần kinh thực vật - tăng HA': ['Milrinone', 'Dobutamin'],
+        'Suy hô hấp - tuần hoàn': ['Adrenaline', 'Noradrenaline', 'Dobutamin', 'Milrinone', 'Rocuronium', 'Midazolam', 'Fentanyl', 'Morphin'],
+        'Phù phổi/sốc': ['Adrenaline', 'Noradrenaline', 'Dobutamin', 'Furosemide'],
+        'Sốt cao khó kiểm soát': ['Methylprednisolone'],
+        'Không biến chứng': ['Vitamin A'],
+        'Viêm phổi/suy hô hấp': ['Ceftriaxone', 'Cefotaxime', 'Amoxicillin-clavulanic', 'Azithromycin', 'IVIG/Gammaglobulin'],
+        'Viêm não': ['Acyclovir/Aciclovir', 'Diazepam', 'Midazolam', 'Phenobarbital', 'Mannitol', 'IVIG/Gammaglobulin', 'Methylprednisolone'],
+        'Viêm tai giữa': ['Amoxicillin-clavulanic', 'Ampicillin/Amoxicillin'],
+        'Loét giác mạc/loét miệng': ['Amoxicillin-clavulanic', 'Metronidazole', 'Cefotaxime'],
+        'Tiêu chảy': ['Zinc'],
+        'Sởi nặng/tăng đáp ứng viêm': ['IVIG/Gammaglobulin', 'Vitamin A', 'Ceftriaxone', 'Cefotaxime'],
+        'Nghi viêm màng não vi khuẩn': ['Ceftriaxone', 'Cefotaxime', 'Dexamethasone'],
+        'Nguy cơ phế cầu kháng thuốc': ['Vancomycin', 'Ceftriaxone', 'Cefotaxime'],
+        'Nguy cơ Listeria': ['Ampicillin/Amoxicillin'],
+        'Co giật cấp': ['Diazepam', 'Midazolam', 'Phenobarbital'],
+        'Tăng áp lực nội sọ': ['Mannitol', 'Furosemide'],
+        'Nghi HSV/VZV': ['Acyclovir/Aciclovir'],
+        'Co giật': ['Diazepam', 'Midazolam', 'Phenobarbital'],
+        'Viêm não tự miễn/ADEM': ['Methylprednisolone', 'IVIG/Gammaglobulin'],
+        'Cần an thần/thở máy': ['Midazolam', 'Fentanyl', 'Morphin', 'Rocuronium'],
+        'Sốc': ['Adrenaline', 'Noradrenaline', 'Dopamin', 'Dobutamin', 'Hydrocortisone'],
+        'Sốc tim': ['Dobutamin', 'Milrinone', 'Adrenaline'],
+        'Sốc giãn mạch': ['Noradrenaline', 'Adrenaline', 'Hydrocortisone'],
+        'Nhiễm khuẩn nặng': ['Ceftriaxone', 'Cefotaxime', 'Vancomycin', 'Meropenem/Imipenem', 'Amikacin', 'Gentamycin']
+      };
+
+      const procedureDrugMap = {
+        'Đặt nội khí quản': ['Rocuronium', 'Midazolam', 'Fentanyl', 'Morphin'],
+        'Thở máy/an thần giảm đau': ['Midazolam', 'Fentanyl', 'Morphin', 'Rocuronium'],
+        'Chống co giật cấp': ['Diazepam', 'Midazolam', 'Phenobarbital'],
+        'Vận mạch/sốc': ['Adrenaline', 'Noradrenaline', 'Dopamin', 'Dobutamin', 'Milrinone', 'Hydrocortisone'],
+        'Tăng áp lực nội sọ': ['Mannitol', 'Furosemide'],
+        'Kháng sinh kinh nghiệm viêm màng não': ['Ceftriaxone', 'Cefotaxime', 'Ampicillin/Amoxicillin', 'Vancomycin', 'Dexamethasone'],
+        'Truyền IVIG': ['IVIG/Gammaglobulin']
+      };
+
       const normalized = (value) => value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
       const q = normalized(query.trim());
+      const textOf = (d) => [d.name, d.group, d.diseases.join(' '), d.dose, d.route, d.solvent, d.note].join(' ');
+      const nameInList = (drug, list) => (list || []).some(name => drug.name === name || drug.name.includes(name) || name.includes(drug.name));
+      const matchesDiseaseTree = (drug) => {
+        if (drugTab !== 'disease') return true;
+        if (selectedDisease === 'Tất cả bệnh') return true;
+        const aliases = diseaseAliases[selectedDisease] || [selectedDisease];
+        const diseaseMatch = aliases.some(alias => normalized(textOf(drug)).includes(normalized(alias)));
+        if (!diseaseMatch) return false;
+        if (selectedNode === 'Tất cả phân độ/biến chứng') return true;
+        return nameInList(drug, nodeDrugMap[selectedNode]);
+      };
+      const matchesProcedure = (drug) => {
+        if (drugTab !== 'procedure') return true;
+        if (selectedProcedure === 'Tất cả thủ thuật') return true;
+        return nameInList(drug, procedureDrugMap[selectedProcedure]);
+      };
+
       const filtered = drugs.filter(d => {
         const matchesCategory = category === 'Tất cả' || d.group === category;
-        const matchesDisease = disease === 'Tất cả' || d.diseases.includes(disease);
-        const haystack = normalized([d.name, d.group, d.diseases.join(' '), d.dose, d.route, d.solvent, d.note].join(' '));
-        return matchesCategory && matchesDisease && (!q || haystack.includes(q));
+        const haystack = normalized(textOf(d));
+        return matchesCategory && matchesDiseaseTree(d) && matchesProcedure(d) && (!q || haystack.includes(q));
       });
+
+      const currentNodeOptions = selectedDisease === 'Tất cả bệnh' ? ['Tất cả phân độ/biến chứng'] : diseaseTree[selectedDisease];
+      const diseaseOptions = ['Tất cả bệnh', ...Object.keys(diseaseTree)];
 
       return (
         <div className="space-y-4 pb-6">
@@ -828,22 +928,49 @@
               <IconSearch size={18} className="text-slate-400" />
               <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search thuốc, bệnh, liều, đường dùng..." className="bg-transparent outline-none text-sm flex-1" />
             </div>
+
             <div className="grid grid-cols-2 gap-2">
               <select value={category} onChange={e => setCategory(e.target.value)} className="p-2 rounded-lg border border-slate-200 text-sm bg-white">
                 {groups.map(g => <option key={g}>{g}</option>)}
               </select>
-              <select value={disease} onChange={e => setDisease(e.target.value)} className="p-2 rounded-lg border border-slate-200 text-sm bg-white">
-                {diseases.map(d => <option key={d}>{d}</option>)}
-              </select>
+              <div className="grid grid-cols-2 rounded-lg border border-slate-200 overflow-hidden bg-slate-50 text-xs font-semibold">
+                <button onClick={() => setDrugTab('disease')} className={`py-2 ${drugTab === 'disease' ? 'bg-blue-700 text-white' : 'text-slate-600'}`}>Bệnh</button>
+                <button onClick={() => setDrugTab('procedure')} className={`py-2 border-l border-slate-200 ${drugTab === 'procedure' ? 'bg-blue-700 text-white' : 'text-slate-600'}`}>Thủ thuật</button>
+              </div>
             </div>
+
+            {drugTab === 'disease' ? (
+              <div className="grid grid-cols-2 gap-2">
+                <select value={selectedDisease} onChange={e => { setSelectedDisease(e.target.value); setSelectedNode('Tất cả phân độ/biến chứng'); }} className="p-2 rounded-lg border border-slate-200 text-sm bg-white">
+                  {diseaseOptions.map(d => <option key={d}>{d}</option>)}
+                </select>
+                <select value={selectedNode} onChange={e => setSelectedNode(e.target.value)} className="p-2 rounded-lg border border-slate-200 text-sm bg-white">
+                  {currentNodeOptions.map(n => <option key={n}>{n}</option>)}
+                </select>
+              </div>
+            ) : (
+              <select value={selectedProcedure} onChange={e => setSelectedProcedure(e.target.value)} className="w-full p-2 rounded-lg border border-slate-200 text-sm bg-white">
+                {procedures.map(p => <option key={p}>{p}</option>)}
+              </select>
+            )}
+
             <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-              {['TCM độ 3', 'TCM độ 4', 'Sởi', 'Viêm não', 'Co giật', 'Viêm màng não', 'Sốc'].map(tag => (
-                <button key={tag} onClick={() => setDisease(tag)} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs border ${disease === tag ? 'bg-blue-700 text-white border-blue-700' : 'bg-white text-slate-600 border-slate-200'}`}>{tag}</button>
-              ))}
+              {drugTab === 'disease'
+                ? ['Tay chân miệng', 'Độ 3', 'Độ 4', 'Sởi', 'Viêm não', 'Viêm màng não'].map(tag => (
+                    <button key={tag} onClick={() => { diseaseTree[tag] ? (setSelectedDisease(tag), setSelectedNode('Tất cả phân độ/biến chứng')) : setSelectedNode(tag); }} className="flex-shrink-0 px-3 py-1.5 rounded-full text-xs border bg-white text-slate-600 border-slate-200">{tag}</button>
+                  ))
+                : procedures.filter(p => p !== 'Tất cả thủ thuật').map(tag => (
+                    <button key={tag} onClick={() => setSelectedProcedure(tag)} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs border ${selectedProcedure === tag ? 'bg-blue-700 text-white border-blue-700' : 'bg-white text-slate-600 border-slate-200'}`}>{tag}</button>
+                  ))}
             </div>
           </div>
 
-          <p className="text-xs text-slate-500">Tìm thấy {filtered.length} thuốc. Kiểm tra lại phác đồ bệnh viện trước khi kê/truyền.</p>
+          <div className="text-xs text-slate-500 space-y-1">
+            <p>Tìm thấy {filtered.length} thuốc. Kiểm tra lại phác đồ bệnh viện trước khi kê/truyền.</p>
+            <p className="font-medium text-slate-600">
+              Cột 2 đang lọc theo: {drugTab === 'disease' ? `${selectedDisease} → ${selectedNode}` : `Thủ thuật → ${selectedProcedure}`}
+            </p>
+          </div>
 
           <div className="space-y-3">
             {filtered.map((drug, idx) => (
