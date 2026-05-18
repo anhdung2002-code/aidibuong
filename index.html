@@ -89,7 +89,7 @@
             />
             <NavButton 
               icon={<IconBrainCircuit size={24} />} 
-              label="Tư Duy" 
+              label="Tư Duy (Anki)" 
               isActive={activeTab === 'pimping'} 
               onClick={() => setActiveTab('pimping')} 
             />
@@ -253,197 +253,87 @@
 
       const departments = [
         { id: 'all', label: 'Tất cả', icon: '🏥' },
-        { id: 'emergency', label: 'Cấp cứu', icon: '🚨' },
         { id: 'infectious', label: 'Nhiễm', icon: '🦠' },
-        { id: 'respiratory', label: 'Hô hấp', icon: '🫁' },
         { id: 'neuro', label: 'Thần kinh', icon: '🧠' },
+        { id: 'respiratory', label: 'Hô hấp', icon: '🫁' },
         { id: 'cardio', label: 'Tim mạch', icon: '❤️' },
         { id: 'icu', label: 'Hồi sức', icon: '⚙️' },
       ];
 
       const recognitionData = [
         {
-          dept: 'emergency', type: 'danger', title: 'Nhận diện cấp cứu toàn viện',
-          bullets: [
-            'ABCDE bất ổn: ngưng thở, tím tái, SpO2 < 92%, rối loạn nhịp thở, sốc, hôn mê/co giật.',
-            'Tụt huyết áp, mạch không bắt được, HA không đo được, CRT kéo dài, chi lạnh, da nổi bông.',
-            'Bất kỳ bệnh nào có suy hô hấp, suy tuần hoàn, rối loạn tri giác đều đưa vào nhóm cấp cứu trước khi chia khoa.'
-          ],
-          emergency: ['Sốc phản vệ', 'Sốc nhiễm khuẩn', 'Suy hô hấp cấp', 'Co giật kéo dài', 'Tay chân miệng độ 3-4', 'Hen cấp nguy kịch']
+          dept: 'infectious', type: 'warning', title: '🦠 Tay chân miệng - nhận diện, chẩn đoán, phân độ',
+          content: <HFMDRecognition />
         },
         {
-          dept: 'infectious', type: 'warning', title: 'Khoa Nhiễm',
-          bullets: [
-            'Sốt kèm ban, loét miệng, dấu nhiễm trùng, nghi bệnh truyền nhiễm hoặc bệnh có nguy cơ thành dịch.',
-            'Tay chân miệng: giật mình, sốt ≥ 39°C, nôn nhiều, lừ đừ, mạch nhanh, tăng HA, thở nhanh là dấu hiệu chuyển nặng.',
-            'Sốt xuất huyết/nhiễm khuẩn huyết: chú ý sốc, xuất huyết, tay chân lạnh, đau bụng, nôn ói, lừ đừ.'
-          ],
-          emergency: ['Sốc nhiễm khuẩn', 'Tay chân miệng độ 3-4', 'Sốt xuất huyết Dengue có sốc']
+          dept: 'infectious', type: 'warning', title: '🦠 Sởi - nhận diện, chẩn đoán, biến chứng',
+          content: <MeaslesRecognition />
         },
         {
-          dept: 'respiratory', type: 'info', title: 'Khoa Hô hấp',
-          bullets: [
-            'Thở nhanh, co kéo, rút lõm ngực, tím, SpO2 giảm, mệt cơ hô hấp hoặc ngực im lặng.',
-            'Hen cấp nặng: không nói được câu dài, SpO2 < 90%, lơ mơ, PaCO2 tăng, đáp ứng kém với SABA.',
-            'Viêm phổi nặng/suy hô hấp: cần oxy, HFNC/NIV hoặc đặt nội khí quản tùy mức độ.'
-          ],
-          emergency: ['Suy hô hấp cấp', 'Hen cấp nặng/nguy kịch', 'Ngưng thở']
+          dept: 'neuro', type: 'danger', title: '🧠 Viêm não cấp / viêm màng não - nhận diện nguy cơ',
+          content: <EncephalitisRecognition />
         },
         {
-          dept: 'neuro', type: 'warning', title: 'Khoa Thần kinh',
-          bullets: [
-            'Co giật kéo dài, co giật tái diễn, rối loạn tri giác, dấu thần kinh khu trú, cổ gượng, hôn mê.',
-            'Trong TCM: giật mình chới với, run chi, thất điều, rung giật nhãn cầu, yếu/liệt chi, liệt dây sọ.',
-            'Luôn kiểm tra đường huyết nhanh và bảo vệ đường thở khi tri giác xấu.'
-          ],
-          emergency: ['Trạng thái động kinh', 'Hôn mê', 'Tăng áp lực nội sọ']
+          dept: 'respiratory', type: 'info', title: '🫁 Dấu hiệu hô hấp cần báo động',
+          content: (
+            <div className="space-y-3 text-sm">
+              <ActionBlock title="Báo bác sĩ / nâng bậc hỗ trợ hô hấp khi có" color="blue" items={[
+                'SpO2 giảm hoặc dao động dù đã thở oxy.',
+                'Thở nhanh, rút lõm ngực, thở rên, thở bụng, thở nông, cơn ngưng thở.',
+                'Tím tái, vã mồ hôi, kiệt sức, lơ mơ hoặc mất phản xạ bảo vệ đường thở.',
+                'Trong TCM độ 3: đáp ứng kém sau 30-60 phút thở oxy qua mũi là dấu hiệu cần cân nhắc đặt nội khí quản sớm.',
+                'Trong sởi viêm phổi: khó thở hoặc SpO2 < 94% là mốc bắt đầu hỗ trợ oxy; thất bại oxy cannula thì nâng CPAP/HFNC; thất bại CPAP/HFNC thì đặt nội khí quản.'
+              ]} />
+            </div>
+          )
         },
         {
-          dept: 'cardio', type: 'danger', title: 'Khoa Tim mạch',
-          bullets: [
-            'Mạch nhanh không tương xứng sốt, mạch chậm bất thường, HA tăng hoặc tụt, CRT > 2 giây, chi lạnh, da nổi bông.',
-            'TCM nặng có thể viêm cơ tim, phù phổi cấp, rối loạn thần kinh thực vật, sốc.',
-            'Cần đo HA ở mọi trẻ có mạch nhanh/chậm và theo dõi sát SpO2, ran phổi, nước tiểu.'
-          ],
-          emergency: ['Sốc tim', 'Phù phổi cấp', 'Rối loạn nhịp ảnh hưởng huyết động']
-        },
-        {
-          dept: 'icu', type: 'danger', title: 'Khoa Hồi sức',
-          bullets: [
-            'Bệnh nhân cần đặt nội khí quản, vận mạch, theo dõi HA xâm lấn, lọc máu, ECMO hoặc chăm sóc cấp cứu liên tục.',
-            'TCM độ 3-4, sốc không đáp ứng, suy hô hấp nặng, phù phổi cấp, hôn mê/co giật là chỉ định hồi sức.',
-            'Ưu tiên ổn định ABC trước, sau đó mới hoàn thiện chẩn đoán nguyên nhân.'
-          ],
-          emergency: ['Thở máy xâm nhập', 'Sốc cần vận mạch', 'Lọc máu liên tục/ECMO']
+          dept: 'icu', type: 'danger', title: '⚙️ Nhận diện ca cần hồi sức tích cực',
+          content: (
+            <div className="space-y-3 text-sm">
+              <ActionBlock title="Chuyển hồi sức / hội chẩn hồi sức ngay" color="red" items={[
+                'TCM độ 3 hoặc độ 4; TCM độ 2b nhóm 2 diễn tiến xấu hoặc không đáp ứng sau điều trị ban đầu.',
+                'Sởi có viêm phổi suy hô hấp tiến triển, ARDS, viêm não, nhiễm khuẩn huyết, suy giảm miễn dịch hoặc bệnh nền nặng.',
+                'Viêm não/viêm màng não có co giật kéo dài, rối loạn tri giác, GCS giảm, dấu thần kinh khu trú, sốc hoặc tăng áp lực nội sọ.',
+                'Cần đặt nội khí quản, thở máy, vận mạch, theo dõi huyết áp động mạch xâm lấn, lọc máu liên tục hoặc ECMO.'
+              ]} />
+            </div>
+          )
         }
       ];
 
       const protocolData = [
         {
-          dept: 'emergency', type: 'danger', title: '🚨 Cấp cứu toàn viện - gom cấp cứu từ mọi khoa',
-          content: (
-            <div className="space-y-3 text-sm">
-              <p className="font-bold text-red-700">Mục này luôn đứng đầu trong phần phác đồ và chứa tất cả tình trạng cấp cứu của các khoa.</p>
-              <ul className="list-disc pl-5 space-y-1">
-                <li><strong>Sốc phản vệ:</strong> ngừng dị nguyên, Adrenaline 1mg/ml tiêm bắp, nhắc lại mỗi 3-5 phút nếu chưa cải thiện.</li>
-                <li><strong>Sốc nhiễm khuẩn:</strong> lactate, cấy máu, kháng sinh sớm, dịch tinh thể, vận mạch nếu không đáp ứng.</li>
-                <li><strong>Suy hô hấp cấp:</strong> oxy, đánh giá SpO2/tri giác/công thở, chuẩn bị bóp bóng và đặt NKQ nếu thất bại.</li>
-                <li><strong>Co giật kéo dài:</strong> ABC, oxy, đường truyền, kiểm tra đường huyết, Midazolam/Diazepam.</li>
-                <li><strong>TCM độ 3-4:</strong> hồi sức tích cực, oxy tối đa 6 L/phút; đáp ứng kém sau 30-60 phút thì đặt NKQ sớm; độ 4 đặt NKQ thở máy.</li>
-                <li><strong>Hen cấp nguy kịch:</strong> oxy, SABA + Ipratropium khí dung, corticoid sớm, MgSO4 nếu không đáp ứng, cân nhắc NKQ khi lơ mơ/mệt cơ hô hấp.</li>
-              </ul>
-            </div>
-          )
+          dept: 'infectious', type: 'warning', title: '🦠 Tay chân miệng - phác đồ xử trí theo phân độ',
+          content: <HFMDProtocol />
         },
         {
-          dept: 'infectious', type: 'warning', title: '🦠 Nhiễm - Tay chân miệng',
-          content: (
-            <div className="space-y-3 text-sm">
-              <ProtocolSubHeader title="Cấp cứu của khoa Nhiễm" />
-              <ul className="list-disc pl-5 space-y-1">
-                <li>TCM độ 3: mạch &gt;170 lần/phút không sốt, HA tâm thu tăng theo tuổi, SpO2 &lt;94%, thở nhanh/khó thở, da nổi bông, vã mồ hôi, chi lạnh.</li>
-                <li>TCM độ 4: ngưng thở, rối loạn nhịp thở, tím tái hoặc SpO2 &lt;92%, phù phổi cấp, sốc.</li>
-              </ul>
-              <ProtocolSubHeader title="Phác đồ điều trị" />
-              <ol className="list-decimal pl-5 space-y-1">
-                <li><strong>Độ 1:</strong> ngoại trú, hạ sốt giảm đau, dinh dưỡng, vệ sinh miệng/da, tái khám 1-2 ngày.</li>
-                <li><strong>Độ 2a:</strong> nhập viện, điều trị như độ 1, Phenobarbital uống 5-7 mg/kg/ngày chia 2 lần, theo dõi sinh hiệu.</li>
-                <li><strong>Độ 2b:</strong> phòng cấp cứu/hồi sức, đầu cao 30°, oxy mũi tối đa 6 L/phút, Phenobarbital 10-20 mg/kg IV 30 phút, cân nhắc IVIG nhóm 2 hoặc không đáp ứng sau 6 giờ.</li>
-                <li><strong>Độ 3:</strong> hồi sức tích cực, oxy tối đa 6 L/phút; nếu đáp ứng kém sau 30-60 phút đặt NKQ sớm. IVIG 1 g/kg/ngày 6-12 giờ. Dobutamin nếu mạch &gt;170 không tăng HA. Milrinone khi tăng HA.</li>
-                <li><strong>Độ 4:</strong> đặt NKQ thở máy, chống sốc, Dobutamin ± Adrenaline/Noradrenaline, IVIG sau hồi sức sốc khi HATB ≥50 mmHg, cân nhắc lọc máu/ECMO.</li>
-              </ol>
-            </div>
-          )
+          dept: 'infectious', type: 'warning', title: '🦠 Sởi - phác đồ xử trí theo mức độ / biến chứng',
+          content: <MeaslesProtocol />
         },
         {
-          dept: 'infectious', type: 'warning', title: '🦠 Nhiễm - Sốc nhiễm khuẩn',
-          content: (
-            <div className="space-y-2 text-sm">
-              <ProtocolSubHeader title="Cấp cứu của khoa Nhiễm" />
-              <p className="font-bold">Gói xử trí 1 giờ đầu:</p>
-              <ol className="list-decimal pl-5 space-y-1">
-                <li>Đo lactate, làm lại nếu tăng.</li>
-                <li>Cấy máu trước kháng sinh nếu không làm chậm điều trị.</li>
-                <li>Kháng sinh phổ rộng đường tĩnh mạch càng sớm càng tốt.</li>
-                <li>Dịch tinh thể 30 ml/kg khi tụt HA hoặc giảm tưới máu, theo dõi quá tải.</li>
-                <li>Noradrenaline sớm nếu HA không đáp ứng dịch.</li>
-              </ol>
-            </div>
-          )
+          dept: 'neuro', type: 'danger', title: '🧠 Viêm não cấp / nghi viêm màng não - phác đồ xử trí ban đầu',
+          content: <EncephalitisProtocol />
         },
         {
-          dept: 'respiratory', type: 'info', title: '🫁 Hô hấp - Hen cấp nặng',
-          content: (
-            <div className="space-y-2 text-sm">
-              <ProtocolSubHeader title="Cấp cứu của khoa Hô hấp" />
-              <p><strong>Dấu nặng:</strong> không nói được câu dài, SpO2 &lt;90%, lơ mơ, ngực im lặng, PaCO2 tăng, mệt cơ hô hấp.</p>
-              <ul className="list-disc pl-5 space-y-1">
-                <li>Oxy duy trì SpO2 93-95% ở người lớn, 94-98% ở trẻ em.</li>
-                <li>Salbutamol khí dung liên tục 3 liều đầu, mỗi 20 phút; phối hợp Ipratropium.</li>
-                <li>Corticoid toàn thân sớm: Hydrocortisone hoặc Methylprednisolone.</li>
-                <li>MgSO4 2 g IV chậm trong 20 phút nếu không đáp ứng.</li>
-                <li>Chuẩn bị đặt NKQ nếu lơ mơ, kiệt sức, ngưng thở, tăng CO2 hoặc SpO2 không cải thiện.</li>
-              </ul>
-            </div>
-          )
-        },
-        {
-          dept: 'neuro', type: 'warning', title: '🧠 Thần kinh - Cắt cơn co giật',
-          content: (
-            <div className="space-y-2 text-sm">
-              <ProtocolSubHeader title="Cấp cứu của khoa Thần kinh" />
-              <p className="font-bold text-orange-700">A-B-C, thở oxy, hút đàm, đặt đường truyền, kiểm tra đường huyết ngay.</p>
-              <ul className="list-disc pl-5 space-y-1">
-                <li><strong>Midazolam:</strong> 0,2 mg/kg IM hoặc 0,1 mg/kg IV chậm.</li>
-                <li><strong>Diazepam:</strong> 0,1-0,2 mg/kg IV chậm, tốc độ tối đa 5 mg/phút.</li>
-                <li>Đánh giá lại sau 5 phút; nếu còn co giật, xử trí theo trạng thái động kinh và chuẩn bị hồi sức hô hấp.</li>
-              </ul>
-            </div>
-          )
-        },
-        {
-          dept: 'cardio', type: 'danger', title: '❤️ Tim mạch - Sốc/phù phổi trong TCM nặng',
-          content: (
-            <div className="space-y-2 text-sm">
-              <ProtocolSubHeader title="Cấp cứu của khoa Tim mạch" />
-              <ul className="list-disc pl-5 space-y-1">
-                <li>Nếu phù phổi: ngừng dịch, hỗ trợ hô hấp, đo CVP/HA xâm lấn nếu có, tăng Dobutamin.</li>
-                <li>Nếu sốc không phù phổi: test LR/NS 5 ml/kg/15 phút, tối đa 3 lần giờ đầu, theo dõi quá tải.</li>
-                <li>Dobutamin 5-20 µg/kg/phút; nếu còn sốc phối hợp Adrenaline hoặc Noradrenaline theo huyết động.</li>
-                <li>Mục tiêu: HATT ≥100 mmHg, HATB ≥50-65 mmHg, ScvO2 ≥70%, lactate &lt;2 mmol/L.</li>
-              </ul>
-            </div>
-          )
-        },
-        {
-          dept: 'icu', type: 'danger', title: '⚙️ Hồi sức - Thở máy, lọc máu, ECMO trong TCM',
-          content: (
-            <div className="space-y-2 text-sm">
-              <ProtocolSubHeader title="Cấp cứu của khoa Hồi sức" />
-              <ul className="list-disc pl-5 space-y-1">
-                <li><strong>Đặt NKQ:</strong> TCM độ 4 hoặc độ 3 kèm thở bất thường, thở nhanh &gt;70 lần/phút, SpO2 dao động, da xanh tái, mạch &gt;180, hôn mê/gồng chi.</li>
-                <li><strong>Máy thở ban đầu:</strong> IP 12-20 cmH2O đạt Vt 6-8 ml/kg, PEEP 6-8, FiO2 60-100%, mục tiêu SpO2 94-98%.</li>
-                <li><strong>Lọc máu liên tục:</strong> TCM độ 3-4 đang thở máy kèm sốc không đáp ứng 1-2 giờ, sốt cao thất bại 6-12 giờ, hoặc mạch &gt;180 kèm da nổi bông.</li>
-                <li><strong>ECMO VA:</strong> cân nhắc khi độ 4 thất bại sau 6-12 giờ lọc máu, huyết động chưa ổn, VIS cao, EF &lt;30%, lactate &gt;5 mmol/L.</li>
-              </ul>
-            </div>
-          )
+          dept: 'icu', type: 'danger', title: '⚙️ Hồi sức - chỉ định nâng bậc và theo dõi',
+          content: <ICUProtocol />
         }
       ];
 
-      const filteredRecognition = recognitionData.filter(item => selectedDept === 'all' || item.dept === selectedDept);
-      const filteredProtocols = protocolData.filter(item => selectedDept === 'all' || item.dept === selectedDept || item.dept === 'emergency');
+      const filteredRecognition = recognitionData.filter(item => selectedDept === 'all' || item.dept === selectedDept || (selectedDept === 'cardio' && item.title.includes('Tay chân miệng')) || (selectedDept === 'respiratory' && (item.title.includes('Sởi') || item.title.includes('Tay chân miệng'))));
+      const filteredProtocols = protocolData.filter(item => selectedDept === 'all' || item.dept === selectedDept || (selectedDept === 'icu' && item.title.includes('Tay chân miệng')) || (selectedDept === 'respiratory' && item.title.includes('Sởi')) || (selectedDept === 'cardio' && item.title.includes('Tay chân miệng')));
 
       return (
         <div className="space-y-4">
           <div className="bg-yellow-50 text-yellow-800 p-3 rounded-lg border border-yellow-200 flex gap-2 items-start text-sm">
             <IconAlertTriangle className="flex-shrink-0 mt-0.5" size={18} />
-            <p>Phác đồ tóm tắt dùng để nhắc nhớ nhanh tại giường. Ưu tiên xử trí ABC và báo bác sĩ phụ trách khi có dấu hiệu cấp cứu.</p>
+            <p><strong>Cách dùng:</strong> Nhận diện chứa chẩn đoán, dấu hiệu nặng, phân độ. Phác đồ chỉ chứa xử trí, thuốc cần dùng, thời điểm đánh giá lại và tiêu chí nâng bậc; không ghi chi tiết liều.</p>
           </div>
 
           <div className="grid grid-cols-2 gap-2 bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
             <button onClick={() => setMainMode('recognition')} className={`p-3 rounded-lg font-semibold text-sm ${mainMode === 'recognition' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>1. Nhận diện</button>
-            <button onClick={() => setMainMode('protocols')} className={`p-3 rounded-lg font-semibold text-sm ${mainMode === 'protocols' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>2. Phác đồ</button>
+            <button onClick={() => setMainMode('protocols')} className={`p-3 rounded-lg font-semibold text-sm ${mainMode === 'protocols' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>2. Phác đồ xử trí</button>
           </div>
 
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
@@ -456,15 +346,11 @@
 
           {mainMode === 'recognition' ? (
             <div className="space-y-3">
-              {filteredRecognition.map(item => (
-                <RecognitionCard key={item.title} item={item} />
-              ))}
+              {filteredRecognition.map(item => <AccordionItem key={item.title} title={item.title} type={item.type}>{item.content}</AccordionItem>)}
             </div>
           ) : (
             <div className="space-y-3">
-              {filteredProtocols.map(p => (
-                <AccordionItem key={p.title} title={p.title} type={p.type}>{p.content}</AccordionItem>
-              ))}
+              {filteredProtocols.map(p => <AccordionItem key={p.title} title={p.title} type={p.type}>{p.content}</AccordionItem>)}
             </div>
           )}
         </div>
@@ -472,39 +358,393 @@
     }
 
     function ProtocolSubHeader({ title }) {
-      return <div className="font-bold text-slate-800 bg-white border border-slate-200 rounded px-2 py-1">{title}</div>;
+      return <div className="font-bold text-slate-800 bg-white border border-slate-200 rounded-lg px-3 py-2 shadow-sm">{title}</div>;
     }
 
-    function RecognitionCard({ item }) {
-      const typeStyles = {
-        danger: 'border-red-200 bg-red-50 text-red-800',
-        warning: 'border-orange-200 bg-orange-50 text-orange-800',
-        info: 'border-blue-200 bg-blue-50 text-blue-800'
+    function ActionBlock({ title, items, color = 'slate' }) {
+      const styles = {
+        green: 'bg-green-50 border-green-200 text-green-900',
+        yellow: 'bg-yellow-50 border-yellow-200 text-yellow-900',
+        orange: 'bg-orange-50 border-orange-200 text-orange-900',
+        red: 'bg-red-50 border-red-200 text-red-900',
+        purple: 'bg-purple-50 border-purple-200 text-purple-900',
+        blue: 'bg-blue-50 border-blue-200 text-blue-900',
+        slate: 'bg-slate-50 border-slate-200 text-slate-900'
       };
       return (
-        <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className={`p-3 font-bold border-b ${typeStyles[item.type]}`}>{item.title}</div>
-          <div className="p-4 text-sm space-y-3">
-            <div>
-              <p className="font-semibold text-slate-700 mb-1">Dấu hiệu nhận diện</p>
-              <ul className="list-disc pl-5 space-y-1 text-slate-700">
-                {item.bullets.map((b, idx) => <li key={idx}>{b}</li>)}
-              </ul>
-            </div>
-            <div className="bg-red-50 border border-red-100 rounded-lg p-2">
-              <p className="font-semibold text-red-700 mb-1">Tình trạng cấp cứu thuộc khoa này</p>
-              <div className="flex flex-wrap gap-1">
-                {item.emergency.map((e, idx) => <span key={idx} className="text-xs bg-white border border-red-200 text-red-700 px-2 py-1 rounded-full">{e}</span>)}
-              </div>
-            </div>
+        <div className={`rounded-xl border p-3 ${styles[color] || styles.slate}`}>
+          <p className="font-bold mb-2">{title}</p>
+          <ul className="list-disc pl-5 space-y-1 leading-relaxed">
+            {items.map((it, idx) => <li key={idx}>{it}</li>)}
+          </ul>
+        </div>
+      );
+    }
+
+    function GradeCard({ grade, title, color = 'slate', children }) {
+      const styles = {
+        green: 'border-green-300 bg-green-50 text-green-900',
+        yellow: 'border-yellow-300 bg-yellow-50 text-yellow-900',
+        orange: 'border-orange-300 bg-orange-50 text-orange-900',
+        red: 'border-red-300 bg-red-50 text-red-900',
+        purple: 'border-purple-300 bg-purple-50 text-purple-900',
+        blue: 'border-blue-300 bg-blue-50 text-blue-900',
+        slate: 'border-slate-300 bg-slate-50 text-slate-900'
+      };
+      const badge = {
+        green: 'bg-green-600', yellow: 'bg-yellow-500', orange: 'bg-orange-600', red: 'bg-red-600', purple: 'bg-purple-600', blue: 'bg-blue-600', slate: 'bg-slate-600'
+      };
+      return (
+        <div className={`rounded-xl border-l-8 p-3 ${styles[color] || styles.slate}`}>
+          <div className="flex items-start gap-2 mb-2">
+            <span className={`text-white text-xs font-bold rounded-full px-2 py-1 ${badge[color] || badge.slate}`}>{grade}</span>
+            <p className="font-bold leading-snug">{title}</p>
           </div>
+          <div className="text-sm leading-relaxed space-y-2">{children}</div>
+        </div>
+      );
+    }
+
+    function SourceNote({ items }) {
+      return (
+        <div className="mt-3 bg-white border border-slate-200 rounded-lg p-3 text-xs text-slate-600 leading-relaxed">
+          <p className="font-bold text-slate-700 mb-1">Nguồn:</p>
+          <ul className="list-disc pl-4 space-y-1">
+            {items.map((it, idx) => <li key={idx}>{it}</li>)}
+          </ul>
+        </div>
+      );
+    }
+
+    function HFMDRecognition() {
+      return (
+        <div className="space-y-3 text-sm">
+          <ProtocolSubHeader title="Nhận diện ca bệnh" />
+          <ActionBlock color="blue" title="Gợi ý tay chân miệng" items={[
+            'Dịch tễ: thường gặp trẻ dưới 5 tuổi, có thể thành dịch; lây chủ yếu đường tiêu hóa.',
+            'Tổn thương da-niêm mạc: loét miệng hoặc phỏng nước/hồng ban ở lòng bàn tay, lòng bàn chân, gối, mông, khuỷu tay.',
+            'Biến chứng thần kinh, tim mạch, hô hấp thường xuất hiện sớm ngày 2-5, có thể đến ngày 7.',
+            'Giật mình chới với là dấu hiệu quan trọng báo biến chứng thần kinh; sốt cao hoặc nôn nhiều làm tăng nguy cơ diễn tiến nặng.',
+            'Chẩn đoán xác định: RT-PCR hoặc phân lập được vi rút đường ruột khi có điều kiện.'
+          ]} />
+
+          <ProtocolSubHeader title="Phân độ màu" />
+          <GradeCard grade="Độ 1" title="Không biến chứng" color="green">
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Chỉ có tổn thương da-niêm mạc, sốt nhẹ hoặc không sốt.</li>
+              <li>Không có dấu hiệu thần kinh, tim mạch, hô hấp.</li>
+            </ul>
+          </GradeCard>
+          <GradeCard grade="Độ 2a" title="Có biến chứng thần kinh nhẹ" color="yellow">
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Bệnh sử có giật mình dưới 2 lần/30 phút và lúc khám không ghi nhận.</li>
+              <li>Hoặc sốt trên 39°C / sốt trên 2 ngày kèm nôn ói nhiều, lừ đừ, khó ngủ, quấy khóc vô cớ.</li>
+            </ul>
+          </GradeCard>
+          <GradeCard grade="Độ 2b - nhóm 1" title="Biến chứng thần kinh nặng nhóm 1" color="orange">
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Giật mình ghi nhận lúc khám.</li>
+              <li>Hoặc bệnh sử giật mình ≥ 2 lần/30 phút.</li>
+              <li>Hoặc bệnh sử giật mình kèm ngủ gà hoặc mạch nhanh &gt;130 lần/phút khi không sốt.</li>
+            </ul>
+          </GradeCard>
+          <GradeCard grade="Độ 2b - nhóm 2" title="Biến chứng thần kinh nặng nhóm 2" color="red">
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Nhóm 1 kèm sốt cao ≥39°C không đáp ứng thuốc hạ sốt.</li>
+              <li>Mạch nhanh &gt;150 lần/phút khi không sốt.</li>
+              <li>Thất điều, run chi/run người, đi loạng choạng.</li>
+              <li>Rung giật nhãn cầu, lác mắt, yếu/liệt chi, liệt thần kinh sọ, nuốt sặc, đổi giọng.</li>
+              <li>Tăng trương lực cơ hoặc rối loạn tri giác.</li>
+            </ul>
+          </GradeCard>
+          <GradeCard grade="Độ 3" title="Rối loạn thần kinh thực vật nặng" color="red">
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Mạch nhanh &gt;170 lần/phút khi không sốt; một số ca có thể mạch chậm, phải đánh giá HA và tri giác.</li>
+              <li>Huyết áp tâm thu tăng theo tuổi.</li>
+              <li>Thở nhanh, khó thở, thở rít hoặc SpO2 &lt;94%.</li>
+              <li>Da nổi bông/vân tím, vã mồ hôi, chi lạnh.</li>
+            </ul>
+          </GradeCard>
+          <GradeCard grade="Độ 4" title="Suy hô hấp - tuần hoàn nặng" color="purple">
+            <ul className="list-disc pl-5 space-y-1">
+              <li>Ngưng thở hoặc rối loạn nhịp thở.</li>
+              <li>Tím tái hoặc SpO2 &lt;92%.</li>
+              <li>Phù phổi cấp.</li>
+              <li>Sốc: mạch không bắt được/HA không đo được, tụt HA hoặc HA kẹp.</li>
+            </ul>
+          </GradeCard>
+          <SourceNote items={['Bộ Y tế, Quyết định 292/QĐ-BYT 2024: Hướng dẫn chẩn đoán, điều trị bệnh Tay chân miệng.']} />
+        </div>
+      );
+    }
+
+    function MeaslesRecognition() {
+      return (
+        <div className="space-y-3 text-sm">
+          <ProtocolSubHeader title="Nhận diện sởi" />
+          <ActionBlock color="blue" title="Thể điển hình qua 4 giai đoạn" items={[
+            'Ủ bệnh 7-21 ngày, trung bình khoảng 10 ngày.',
+            'Khởi phát 2-4 ngày: sốt cao, ho, chảy mũi, viêm kết mạc; có thể thấy hạt Koplik ở niêm mạc má.',
+            'Toàn phát 2-5 ngày: ban dát sẩn xuất hiện sau tai, sau gáy, trán, mặt, cổ rồi lan thân mình và tứ chi; khi ban mọc hết thì sốt giảm dần.',
+            'Hồi phục: ban sẫm màu, bong vảy phấn, để lại vết thâm vằn da hổ; có thể ho kéo dài 1-2 tuần.',
+            'Chẩn đoán xác định: ca nghi ngờ/lâm sàng và IgM hoặc PCR dương tính với sởi.'
+          ]} />
+          <ProtocolSubHeader title="Yếu tố nguy cơ nặng" />
+          <ActionBlock color="orange" title="Nguy cơ diễn tiến nặng" items={[
+            'Trẻ dưới 12 tháng.',
+            'Chưa tiêm vắc xin hoặc tiêm không đầy đủ.',
+            'Suy giảm miễn dịch, bệnh nền nặng, suy dinh dưỡng nặng, thiếu vitamin A.',
+            'Phụ nữ mang thai.'
+          ]} />
+          <ProtocolSubHeader title="Dấu cần tái khám ngay / nhập viện" />
+          <ActionBlock color="red" title="Dấu nặng" items={[
+            'Không ăn uống được hoặc bỏ bú.',
+            'Nôn mọi thứ.',
+            'Tím tái.',
+            'Thở nhanh, khó thở, SpO2 thấp.',
+            'Rối loạn tri giác, co giật hoặc nghi viêm não.',
+            'Biến chứng: viêm tai giữa, viêm kết mạc mủ, viêm loét giác mạc, viêm miệng/loét miệng, viêm thanh khí phế quản, viêm phổi, ARDS, nhiễm khuẩn huyết, viêm não.'
+          ]} />
+          <SourceNote items={['Bộ Y tế, Quyết định 1019/QĐ-BYT 2025: Hướng dẫn chẩn đoán và điều trị bệnh Sởi.']} />
+        </div>
+      );
+    }
+
+    function EncephalitisRecognition() {
+      return (
+        <div className="space-y-3 text-sm">
+          <ProtocolSubHeader title="Nhận diện viêm não / viêm màng não" />
+          <ActionBlock color="red" title="Nghi viêm não cấp khi" items={[
+            'Sốt hoặc bệnh nhiễm trùng kèm rối loạn tri giác, thay đổi hành vi, lơ mơ/hôn mê.',
+            'Co giật mới xuất hiện, co giật kéo dài hoặc co giật tái diễn.',
+            'Dấu thần kinh khu trú: yếu/liệt, thất ngôn, liệt dây sọ, thất điều.',
+            'Đau đầu, nôn, cổ gượng, sợ ánh sáng hoặc dấu màng não.',
+            'HSV-1 cần nghĩ sớm khi sốt + rối loạn tri giác >24 giờ, co giật mới, dấu thần kinh khu trú; tổn thương thái dương/ổ mắt-trán trên MRI càng gợi ý.'
+          ]} />
+          <ProtocolSubHeader title="Dấu nguy cơ tăng áp lực nội sọ / cần hồi sức" />
+          <ActionBlock color="purple" title="Báo động" items={[
+            'GCS giảm nhanh hoặc GCS <10.',
+            'Đồng tử bất thường, phù gai thị, dấu thần kinh khu trú tiến triển.',
+            'Nhịp thở bất thường, cơn ngưng thở, tụt SpO2.',
+            'Tăng huyết áp kèm mạch chậm, dấu thoát vị não.',
+            'Sốc, rối loạn điện giải nặng, hạ đường huyết hoặc co giật không cắt được.'
+          ]} />
+          <ProtocolSubHeader title="Cận lâm sàng định hướng" />
+          <ActionBlock color="blue" title="Không trì hoãn điều trị khi chờ xét nghiệm" items={[
+            'Dịch não tủy: tế bào, protein, glucose, tỷ lệ glucose DNT/máu, Gram, cấy, PCR tác nhân phù hợp.',
+            'Cấy máu trước kháng sinh nếu không làm chậm điều trị.',
+            'MRI não ưu tiên khi có điều kiện; EEG giúp đánh giá co giật dưới lâm sàng hoặc bệnh não.',
+            'Xét nghiệm theo vùng dịch tễ: HSV/VZV, vi khuẩn thường gặp, lao, sốt rét, JEV, dengue, EV71, enterovirus, cúm; cân nhắc tự miễn nếu nhiễm trùng không giải thích được.'
+          ]} />
+          <SourceNote items={['WHO 2025: Encephalitis - Global threats, trends and public health implications.', 'WHO 2025: Guidelines on meningitis diagnosis, treatment and care.', 'UpToDate 2026: Herpes simplex virus type 1 encephalitis.']} />
+        </div>
+      );
+    }
+
+    function HFMDProtocol() {
+      return (
+        <div className="space-y-3 text-sm">
+          <GradeCard grade="Độ 1" title="Không biến chứng - điều trị ngoại trú nếu đủ điều kiện" color="green">
+            <ActionBlock color="green" title="Xử trí" items={[
+              'Hạ sốt, giảm đau bằng Paracetamol; có thể phối hợp Ibuprofen khi sốt cao không đáp ứng tốt và không có chống chỉ định.',
+              'Không dùng Aspirin.',
+              'Bù nước, dinh dưỡng mềm/lỏng, vệ sinh miệng và da.',
+              'Hướng dẫn người nhà dấu chuyển độ: giật mình, sốt cao, nôn nhiều, lừ đừ, thở nhanh/khó thở, tím tái, co giật.',
+              'Tái khám sau 1-2 ngày hoặc ngay khi có dấu nặng; trẻ dưới 12 tháng hoặc có bệnh kèm nên chuyển tuyến/nhập viện theo điều kiện.'
+            ]} />
+          </GradeCard>
+
+          <GradeCard grade="Độ 2a" title="Nhập viện / theo dõi sát" color="yellow">
+            <ActionBlock color="yellow" title="Xử trí" items={[
+              'Điều trị hỗ trợ như độ 1.',
+              'Dùng Phenobarbital uống để giảm kích thích thần kinh theo phác đồ đơn vị.',
+              'Theo dõi mạch, nhiệt độ, nhịp thở, tri giác, SpO2 mỗi 6-12 giờ; mọi trẻ mạch nhanh hoặc chậm phải đo huyết áp.',
+              'Cho nằm khu theo dõi bệnh nặng trong 24 giờ đầu nếu có yếu tố nguy cơ: li bì, sốt trên 3 ngày, sốt cao >39°C, còn giật mình 24-72 giờ trước đó, nôn ói nhiều, đường huyết tăng, bạch cầu tăng hoặc tiểu cầu tăng.',
+              'Chuyển tuyến/hội chẩn nếu xuất hiện tiêu chuẩn độ 2b trở lên hoặc bệnh phối hợp.'
+            ]} />
+          </GradeCard>
+
+          <GradeCard grade="Độ 2b" title="Cấp cứu / hồi sức: thần kinh nặng" color="orange">
+            <ActionBlock color="orange" title="Xử trí ban đầu" items={[
+              'Sắp xếp điều trị tại phòng cấp cứu hoặc hồi sức.',
+              'Nằm đầu cao 30°.',
+              'Thở oxy qua mũi nếu cần, tối đa theo phác đồ.',
+              'Hạ sốt tích cực khi sốt.',
+              'Dùng Phenobarbital truyền tĩnh mạch; đánh giá lại đáp ứng sau điều trị.',
+              'Immunoglobulin: chỉ định ngay cho độ 2b nhóm 2; nhóm 1 chưa chỉ định thường quy.',
+              'Nếu nhóm 1 không giảm triệu chứng sau 6 giờ điều trị Phenobarbital hoặc vẫn giật mình liên tục/bứt rứt không yên: xem xét Immunoglobulin và theo dõi chuyển độ 3.',
+              'Chống phù não khi độ 2b nhóm 2: đầu cao, hạn chế dịch, cân nhắc thở máy/tăng thông khí, Mannitol hoặc Natriclorid 3% theo chỉ định.',
+              'Theo dõi mạch, nhiệt độ, huyết áp, nhịp thở, kiểu thở, tri giác, ran phổi, SpO2 mỗi 1-3 giờ trong 6 giờ đầu, sau đó 4-6 giờ/lần.'
+            ]} />
+          </GradeCard>
+
+          <GradeCard grade="Độ 3" title="Hồi sức tích cực: rối loạn thần kinh thực vật nặng" color="red">
+            <ActionBlock color="red" title="Oxy - đặt nội khí quản" items={[
+              'Thở oxy qua mũi tối đa theo phác đồ; sau 30-60 phút nếu đáp ứng kém nên đặt nội khí quản giúp thở sớm.',
+              'Đặt nội khí quản ngay nếu độ 3 kèm: thở bất thường, thở nhanh khi nằm yên không sốt, SpO2 dao động, xanh tái/vã mồ hôi, mạch rất nhanh, gồng chi hoặc hôn mê.',
+              'Độ 4 là chỉ định đặt nội khí quản/thở máy bắt buộc.'
+            ]} />
+            <ActionBlock color="red" title="Thuốc và điều chỉnh" items={[
+              'Phenobarbital truyền tĩnh mạch; lặp lại theo đáp ứng và giới hạn phác đồ.',
+              'Immunoglobulin truyền tĩnh mạch; liều thứ hai chỉ xem xét sau 24 giờ nếu diễn biến nặng hơn.',
+              'Dobutamin khi suy tim mạch với mạch nhanh >170 lần/phút và không tăng huyết áp; không dùng Dopamin cho chỉ định này.',
+              'Milrinone khi có tăng huyết áp theo ngưỡng tuổi; giảm dần khi huyết áp ổn định 12-24 giờ; ngưng ngay nếu tụt huyết áp theo ngưỡng.',
+              'Điều chỉnh rối loạn nước, điện giải, toan kiềm và hạ đường huyết.'
+            ]} />
+            <ActionBlock color="red" title="Sốt cao, co giật, lọc máu" items={[
+              'Hạ sốt tích cực khi sốt cao liên tục không đáp ứng Paracetamol + Ibuprofen + lau mát sau 12 giờ.',
+              'Nếu đang thở máy và còn sốt rất cao: rửa dạ dày bằng NaCl lạnh, có thể phối hợp thụt tháo NaCl lạnh.',
+              'Nếu vẫn sốt rất cao sau 4-6 giờ các biện pháp trên: xem xét Methylprednisolone, theo dõi sát huyết áp; tối đa 3 ngày.',
+              'Co giật: dùng Midazolam hoặc Diazepam, lặp lại sau 10 phút nếu còn co giật, tối đa 3 lần theo phác đồ.',
+              'Theo dõi huyết áp động mạch xâm lấn khi độ 3 có vận mạch hoặc đặt nội khí quản.',
+              'Lọc máu liên tục khi độ 3/4 đang thở máy kèm sốc không đáp ứng sau 1-2 giờ, sốt cao thất bại sau 6-12 giờ, hoặc mạch >180 không sốt kèm da nổi bông dù HA bình thường/tăng.'
+            ]} />
+          </GradeCard>
+
+          <GradeCard grade="Độ 4" title="Hồi sức tối cấp: suy hô hấp - tuần hoàn" color="purple">
+            <ActionBlock color="purple" title="Xử trí chính" items={[
+              'Đặt nội khí quản và thở máy ngay.',
+              'An thần khi đặt nội khí quản bằng Midazolam, Diazepam hoặc Fentanyl theo phác đồ; không dùng Ketamin vì nguy cơ tăng áp lực nội sọ.',
+              'Mục tiêu thở máy: oxy hóa đủ, kiểm soát CO2, tránh áp lực đỉnh quá cao theo phác đồ hồi sức.',
+              'Chống sốc do viêm cơ tim hoặc tổn thương trung tâm vận mạch: thiết lập đường truyền, hỗ trợ vận mạch/tăng co bóp theo huyết động, theo dõi tưới máu, nước tiểu, lactate nếu có.',
+              'Phù phổi cấp: ngừng/giảm dịch, tăng hỗ trợ hô hấp, điều chỉnh vận mạch/tăng co bóp, theo dõi ran phổi và SpO2 liên tục.',
+              'Cân nhắc Immunoglobulin, lọc máu liên tục hoặc ECMO VA khi sốc/suy tuần hoàn không đáp ứng hồi sức tối ưu tại đơn vị đủ điều kiện.'
+            ]} />
+          </GradeCard>
+          <SourceNote items={['Bộ Y tế, Quyết định 292/QĐ-BYT 2024: Hướng dẫn chẩn đoán, điều trị bệnh Tay chân miệng.']} />
+        </div>
+      );
+    }
+
+    function MeaslesProtocol() {
+      return (
+        <div className="space-y-3 text-sm">
+          <GradeCard grade="Sởi không biến chứng" title="Có thể điều trị ngoại trú" color="green">
+            <ActionBlock color="green" title="Xử trí" items={[
+              'Cách ly tại nhà: phòng riêng, hạn chế tiếp xúc, đeo khẩu trang thường xuyên.',
+              'Uống Vitamin A liều cao cho tất cả trẻ bị sởi: 2 lần cách nhau 24 giờ; nếu thiếu vitamin A hoặc suy dinh dưỡng nặng thì bổ sung liều thứ ba sau 4-6 tuần.',
+              'Hạ sốt bằng Paracetamol hoặc Ibuprofen khi sốt; lau mát khi sốt co giật.',
+              'Đảm bảo dinh dưỡng theo tuổi, tiếp tục bú mẹ.',
+              'Vệ sinh da, mắt, mũi, miệng.',
+              'Tái khám mỗi 2-3 ngày đến khi hết sốt; khám ngay nếu không ăn uống được/bỏ bú, nôn mọi thứ, tím tái, thở nhanh hoặc rối loạn tri giác.',
+              'Nghỉ học/không đến nơi công cộng ít nhất 4 ngày sau phát ban.'
+            ]} />
+          </GradeCard>
+
+          <GradeCard grade="Sởi có biến chứng" title="Xem xét nhập viện và cách ly khu riêng" color="orange">
+            <ActionBlock color="orange" title="Nguyên tắc chung" items={[
+              'Điều trị tại khu cách ly riêng, tuân thủ phòng ngừa chuẩn và phòng ngừa lây truyền qua không khí/giọt bắn/tiếp xúc.',
+              'Uống Vitamin A như sởi không biến chứng.',
+              'Dinh dưỡng đầy đủ, chăm sóc tai, mắt, mũi, miệng, da.',
+              'Hỗ trợ hô hấp ngay khi có suy hô hấp; theo dõi SpO2 và công thở.',
+              'Chuyển tuyến nếu viêm phổi cần thở oxy, viêm não, nhiễm khuẩn huyết, suy giảm miễn dịch hoặc bệnh nền nặng.'
+            ]} />
+            <ActionBlock color="yellow" title="Tai - mắt - miệng" items={[
+              'Viêm tai giữa cấp: rửa tai/làm khô tai nếu chảy mủ; giảm đau/hạ sốt; Amoxicillin hoặc Amoxicillin-acid clavulanic uống.',
+              'Viêm kết mạc mủ: rửa/lau mắt bằng Natriclorua 0,9%; kháng sinh nhỏ/tra mắt như Ciprofloxacin, Ofloxacin hoặc Levofloxacin.',
+              'Viêm loét giác mạc: chuyển chuyên khoa mắt; dùng Amoxicillin-acid clavulanic uống hoặc Cefotaxim/Ceftriaxon tĩnh mạch; vệ sinh mắt; không dùng chế phẩm tra/nhỏ mắt có corticoid.',
+              'Viêm miệng/loét miệng: súc miệng NaCl 0,9%, đánh răng sau ăn và ít nhất 4 lần/ngày; thức ăn để nguội; loét miệng dùng Amoxicillin kèm Metronidazol; Candida dùng Nystatin.'
+            ]} />
+            <ActionBlock color="red" title="Thanh khí phế quản - viêm phổi" items={[
+              'Viêm thanh khí phế quản: hỗ trợ hô hấp tùy mức độ; khí dung Adrenalin khi co thắt/phù nề thanh khí quản; có thể phun khí dung corticoid.',
+              'Viêm phổi: nếu khó thở hoặc SpO2 <94% thì thở oxy cannula.',
+              'Thất bại oxy cannula: thở NCPAP; nếu không có NCPAP có thể xem xét HFNC.',
+              'Thất bại oxy/NCPAP: đặt nội khí quản và thở máy xâm nhập.',
+              'Kháng sinh ban đầu viêm phổi cộng đồng: Amoxicillin-acid clavulanic uống hoặc Cefotaxim/Ceftriaxon tĩnh mạch.',
+              'Nếu thất bại oxy cannula hoặc nghi tụ cầu: phối hợp Oxacillin/Cloxacillin khi nghi MSSA hoặc Vancomycin khi nghi MRSA.',
+              'Sau 48 giờ không đáp ứng: điều chỉnh theo vi sinh/kháng sinh đồ; cân nhắc Cefotaxim/Ceftriaxon + Vancomycin hoặc kháng Pseudomonas/carbapenem/Linezolid tùy bối cảnh.',
+              'Viêm phổi nặng ARDS tiến triển nhanh: xem xét IVIG; ECMO khi hồi sức thông lệ không hiệu quả kèm suy tuần hoàn/suy đa tạng tại đơn vị đủ điều kiện.'
+            ]} />
+            <ActionBlock color="purple" title="Viêm não cấp tính do sởi" items={[
+              'Chống co giật bằng Diazepam theo phác đồ.',
+              'Chống phù não nếu có: đầu cao 30° và cổ thẳng nếu không tụt HA.',
+              'Thở oxy cannula; đặt nội khí quản sớm để thở máy khi Glasgow <10 điểm.',
+              'Hạn chế dịch còn 75% nhu cầu cơ bản.',
+              'Dùng Natriclorua 3% hoặc Mannitol khi có phù não/tăng áp lực nội sọ theo phác đồ.',
+              'Truyền IVIG; cân nhắc corticoid toàn thân khi có chỉ định.'
+            ]} />
+            <ActionBlock color="red" title="Chỉ định IVIG trong sởi" items={[
+              'Tình trạng nhiễm trùng nặng kèm bằng chứng tăng đáp ứng viêm.',
+              'Suy hô hấp tiến triển nhanh.',
+              'Viêm não.'
+            ]} />
+          </GradeCard>
+          <SourceNote items={['Bộ Y tế, Quyết định 1019/QĐ-BYT 2025: Hướng dẫn chẩn đoán và điều trị bệnh Sởi.']} />
+        </div>
+      );
+    }
+
+    function EncephalitisProtocol() {
+      return (
+        <div className="space-y-3 text-sm">
+          <GradeCard grade="0-10 phút" title="Ổn định ban đầu" color="red">
+            <ActionBlock color="red" title="ABCDE" items={[
+              'Gọi hỗ trợ, đưa vào khu cấp cứu/hồi sức nếu rối loạn tri giác, co giật, sốc hoặc suy hô hấp.',
+              'Đảm bảo đường thở, hút đàm, oxy, monitor, SpO2, HA, nhiệt độ.',
+              'Đường truyền tĩnh mạch; kiểm tra đường huyết mao mạch và sửa hạ đường huyết ngay.',
+              'Cắt cơn co giật nếu có bằng benzodiazepine; nếu tái diễn/kéo dài, dùng thuốc chống co giật hàng hai như Phenobarbital/Phenytoin/Levetiracetam theo phác đồ đơn vị.',
+              'Hạ sốt, giảm đau, bù dịch hợp lý; tránh hạ natri máu.'
+            ]} />
+          </GradeCard>
+
+          <GradeCard grade="Trong 1 giờ" title="Kháng virus/kháng sinh kinh nghiệm không chờ đủ xét nghiệm" color="orange">
+            <ActionBlock color="orange" title="Thuốc cần dùng theo chỉ định" items={[
+              'Acyclovir/Aciclovir tĩnh mạch sớm khi nghi viêm não HSV/VZV hoặc viêm não cấp chưa loại trừ HSV; chỉnh theo chức năng thận và đảm bảo bù dịch.',
+              'Nếu chưa loại trừ viêm màng não vi khuẩn: dùng Ceftriaxone hoặc Cefotaxime tĩnh mạch càng sớm càng tốt.',
+              'Thêm Ampicillin hoặc Amoxicillin khi có yếu tố nguy cơ Listeria: trẻ nhỏ theo phác đồ địa phương, người >60 tuổi, thai kỳ hoặc suy giảm miễn dịch/bệnh nền phù hợp.',
+              'Cân nhắc Vancomycin nếu vùng có phế cầu kháng penicillin/cephalosporin thế hệ 3 hoặc bệnh cảnh nặng theo khuyến cáo địa phương.',
+              'Corticosteroid tĩnh mạch dùng cùng liều kháng sinh đầu khi nghi viêm màng não vi khuẩn trong bối cảnh phù hợp; ngưng nếu DNT không phù hợp viêm màng não vi khuẩn hoặc tác nhân không còn chỉ định.'
+            ]} />
+          </GradeCard>
+
+          <GradeCard grade="Chẩn đoán" title="Làm sớm nhưng không làm chậm điều trị" color="blue">
+            <ActionBlock color="blue" title="Cận lâm sàng" items={[
+              'Chọc dò dịch não tủy càng sớm càng tốt, ưu tiên trước kháng sinh/acyclovir nếu không làm chậm điều trị và không có chống chỉ định.',
+              'DNT: tế bào, protein, glucose, tỷ lệ glucose DNT/máu, Gram, cấy, PCR HSV/VZV/enterovirus và tác nhân theo dịch tễ.',
+              'Cấy máu trước kháng sinh nếu thực hiện được ngay.',
+              'Không chụp sọ não thường quy trước chọc dò. Chỉ chụp trước chọc dò khi GCS <10, dấu thần kinh khu trú, liệt dây sọ, phù gai thị, co giật mới ở người lớn hoặc suy giảm miễn dịch nặng.',
+              'Nếu phải trì hoãn chọc dò hoặc chụp sọ: lấy máu/cấy máu và khởi điều trị ngay.',
+              'MRI não khi có điều kiện, đặc biệt nghi HSV hoặc tổn thương khu trú; EEG nếu nghi co giật dưới lâm sàng/trạng thái động kinh không co giật.'
+            ]} />
+          </GradeCard>
+
+          <GradeCard grade="Theo diễn tiến" title="Điều chỉnh điều trị và biến chứng" color="purple">
+            <ActionBlock color="purple" title="Điều chỉnh" items={[
+              'Khi có PCR/cấy/kháng sinh đồ: thu hẹp hoặc tối ưu kháng sinh/kháng virus.',
+              'Nếu nghi viêm não tự miễn sau khi đã xử trí nhiễm trùng nguy hiểm: hội chẩn thần kinh, cân nhắc Methylprednisolone, IVIG hoặc thay huyết tương; tìm u liên quan khi phù hợp.',
+              'Tăng áp lực nội sọ: đầu cao, cổ thẳng, tránh sốt/co giật/hạ oxy/tăng CO2; dùng Mannitol hoặc Natriclorid ưu trương như biện pháp tạm thời khi có dấu thoát vị hoặc phù não nặng.',
+              'Không hạn chế dịch thường quy trong viêm màng não vi khuẩn; dùng dịch đẳng trương khi cần truyền tĩnh mạch, hạn chế vừa phải nếu nghi SIADH và không sốc/giảm thể tích.',
+              'Co giật cấp do viêm màng não/viêm não: duy trì thuốc chống co giật theo nguy cơ; nếu không tái phát, cân nhắc ngưng trong vòng tối đa 3 tháng theo khuyến cáo và hội chẩn.',
+              'Trước xuất viện: đánh giá di chứng thần kinh, vận động, nuốt, nhận thức; viêm màng não cần sàng lọc thính lực trước xuất viện hoặc trong 4 tuần sau xuất viện.'
+            ]} />
+          </GradeCard>
+          <SourceNote items={['WHO 2025: Encephalitis - Global threats, trends and public health implications.', 'WHO 2025: Guidelines on meningitis diagnosis, treatment and care.', 'UpToDate 2026: Herpes simplex virus type 1 encephalitis.']} />
+        </div>
+      );
+    }
+
+    function ICUProtocol() {
+      return (
+        <div className="space-y-3 text-sm">
+          <ActionBlock color="red" title="Khi nào gọi hồi sức ngay" items={[
+            'TCM độ 3-4, đặc biệt có chỉ định đặt nội khí quản, vận mạch, huyết áp xâm lấn, lọc máu liên tục hoặc ECMO.',
+            'Sởi viêm phổi có SpO2 thấp/thất bại oxy cannula, cần NCPAP/HFNC hoặc đặt nội khí quản; ARDS tiến triển nhanh; viêm não hoặc nhiễm khuẩn huyết.',
+            'Viêm não/viêm màng não có GCS <10, co giật kéo dài, sốc, suy hô hấp, dấu tăng áp lực nội sọ hoặc cần thuốc vận mạch.'
+          ]} />
+          <ActionBlock color="purple" title="Theo dõi tại hồi sức" items={[
+            'Monitor liên tục ECG, SpO2, nhịp thở, huyết áp; đặt huyết áp xâm lấn khi TCM độ 4 hoặc độ 3 có vận mạch/đặt nội khí quản.',
+            'Đánh giá lại sau mỗi can thiệp: tri giác, da nổi bông/chi lạnh, mạch, HA, nước tiểu, ran phổi, SpO2, lactate/khí máu nếu có.',
+            'Ghi rõ thời điểm bắt đầu oxy, thuốc, IVIG, vận mạch, đặt nội khí quản, lọc máu để đánh giá đáp ứng 30-60 phút, 1-2 giờ, 6 giờ, 12 giờ tùy bệnh cảnh.',
+            'Chuẩn bị chuyển tuyến an toàn nếu cơ sở không đủ hồi sức nhi, lọc máu, ECMO hoặc chuyên khoa thần kinh/nhiễm.'
+          ]} />
+          <SourceNote items={['Bộ Y tế 2024: Tay chân miệng; Bộ Y tế 2025: Sởi; WHO 2025: Meningitis và Encephalitis.']} />
         </div>
       );
     }
 
     function AccordionItem({ title, type, children }) {
       const [isOpen, setIsOpen] = useState(false);
-      const typeStyles = { danger: 'bg-red-500 text-white', warning: 'bg-orange-500 text-white', info: 'bg-blue-500 text-white' };
+      const typeStyles = { danger: 'bg-red-500', warning: 'bg-orange-500', info: 'bg-blue-500' };
 
       return (
         <div className="border border-slate-200 rounded-lg overflow-hidden bg-white shadow-sm">
@@ -512,11 +752,11 @@
             onClick={() => setIsOpen(!isOpen)}
             className="w-full p-4 text-left flex justify-between items-center bg-white hover:bg-slate-50 transition-colors"
           >
-            <div className="flex items-center gap-3">
-              <span className={`w-3 h-3 rounded-full ${typeStyles[type]}`}></span>
-              <span className="font-semibold text-slate-800">{title}</span>
+            <div className="flex items-center gap-3 min-w-0">
+              <span className={`w-3 h-3 rounded-full flex-shrink-0 ${typeStyles[type] || 'bg-slate-500'}`}></span>
+              <span className="font-semibold text-slate-800 leading-snug">{title}</span>
             </div>
-            {isOpen ? <IconChevronUp size={20} className="text-slate-400" /> : <IconChevronDown size={20} className="text-slate-400" />}
+            {isOpen ? <IconChevronUp size={20} className="text-slate-400 flex-shrink-0" /> : <IconChevronDown size={20} className="text-slate-400 flex-shrink-0" />}
           </button>
           {isOpen && <div className="p-4 border-t border-slate-100 bg-slate-50">{children}</div>}
         </div>
@@ -524,731 +764,114 @@
     }
 
 
-
     /* ==========================================
-       MODULE 4: DRUG DATABASE + SEARCH
+       MODULE 3: DRUG DATABASE WITH SEARCH
        ========================================== */
-    const DRUGS = [
-      {
-        name: "Adrenaline",
-        aliases: "epinephrine vận mạch sốc phản vệ TCM",
-        group: "Thuốc vận mạch",
-        dose: "TTM: 0,01-1 µg/kg/phút, thường 0,1-0,5 µg/kg/phút. Sốc phản vệ: Adrenaline 1mg/ml tiêm bắp theo phác đồ.",
-        route: "TTM / TB tùy chỉ định",
-        solvent: "Dextrose 5% khi truyền tĩnh mạch",
-        preparation: "Công thức nhanh TTM: số mg = 0,3 × cân nặng (kg), pha Dex 5% đủ 50ml ở trẻ em hoặc 25ml ở sơ sinh. Tốc độ ml/giờ = liều µg/kg/phút × 10.",
-        example: "Trẻ 8kg, liều 0,1 µg/kg/phút: 2,4mg pha Dex 5% đủ 50ml, truyền 1ml/giờ.",
-        diseases: ["Cấp cứu", "Sốc", "Tay chân miệng", "Sốc phản vệ"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Noradrenaline",
-        aliases: "norepinephrine norad vận mạch sốc",
-        group: "Thuốc vận mạch",
-        dose: "TTM: 0,01-1 µg/kg/phút, thường 0,1-0,5 µg/kg/phút.",
-        route: "TTM",
-        solvent: "Dextrose 5%",
-        preparation: "Công thức nhanh: số mg = 0,3 × cân nặng (kg), pha Dex 5% đủ 50ml ở trẻ em hoặc 25ml ở sơ sinh. Tốc độ ml/giờ = liều µg/kg/phút × 10.",
-        example: "Trẻ 8kg, liều 0,1 µg/kg/phút: 2,4mg pha Dex 5% đủ 50ml, truyền 1ml/giờ.",
-        diseases: ["Cấp cứu", "Sốc", "Tay chân miệng"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Dopamin",
-        aliases: "dopamine vận mạch sốc",
-        group: "Thuốc vận mạch",
-        dose: "TTM: 2-20 µg/kg/phút, nồng độ không quá 6mg/ml.",
-        route: "TTM",
-        solvent: "Dextrose 5%",
-        preparation: "Công thức nhanh: số mg = 3 × cân nặng (kg), pha Dex 5% đủ 50ml; tốc độ ml/giờ = liều µg/kg/phút.",
-        example: "Trẻ 8kg, liều 5 µg/kg/phút: 24mg pha Dex 5% đủ 50ml, truyền 5ml/giờ.",
-        diseases: ["Cấp cứu", "Sốc"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Dobutamin",
-        aliases: "dobutamine vận mạch tăng co bóp TCM phù phổi",
-        group: "Thuốc vận mạch",
-        dose: "TTM: 2-20 µg/kg/phút, nồng độ không quá 6mg/ml.",
-        route: "TTM",
-        solvent: "Dextrose 5%",
-        preparation: "Công thức nhanh: số mg = 3 × cân nặng (kg), pha Dex 5% đủ 50ml; tốc độ ml/giờ = liều µg/kg/phút.",
-        example: "Trẻ 8kg, liều 5 µg/kg/phút: 24mg pha Dex 5% đủ 50ml, truyền 5ml/giờ.",
-        diseases: ["Cấp cứu", "Sốc", "Tay chân miệng", "Tim mạch"],
-        source: "Thuốc KH / phác đồ TCM trong app"
-      },
-      {
-        name: "Milrinone",
-        aliases: "milrinon TCM tăng huyết áp phù phổi",
-        group: "Thuốc vận mạch",
-        dose: "Theo phác đồ TCM: cân nhắc khi tăng huyết áp, rối loạn thần kinh thực vật nặng; thường dùng truyền tĩnh mạch theo y lệnh hồi sức.",
-        route: "TTM",
-        solvent: "Theo quy định khoa hồi sức",
-        preparation: "Không có trong file Thuốc KH; đặt ở đây để lọc theo bệnh Tay chân miệng.",
-        example: "Dùng trong TCM độ 3 khi tăng huyết áp theo phác đồ hồi sức.",
-        diseases: ["Tay chân miệng", "Hồi sức"],
-        source: "Phác đồ TCM trong app"
-      },
-      {
-        name: "Adenosine",
-        aliases: "krenosin SVT tim nhanh kịch phát",
-        group: "Thuốc vận mạch",
-        dose: "0,1mg/kg/liều TM nhanh; nếu không hiệu quả sau 2 phút tăng gấp đôi liều; tối đa 12mg.",
-        route: "TM nhanh",
-        solvent: "Không pha truyền thường quy",
-        preparation: "Tiêm nhanh, flush nhanh sau thuốc.",
-        example: "Trẻ 10kg: Krenosin 6mg/2ml, dùng 1mg (0,3ml) TM nhanh; sau 2 phút không hiệu quả dùng 2mg (0,6ml).",
-        diseases: ["Tim mạch", "Cấp cứu"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Amiodarone",
-        aliases: "rối loạn nhịp tim nhanh thất",
-        group: "Thuốc vận mạch",
-        dose: "Tấn công 5-10mg/kg/giờ, tổng liều 20mg/kg. Duy trì 5-10 µg/kg/phút.",
-        route: "TMC / TTM",
-        solvent: "Dextrose 5%",
-        preparation: "Pha với Dex 5% đủ 25ml khi truyền duy trì.",
-        example: "Trẻ 8kg: 80mg TMC; sau đó 60mg pha Dex 5% đủ 25ml, truyền 1ml/giờ tương ứng 5 µg/kg/phút.",
-        diseases: ["Tim mạch", "Cấp cứu"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Prostaglandin E1 (Alprostadil)",
-        aliases: "PGE1 alprostadil tim bẩm sinh ống động mạch",
-        group: "Thuốc vận mạch",
-        dose: "Thường dùng 10ng/kg/phút = 0,01 µg/kg/phút.",
-        route: "TTM",
-        solvent: "Dextrose 5%",
-        preparation: "Cân nặng × 30 = số µg thuốc pha trong 50ml Dex 5%. Tốc độ ml/giờ = 0,1 × số ng/kg/phút.",
-        example: "Trẻ 3kg: Alprostadil 90µg pha Dex 5% đủ 50ml, truyền 1ml/giờ ở liều 10ng/kg/phút.",
-        diseases: ["Tim mạch", "Sơ sinh", "Cấp cứu"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Diazepam",
-        aliases: "seduxen co giật an thần",
-        group: "Thuốc an thần - chống co giật",
-        dose: "Bơm hậu môn 0,5mg/kg/liều. TMC 0,2mg/kg/liều. TTM 0,1mg/kg/giờ, tối đa 0,5mg/kg/giờ.",
-        route: "Bơm hậu môn / TMC / TTM",
-        solvent: "Dextrose 5% khi truyền",
-        preparation: "TTM: 2,5 × cân nặng = số mg pha Dex 5% đủ 25ml; 1ml/giờ = 0,1mg/kg/giờ.",
-        example: "Trẻ 3kg: Diazepam 7,5mg pha Dex 5% đủ 25ml, truyền 1ml/giờ.",
-        diseases: ["Co giật", "Thần kinh", "Cấp cứu"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Midazolam",
-        aliases: "an thần co giật đặt nội khí quản",
-        group: "Thuốc an thần - chống co giật",
-        dose: "Sơ sinh: TMC 0,05-0,15mg/kg, TTM 0,01-0,06mg/kg/giờ. Trẻ em: TMC 0,2mg/kg/liều, bơm mũi 0,3mg/kg/liều, TTM 1-2 µg/kg/phút; tối đa 6 µg/kg/phút.",
-        route: "TMC / TTM / bơm mũi",
-        solvent: "Dextrose 5%",
-        preparation: "TTM: 2,5 × cân nặng = số mg pha Dex 5% đủ 25ml; 1ml/giờ = 0,1mg/kg/giờ.",
-        example: "Trẻ 3kg: Midazolam 7,5mg pha Dex 5% đủ 25ml, truyền 1ml/giờ.",
-        diseases: ["Co giật", "Thần kinh", "Cấp cứu", "Hồi sức"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Fentanyl",
-        aliases: "fetanyl fentanyl giảm đau an thần",
-        group: "Thuốc an thần - giảm đau",
-        dose: "Sơ sinh: 0,5-4 µg/kg/liều, lặp lại mỗi 2-4 giờ TMC. Trẻ em: TMC 1µg/kg/lần; TTM 1-2µg/kg/giờ.",
-        route: "TMC / TTM",
-        solvent: "Dextrose 5%",
-        preparation: "0,025 × cân nặng = số mg pha trong Dex 5% đủ 25ml; 1ml/giờ = 1µg/kg/giờ.",
-        example: "Trẻ 5kg: Fentanyl 0,125mg pha Dex 5% đủ 25ml, truyền 1ml/giờ.",
-        diseases: ["Hồi sức", "Đặt nội khí quản", "Giảm đau"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Phenobarbital",
-        aliases: "garnotal barbit chống co giật TCM",
-        group: "Thuốc an thần - chống co giật",
-        dose: "TTM: 15-20mg/kg, tối đa 30mg/kg. Trong TCM độ 2b: 10-20mg/kg IV 30 phút; độ 2a có thể uống 5-7mg/kg/ngày chia 2 lần theo phác đồ trong app.",
-        route: "TTM / uống theo phác đồ",
-        solvent: "Nước cất",
-        preparation: "20 × cân nặng = X mg, pha với NS/nước cất đủ V = X/5 ml; truyền trong 30 phút.",
-        example: "Trẻ 5kg: 100mg pha nước cất đủ 20ml, truyền 40ml/giờ.",
-        diseases: ["Co giật", "Tay chân miệng", "Meningitis", "Encephalitis", "Thần kinh"],
-        source: "Thuốc KH / phác đồ TCM trong app"
-      },
-      {
-        name: "Morphin",
-        aliases: "morphine giảm đau an thần",
-        group: "Thuốc an thần - giảm đau",
-        dose: "TMC 0,1mg/kg/liều. TTM 20-40µg/kg/giờ, thường lấy 20µg/kg/giờ.",
-        route: "TMC / TTM",
-        solvent: "Dextrose 5%",
-        preparation: "Cân nặng = số mg pha trong Dex 5% đủ 25ml. TTM 0,5ml/giờ = 20µg/kg/giờ; 1ml/giờ = 40µg/kg/giờ.",
-        example: "Trẻ 8kg: Morphin 8mg pha Dex 5% đủ 25ml; truyền 0,5ml/giờ hoặc 1ml/giờ tùy liều.",
-        diseases: ["Hồi sức", "Giảm đau", "Đặt nội khí quản"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Rocuronium",
-        aliases: "giãn cơ đặt nội khí quản",
-        group: "Thuốc giãn cơ",
-        dose: "TMC 0,6mg/kg để đặt nội khí quản. TTM duy trì 0,3-0,6mg/kg/giờ.",
-        route: "TMC / TTM",
-        solvent: "Dextrose 5%",
-        preparation: "7,5 × cân nặng = số mg pha Dex 5% đủ 25ml; truyền 1ml/giờ = 0,3mg/kg/giờ.",
-        example: "Trẻ 5kg: 3mg TMC để đặt NKQ; duy trì 22,5mg pha Dex 5% đủ 25ml, truyền 1ml/giờ.",
-        diseases: ["Đặt nội khí quản", "Hồi sức", "Cấp cứu"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Azithromycin",
-        aliases: "zaromax kháng sinh viêm phổi",
-        group: "Kháng sinh - kháng virus",
-        dose: "Uống thường dùng 10mg/kg/ngày.",
-        route: "Uống",
-        solvent: "Không áp dụng",
-        preparation: "Tính theo cân nặng và hàm lượng gói/viên sẵn có.",
-        example: "Bé 24kg: Zaromax 250mg, 1 gói × 1 cữ uống.",
-        diseases: ["Sởi", "Viêm phổi", "Nhiễm khuẩn"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Amoxicillin - clavulanic",
-        aliases: "amoxcillin clavulanate midagentin augmentin",
-        group: "Kháng sinh - kháng virus",
-        dose: "Viêm mũi họng: 15mg/kg × 3 cữ hoặc 25mg/kg × 2 cữ. Viêm phổi: 30mg/kg × 3 cữ.",
-        route: "Uống",
-        solvent: "Không áp dụng",
-        preparation: "Tính theo thành phần amoxicillin và hàm lượng chế phẩm.",
-        example: "Bé 15kg viêm loét họng: Midagentin 250mg, 1 gói × 3 cữ uống.",
-        diseases: ["Sởi", "Viêm phổi", "Nhiễm khuẩn"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Ampicillin",
-        aliases: "kháng sinh sơ sinh meningitis listeria",
-        group: "Kháng sinh - kháng virus",
-        dose: "TMC theo tuổi/cân nặng và bệnh cảnh; ví dụ trong nguồn: trẻ 12 ngày tuổi 3kg dùng 0,15g × 3 TMC.",
-        route: "TMC",
-        solvent: "Theo hướng dẫn pha của thuốc",
-        preparation: "Tính liều theo cân nặng/tuổi và pha theo nồng độ khuyến cáo tại khoa.",
-        example: "Trẻ 12 ngày tuổi 3kg: Ampicillin 1g, dùng 0,15g × 3 TMC.",
-        diseases: ["Meningitis", "Nhiễm khuẩn", "Sơ sinh"],
-        source: "Thuốc KH / WHO meningitis khi nguy cơ Listeria"
-      },
-      {
-        name: "Cefotaxime",
-        aliases: "cefotaxim kháng sinh meningitis",
-        group: "Kháng sinh - kháng virus",
-        dose: "TMC theo bệnh cảnh; ví dụ nguồn: trẻ 3 tháng 7kg viêm phổi dùng 0,35g × 3 TMC.",
-        route: "TMC",
-        solvent: "Theo hướng dẫn pha của thuốc",
-        preparation: "Tính theo cân nặng và số lần dùng/ngày.",
-        example: "Bé 3 tháng, 7kg viêm phổi: Cefotaxime 1g, dùng 0,35g × 3 TMC.",
-        diseases: ["Meningitis", "Viêm phổi", "Nhiễm khuẩn"],
-        source: "Thuốc KH / WHO meningitis"
-      },
-      {
-        name: "Ceftriaxone",
-        aliases: "ceftriaxon poltraxone viêm màng não",
-        group: "Kháng sinh - kháng virus",
-        dose: "TMC thường 80mg/kg × 1; nếu liều cao >1g có thể chia 40mg/kg × 2. Nhiễm khuẩn nặng/viêm màng não: 100mg/kg/ngày. Không viêm màng não tối đa 2g/ngày; viêm màng não mủ tối đa 4g/ngày.",
-        route: "TMC / TTM",
-        solvent: "NS khi truyền theo ví dụ",
-        preparation: "Nếu liều cao cần pha truyền và chia cữ theo y lệnh.",
-        example: "Trẻ 8kg: 0,64g × 1 TMC hoặc 0,32g × 2 TMC. Bé 30kg viêm màng não: 1,5g pha 50ml NS, truyền 100ml/giờ × 2 cữ.",
-        diseases: ["Meningitis", "Sốc nhiễm khuẩn", "Sởi", "Nhiễm khuẩn"],
-        source: "Thuốc KH / WHO meningitis"
-      },
-      {
-        name: "Ceftazidime",
-        aliases: "ceftazidim",
-        group: "Kháng sinh - kháng virus",
-        dose: "TMC thường 50mg/kg × 3.",
-        route: "TMC",
-        solvent: "Theo hướng dẫn pha của thuốc",
-        preparation: "Tính theo cân nặng và chia 3 cữ.",
-        example: "Trẻ 10kg: Ceftazidime 0,5g × 3 TMC.",
-        diseases: ["Nhiễm khuẩn", "Viêm phổi", "Sốc nhiễm khuẩn"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Amikacin",
-        aliases: "aminoglycoside",
-        group: "Kháng sinh - kháng virus",
-        dose: "TTM thường dùng 15mg/kg × 1 ở trẻ em, truyền 30-60 phút.",
-        route: "TTM",
-        solvent: "Dung dịch pha sẵn tùy chế phẩm",
-        preparation: "Tam suất từ nồng độ dung dịch pha sẵn để tính ml.",
-        example: "Trẻ 50kg: Vinphacine 500mg/100ml, dùng 0,75g (150ml), truyền 300ml/giờ × 1 lần.",
-        diseases: ["Nhiễm khuẩn", "Sốc nhiễm khuẩn"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Gentamycin",
-        aliases: "gentamicin aminoglycoside",
-        group: "Kháng sinh - kháng virus",
-        dose: "TB: trẻ em dùng liều 5mg/kg × 1.",
-        route: "TB",
-        solvent: "Không áp dụng",
-        preparation: "Tính theo cân nặng và hàm lượng ống thuốc.",
-        example: "Trẻ 10kg: Gentamycin 0,05g × 1 TB.",
-        diseases: ["Nhiễm khuẩn", "Sơ sinh"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Cefepime",
-        aliases: "maxapin",
-        group: "Kháng sinh - kháng virus",
-        dose: "TMC: trẻ em 50mg/kg × 3.",
-        route: "TMC",
-        solvent: "Theo hướng dẫn pha của thuốc",
-        preparation: "Tính theo cân nặng, chia 3 cữ.",
-        example: "Trẻ 3 tháng 6kg: Maxapin 1g, 0,3g × 3 TMC.",
-        diseases: ["Nhiễm khuẩn", "Sốc nhiễm khuẩn"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Metronidazole",
-        aliases: "metronidazol kỵ khí",
-        group: "Kháng sinh - kháng virus",
-        dose: "TTM trong 30 phút; ví dụ dùng 30mg/kg × 3.",
-        route: "TTM",
-        solvent: "Dung dịch pha sẵn",
-        preparation: "Tam suất theo nồng độ chai pha sẵn.",
-        example: "Trẻ 20kg: Metronidazole 0,5g/100ml NS, dùng 0,6g (120ml), truyền 240ml/giờ × 3.",
-        diseases: ["Nhiễm khuẩn", "Ổ bụng", "Sốc nhiễm khuẩn"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Ciprofloxacin",
-        aliases: "cipro quinolone",
-        group: "Kháng sinh - kháng virus",
-        dose: "TTM 30 phút; tính theo dung dịch pha sẵn.",
-        route: "TTM",
-        solvent: "Dung dịch pha sẵn",
-        preparation: "Tam suất theo nồng độ chai pha sẵn.",
-        example: "Trẻ sơ sinh 5kg: Ciprofloxacin 200mg/100ml, dùng 0,125g (62,5ml), truyền 125ml/giờ.",
-        diseases: ["Nhiễm khuẩn", "Meningitis dự phòng tiếp xúc não mô cầu theo WHO: ciprofloxacin uống ở người tiếp xúc khi phù hợp"],
-        source: "Thuốc KH / WHO meningitis prophylaxis"
-      },
-      {
-        name: "Levofloxacin",
-        aliases: "levof quinolone",
-        group: "Kháng sinh - kháng virus",
-        dose: "TTM trong 30 phút; tính theo dung dịch pha sẵn.",
-        route: "TTM",
-        solvent: "Dung dịch pha sẵn",
-        preparation: "Tam suất theo nồng độ chai pha sẵn.",
-        example: "Trẻ 4 tuổi 16kg: Levofloxacin 0,5g/100ml, dùng 0,16g (32ml), truyền 64ml/giờ.",
-        diseases: ["Nhiễm khuẩn", "Viêm phổi"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Meropenem",
-        aliases: "carbapenem nhiễm trùng nặng",
-        group: "Kháng sinh - kháng virus",
-        dose: "TMC/TTM với NS 10-20mg/ml. Ví dụ NTSS: 30mg/kg × 3; trẻ lớn tùy bệnh cảnh.",
-        route: "TMC / TTM",
-        solvent: "Normal saline",
-        preparation: "Pha NS đạt nồng độ 10-20mg/ml khi truyền.",
-        example: "Trẻ 25 ngày tuổi 4kg NTSS: 0,12g × 3 TMC. Trẻ 20kg: 800mg pha NS đủ 40ml, truyền 15ml/giờ trong 3 giờ.",
-        diseases: ["Sốc nhiễm khuẩn", "Nhiễm khuẩn", "Meningitis"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Imipenem",
-        aliases: "carbapenem",
-        group: "Kháng sinh - kháng virus",
-        dose: "TTM trong 1 giờ. Ví dụ 25mg/kg × 4.",
-        route: "TTM",
-        solvent: "Dung dịch pha sẵn/NS tùy chế phẩm",
-        preparation: "Tam suất theo nồng độ dung dịch.",
-        example: "Trẻ 10kg: Imipenem 0,5g/100ml NS, dùng 0,25g (50ml), truyền 50ml/giờ × 4 cữ.",
-        diseases: ["Sốc nhiễm khuẩn", "Nhiễm khuẩn"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Vancomycin",
-        aliases: "vanco tụ cầu MRSA viêm màng não",
-        group: "Kháng sinh - kháng virus",
-        dose: "TTM trong 1 giờ; ví dụ 15mg/kg × 4.",
-        route: "TTM",
-        solvent: "Normal saline",
-        preparation: "Pha với NS đạt 5mg/ml; số ml NS = số mg/5.",
-        example: "Trẻ 50kg: Vancomycin 0,75g pha NS đủ 150ml, truyền 150ml/giờ × 4 cữ.",
-        diseases: ["Meningitis", "Sốc nhiễm khuẩn", "Nhiễm khuẩn"],
-        source: "Thuốc KH / WHO meningitis khi kháng cephalosporin cao"
-      },
-      {
-        name: "Colistin",
-        aliases: "colistimethate đa kháng",
-        group: "Kháng sinh - kháng virus",
-        dose: "TTM 10.000UI/ml trong 1 giờ; ví dụ 30.000UI/kg × 3 cữ.",
-        route: "TTM",
-        solvent: "Normal saline",
-        preparation: "Pha đạt 10.000UI/ml.",
-        example: "Trẻ 10kg: Colistin 300.000UI pha NS đủ 30ml, truyền 30ml/giờ × 3 cữ.",
-        diseases: ["Nhiễm khuẩn đa kháng", "Sốc nhiễm khuẩn"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Linezolid",
-        aliases: "linzezolid linezolid MRSA VRE",
-        group: "Kháng sinh - kháng virus",
-        dose: "TTM; chế phẩm pha sẵn. Ví dụ 10mg/kg/lần theo minh họa nguồn.",
-        route: "TTM",
-        solvent: "Không cần dung môi, có pha sẵn",
-        preparation: "Tam suất theo nồng độ chai pha sẵn.",
-        example: "Trẻ 10 tuổi 40kg: Linezolid 0,6g/300ml, dùng 400mg (200ml), truyền 200ml/giờ.",
-        diseases: ["Nhiễm khuẩn", "Sốc nhiễm khuẩn"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Clindamycin",
-        aliases: "clinda kỵ khí tụ cầu",
-        group: "Kháng sinh - kháng virus",
-        dose: "TTM pha loãng nồng độ ≤18mg/ml trong 60 phút. Ví dụ 10mg/kg × 3 cữ.",
-        route: "TTM",
-        solvent: "Normal saline",
-        preparation: "Pha loãng đạt nồng độ ≤18mg/ml.",
-        example: "Trẻ 20kg: Clindamycin 200mg pha đủ 20ml NS, truyền 20ml/giờ × 3 cữ.",
-        diseases: ["Nhiễm khuẩn", "Viêm phổi", "Da mô mềm"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Acyclovir",
-        aliases: "aciclovir HSV viêm não herpes",
-        group: "Kháng sinh - kháng virus",
-        dose: "Điều trị HSV: trẻ <12 tuổi 15mg/kg × 3 cữ; trẻ ≥12 tuổi 10mg/kg × 3 cữ.",
-        route: "TTM",
-        solvent: "Normal saline",
-        preparation: "Tỉ lệ pha 1/5 với NS, nồng độ 5mg/ml. Tốc độ truyền theo nguồn: >1 giờ.",
-        example: "Bé 20kg, 6 tuổi: Antopi 250mg, dùng 300mg pha NS đủ 60ml, truyền 40ml/giờ × 3 cữ.",
-        diseases: ["HSV-1 Encephalitis", "Encephalitis", "Viêm não", "Meningitis"],
-        source: "Thuốc KH / UpToDate HSV"
-      },
-      {
-        name: "Mannitol",
-        aliases: "tăng áp lực nội sọ phù não",
-        group: "Thuốc khác",
-        dose: "TTM 0,25-1g/kg/liều mỗi 4-6 giờ; thường dùng 1g/kg/liều trong 30 phút.",
-        route: "TTM",
-        solvent: "Dung dịch Mannitol pha sẵn",
-        preparation: "Tính từ nồng độ chai Mannitol 20g/100ml (20%).",
-        example: "Trẻ 32kg: Mannitol 20% dùng 32g (160ml), truyền 320ml/giờ × 3 lần; báo bác sĩ trước truyền.",
-        diseases: ["Encephalitis", "Meningitis", "Tăng áp lực nội sọ", "Hồi sức"],
-        source: "Thuốc KH / WHO meningitis khi tăng áp lực nội sọ"
-      },
-      {
-        name: "Furosemid",
-        aliases: "furosemide lợi tiểu phù phổi",
-        group: "Thuốc khác",
-        dose: "Uống 1-2mg/kg/liều. TMC 1mg/kg/liều. TTM 1-2mg/kg/liều.",
-        route: "Uống / TMC / TTM",
-        solvent: "Nước cất khi pha viên theo ví dụ; tùy chế phẩm",
-        preparation: "Có thể pha Agifuros 40mg với 5ml nước cất trong ví dụ uống/gavage.",
-        example: "Trẻ 8kg: Agifuros 40mg pha 5ml nước cất, lấy 1ml uống/gavage tương ứng 8mg; hoặc 8mg TMC.",
-        diseases: ["Tay chân miệng", "Phù phổi", "Hồi sức", "Tim mạch"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Omeprazole",
-        aliases: "omeprazol PPI dạ dày",
-        group: "Thuốc khác",
-        dose: "Uống 1mg/kg/liều. TMC 1mg/kg/liều. TTM 1mg/kg/ngày.",
-        route: "Uống / TMC / TTM",
-        solvent: "NS theo ví dụ truyền",
-        preparation: "Pha theo chế phẩm và đường dùng.",
-        example: "Trẻ 20kg: Omeprazole 40mg, dùng 20mg × 1 TMC; Atimezon 20mg pha đủ 20ml NS, truyền 40ml/giờ × 2 cữ.",
-        diseases: ["Hồi sức", "Tiêu hóa", "Dự phòng xuất huyết tiêu hóa"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Huyết thanh kháng nọc độc rắn",
-        aliases: "rắn lục tre antivenom",
-        group: "Thuốc khác",
-        dose: "Test trong da huyết thanh kháng nọc độc rắn lục tre 1% lấy 0,2ml, đọc sau 15 phút. Trước truyền: Adrenaline 1‰ 0,01ml/kg TDD theo nguồn.",
-        route: "Trong da test / TTM",
-        solvent: "Normal saline",
-        preparation: "Huyết thanh kháng nọc rắn 6 lọ pha với NS đủ 50-100ml, truyền trong 1 giờ.",
-        example: "Trẻ 15kg: Adrenaline 1‰ 0,15ml TDD trước truyền huyết thanh kháng nọc rắn.",
-        diseases: ["Cấp cứu", "Rắn cắn", "Chống độc"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Dexamethasone",
-        aliases: "corticoid viêm màng não rút nội khí quản",
-        group: "Thuốc khác",
-        dose: "Trước rút NKQ 1-3 ngày, dùng trong 3 ngày: 0,6mg/kg/ngày chia 3 lần/ngày TMC. Trong viêm màng não: dùng corticoid cùng liều kháng sinh đầu theo khuyến cáo WHO khi nghi viêm màng não vi khuẩn.",
-        route: "TMC / IV",
-        solvent: "Theo chế phẩm",
-        preparation: "Chia 3 lần/ngày theo nguồn Thuốc KH khi dùng trước rút NKQ.",
-        example: "Trẻ 10kg: Dexamethasone 2mg × 3 lần TMC.",
-        diseases: ["Meningitis", "Hồi sức", "Rút nội khí quản"],
-        source: "Thuốc KH / WHO meningitis"
-      },
-      {
-        name: "Hydrocortison",
-        aliases: "hydrocortisone corticoid",
-        group: "Thuốc khác",
-        dose: "Liều đầu 2mg/kg/lần TMC. Các liều sau 0,5-1mg/kg/lần mỗi 6-8 giờ.",
-        route: "TMC",
-        solvent: "Theo chế phẩm",
-        preparation: "Tính liều theo cân nặng và khoảng cách liều.",
-        example: "Trẻ 10kg: Hydrocortison 20mg TMC, sau đó 5mg × 4 cữ TMC.",
-        diseases: ["Cấp cứu", "Hồi sức", "Dị ứng"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "N-Acetylcystein",
-        aliases: "NAC giải độc paracetamol",
-        group: "Thuốc khác",
-        dose: "Liều 1: 150mg/kg trong 1 giờ, max 15g. Liều 2: 12,5mg/kg/giờ × 4 giờ, max 5g/giờ. Liều 3: 6,25mg/kg/giờ × 16 giờ, max 12g/20 giờ.",
-        route: "TTM",
-        solvent: "Dextrose 5%",
-        preparation: "Cách nhanh: liều 1 pha 3ml/kg, chảy 3ml/kg/giờ; liều 2 pha 4ml/kg, chảy 1ml/kg/giờ; liều 3 pha 8ml/kg, chảy 0,5ml/kg/giờ. Có thể gộp liều 2+3 pha 12ml/kg.",
-        example: "Bé 14kg: liều 1 2100mg pha đủ 42ml, truyền 42ml/giờ; sau đó theo liều 2 và 3 như nguồn.",
-        diseases: ["Chống độc", "Quá liều Paracetamol", "Cấp cứu"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Zentomyces",
-        aliases: "men vi sinh tiêu hóa",
-        group: "Thuốc khác",
-        dose: "1 gói × 2-3 lần/ngày.",
-        route: "Uống",
-        solvent: "Không áp dụng",
-        preparation: "Pha/uống theo hướng dẫn chế phẩm.",
-        example: "1 gói × 2-3 lần/ngày.",
-        diseases: ["Tiêu hóa", "Chăm sóc hỗ trợ"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Zinc",
-        aliases: "kẽm tiêu chảy",
-        group: "Thuốc khác",
-        dose: "<6 tháng: 1 viên × 1 lần. >6 tháng: 2 viên × 1 lần.",
-        route: "Uống",
-        solvent: "Không áp dụng",
-        preparation: "Theo hàm lượng viên tại khoa.",
-        example: "Dùng theo nhóm tuổi như nguồn.",
-        diseases: ["Tiêu chảy", "Tiêu hóa", "Chăm sóc hỗ trợ"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Vitamin A",
-        aliases: "sởi measles thiếu vitamin A",
-        group: "Thuốc khác",
-        dose: "<6 tháng: 50.000UI × 1 lần/ngày. 6-12 tháng: 100.000UI × 1 lần/ngày. >12 tháng: 200.000UI × 1 lần/ngày.",
-        route: "Uống",
-        solvent: "Không áp dụng",
-        preparation: "Dùng theo tuổi; trong bệnh Sởi thường dùng theo hướng dẫn BYT.",
-        example: "Trẻ >12 tháng: 200.000UI × 1 lần/ngày.",
-        diseases: ["Sởi", "Chăm sóc hỗ trợ"],
-        source: "Thuốc KH / BYT Sởi"
-      },
-      {
-        name: "L-Bio",
-        aliases: "men vi sinh probiotic",
-        group: "Thuốc khác",
-        dose: "1 gói × 3 cữ.",
-        route: "Uống",
-        solvent: "Không áp dụng",
-        preparation: "Pha/uống theo hướng dẫn chế phẩm.",
-        example: "1 gói × 3 cữ.",
-        diseases: ["Tiêu hóa", "Chăm sóc hỗ trợ"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Varogel",
-        aliases: "ngậm miệng loét miệng",
-        group: "Thuốc khác",
-        dose: "1/3 gói × 3, ngậm miệng.",
-        route: "Ngậm miệng",
-        solvent: "Không áp dụng",
-        preparation: "Dùng tại chỗ theo hướng dẫn.",
-        example: "Varogel 1/3 gói × 3.",
-        diseases: ["Tay chân miệng", "Loét miệng", "Chăm sóc hỗ trợ"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Rectiofar",
-        aliases: "bơm hậu môn táo bón",
-        group: "Thuốc khác",
-        dose: "Trẻ nhỏ khoảng <5 tuổi: 2-3 ống × 2 lần. Trẻ lớn >7 tuổi: 5 ống × 2 lần.",
-        route: "Bơm hậu môn",
-        solvent: "Không áp dụng",
-        preparation: "Dùng đường hậu môn theo hướng dẫn chế phẩm.",
-        example: "Trẻ nhỏ <5 tuổi: 2-3 ống × 2 lần.",
-        diseases: ["Tiêu hóa", "Táo bón", "Chăm sóc hỗ trợ"],
-        source: "Thuốc KH"
-      },
-      {
-        name: "Clorpheniramin 4mg",
-        aliases: "chlorpheniramine dị ứng ngứa",
-        group: "Thuốc khác",
-        dose: "<2 tuổi: 1mg (1/4 viên) × 2 cữ. 2-6 tuổi: 1mg × 4 cữ. 6-12 tuổi: 2mg (1/2 viên) × 4 cữ. >12 tuổi: 4mg (1 viên) × 4 cữ.",
-        route: "Uống",
-        solvent: "Không áp dụng",
-        preparation: "Chia viên 4mg theo liều tuổi.",
-        example: "Trẻ 6-12 tuổi: 1/2 viên × 4 cữ.",
-        diseases: ["Dị ứng", "Chăm sóc hỗ trợ"],
-        source: "Thuốc KH"
-      }
-    ];
-
-    function normalizeText(str) {
-      return (str || '')
-        .toString()
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/đ/g, 'd');
-    }
-
     function DrugDatabaseModule() {
       const [query, setQuery] = useState('');
-      const [selectedDisease, setSelectedDisease] = useState('Tất cả');
-      const [selectedGroup, setSelectedGroup] = useState('Tất cả');
-      const [openIndex, setOpenIndex] = useState(null);
+      const [category, setCategory] = useState('Tất cả');
+      const [disease, setDisease] = useState('Tất cả');
 
-      const diseases = ['Tất cả', ...Array.from(new Set(DRUGS.flatMap(d => d.diseases))).sort((a, b) => a.localeCompare(b, 'vi'))];
-      const groups = ['Tất cả', ...Array.from(new Set(DRUGS.map(d => d.group))).sort((a, b) => a.localeCompare(b, 'vi'))];
-      const q = normalizeText(query);
+      const drugs = [
+        { name: 'Adrenaline', group: 'Vận mạch', diseases: ['Sốc', 'TCM độ 4'], dose: '0,01-1 µg/kg/phút, thường 0,1-0,5', route: 'TTM', solvent: 'Dextrose 5%', note: 'Pha nhanh: 0,3 x cân nặng (mg) pha D5% đủ 50 ml; tốc độ ml/giờ = liều µg/kg/phút x 10.' },
+        { name: 'Noradrenaline', group: 'Vận mạch', diseases: ['Sốc'], dose: '0,01-1 µg/kg/phút, thường 0,1-0,5', route: 'TTM', solvent: 'Dextrose 5%', note: 'Dùng khi sốc giãn mạch/HA không đáp ứng dịch.' },
+        { name: 'Dobutamin', group: 'Vận mạch', diseases: ['TCM độ 3', 'TCM độ 4', 'Sốc tim'], dose: '2-20 µg/kg/phút; TCM khởi 5, tăng 1-2,5 mỗi 15 phút, tối đa 20', route: 'TTM', solvent: 'Dextrose 5%', note: 'TCM: chỉ định khi mạch >170/phút và không tăng HA; không dùng Dopamin trong chỉ định này.' },
+        { name: 'Milrinone', group: 'Vận mạch', diseases: ['TCM độ 3'], dose: '0,4-0,75 µg/kg/phút trong 24-72 giờ khi tăng HA', route: 'TTM', solvent: 'Dextrose 5%', note: 'TCM: dùng khi HATT ≥110 (<12th), ≥115 (12-<24th), ≥120 (≥24th). Ngưng nếu tụt HA theo ngưỡng.' },
+        { name: 'Dopamin', group: 'Vận mạch', diseases: ['Sốc'], dose: '2-20 µg/kg/phút', route: 'TTM', solvent: 'Dextrose 5%', note: 'Pha nhanh: 3 x cân nặng (mg) pha D5% đủ 50 ml; tốc độ ml/giờ = liều µg/kg/phút.' },
+        { name: 'Adenosine', group: 'Tim mạch', diseases: ['SVT'], dose: '0,1 mg/kg/liều, không hiệu quả sau 2 phút tăng gấp đôi; tối đa 12 mg', route: 'TM nhanh', solvent: '-', note: 'Bơm thật nhanh, flush NaCl ngay sau thuốc.' },
+        { name: 'Amiodarone', group: 'Tim mạch', diseases: ['Loạn nhịp'], dose: 'Tấn công 5-10 mg/kg; duy trì 5-10 µg/kg/phút', route: 'TMC/TTM', solvent: 'Dextrose 5%', note: 'Theo dõi mạch, HA, QT.' },
+        { name: 'Diazepam', group: 'An thần - chống co giật', diseases: ['Co giật', 'Viêm não'], dose: 'TMC 0,2 mg/kg/liều; bơm hậu môn 0,5 mg/kg; TTM 0,1 mg/kg/giờ', route: 'TMC/hậu môn/TTM', solvent: 'Dextrose 5%', note: 'Theo dõi suy hô hấp.' },
+        { name: 'Midazolam', group: 'An thần - chống co giật', diseases: ['Co giật', 'Viêm não', 'TCM độ 3'], dose: 'TMC 0,15-0,2 mg/kg/lần; bơm mũi 0,3 mg/kg; TTM 1-2 µg/kg/phút', route: 'TMC/mũi/TTM', solvent: 'Dextrose 5%', note: 'TCM co giật: Midazolam 0,15 mg/kg/lần, lặp sau 10 phút nếu cần, tối đa 3 lần.' },
+        { name: 'Phenobarbital', group: 'An thần - chống co giật', diseases: ['TCM độ 2b', 'TCM độ 3', 'Co giật', 'Viêm não'], dose: '15-20 mg/kg; TCM 10-20 mg/kg IV 30 phút, lặp 8-12 giờ, tối đa 40 mg/kg/ngày', route: 'TTM', solvent: 'Nước cất', note: 'Theo dõi tri giác, hô hấp và HA.' },
+        { name: 'Fentanyl', group: 'An thần - giảm đau', diseases: ['Thở máy', 'Đau'], dose: 'TMC 1 µg/kg/lần; TTM 1-2 µg/kg/giờ', route: 'TMC/TTM', solvent: 'Dextrose 5%', note: 'Nguồn thuốc ghi Fetanyl.' },
+        { name: 'Morphin', group: 'An thần - giảm đau', diseases: ['Đau', 'Thở máy'], dose: 'TMC 0,1 mg/kg/liều; TTM 20-40 µg/kg/giờ', route: 'TMC/TTM', solvent: 'Dextrose 5%', note: 'Theo dõi suy hô hấp, tụt HA.' },
+        { name: 'Rocuronium', group: 'An thần - giãn cơ', diseases: ['Đặt nội khí quản'], dose: 'TMC 0,6 mg/kg đặt NKQ; duy trì 0,3-0,6 mg/kg/giờ', route: 'TMC/TTM', solvent: 'Dextrose 5%', note: 'Chỉ dùng khi kiểm soát đường thở và an thần đầy đủ.' },
+        { name: 'Acyclovir/Aciclovir', group: 'Kháng virus', diseases: ['Viêm não', 'HSV-1 encephalitis'], dose: 'Thường 10 mg/kg mỗi 8 giờ IV ở trẻ lớn/người lớn; trẻ nhỏ theo tuổi/phác đồ đơn vị', route: 'TMC/TTM', solvent: 'NaCl 0,9% hoặc Dextrose 5%', note: 'Dùng sớm khi nghi HSV/VZV hoặc viêm não chưa rõ nguyên nhân; chỉnh liều theo thận, bù dịch.' },
+        { name: 'Ceftriaxone', group: 'Kháng sinh', diseases: ['Viêm màng não', 'Sởi biến chứng', 'Nhiễm khuẩn nặng'], dose: 'Theo chỉ định/nhiễm khuẩn; viêm màng não dùng liều cao theo phác đồ', route: 'TMC/TTM', solvent: '-', note: 'WHO meningitis: ceftriaxone hoặc cefotaxime là lựa chọn kinh nghiệm trong nghi viêm màng não do vi khuẩn.' },
+        { name: 'Cefotaxime', group: 'Kháng sinh', diseases: ['Viêm màng não', 'Sởi biến chứng', 'Nhiễm khuẩn nặng'], dose: 'Theo cân nặng và vị trí nhiễm khuẩn', route: 'TMC/TTM', solvent: '-', note: 'Có trong phác đồ sởi biến chứng loét giác mạc/bội nhiễm và nghi viêm màng não.' },
+        { name: 'Ampicillin/Amoxicillin', group: 'Kháng sinh', diseases: ['Viêm màng não', 'Sởi biến chứng'], dose: 'Theo tuổi, cân nặng và chỉ định', route: 'Uống/TMC', solvent: '-', note: 'Sởi: viêm tai giữa dùng Amoxicillin hoặc Amoxicillin-clavulanic; WHO meningitis: thêm Ampicillin/Amoxicillin khi nguy cơ Listeria.' },
+        { name: 'Amoxicillin-clavulanic', group: 'Kháng sinh', diseases: ['Sởi biến chứng', 'Viêm tai giữa', 'Loét giác mạc'], dose: 'Viêm mũi họng 15 mg/kg x 3 hoặc 25 mg/kg x 2; viêm phổi có thể 30 mg/kg x 3', route: 'Uống', solvent: '-', note: 'Sởi: dùng trong viêm tai giữa, loét giác mạc/loét miệng theo chỉ định.' },
+        { name: 'Metronidazole', group: 'Kháng sinh', diseases: ['Sởi biến chứng', 'Loét miệng'], dose: 'Sởi loét miệng: 7,5 mg/kg/lần x 3 lần/ngày trong 5 ngày', route: 'Uống/TM', solvent: '-', note: 'Phối hợp Amoxicillin trong loét miệng theo BYT sởi 2025.' },
+        { name: 'Vancomycin', group: 'Kháng sinh', diseases: ['Viêm màng não', 'Nhiễm khuẩn nặng'], dose: 'Theo cân nặng, chức năng thận và nồng độ thuốc', route: 'TTM', solvent: '-', note: 'Cân nhắc thêm khi vùng có phế cầu kháng penicillin/cephalosporin thế hệ 3.' },
+        { name: 'Azithromycin', group: 'Kháng sinh', diseases: ['Hô hấp'], dose: '10 mg/kg/ngày', route: 'Uống', solvent: '-', note: 'Theo nguồn Thuốc KH.' },
+        { name: 'Amikacin', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng'], dose: 'Theo cân nặng và chức năng thận', route: 'TTM/TMC', solvent: '-', note: 'Theo dõi thận và thính lực.' },
+        { name: 'Gentamycin', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng'], dose: 'Theo cân nặng và chức năng thận', route: 'TTM/TMC', solvent: '-', note: 'Theo dõi thận và thính lực.' },
+        { name: 'Meropenem/Imipenem', group: 'Kháng sinh', diseases: ['Nhiễm khuẩn nặng'], dose: 'Theo cân nặng, chức năng thận và vị trí nhiễm khuẩn', route: 'TTM', solvent: '-', note: 'Dự phòng kháng thuốc theo kháng sinh đồ/đơn vị.' },
+        { name: 'Mannitol', group: 'Khác', diseases: ['Viêm não', 'Tăng áp lực nội sọ', 'TCM độ 2b'], dose: '0,25-1 g/kg/liều mỗi 4-6 giờ, thường 1 g/kg trong 30 phút', route: 'TTM', solvent: '-', note: 'Dùng khi tăng áp lực nội sọ/phù não theo chỉ định.' },
+        { name: 'Furosemide', group: 'Khác', diseases: ['Phù phổi', 'Quá tải dịch'], dose: 'Uống 1-2 mg/kg/liều; TMC 1 mg/kg/liều', route: 'Uống/TMC', solvent: '-', note: 'Theo dõi điện giải và nước tiểu.' },
+        { name: 'Omeprazole', group: 'Khác', diseases: ['Bảo vệ dạ dày'], dose: 'Uống/TMC 1 mg/kg/liều; TTM 1 mg/kg/ngày', route: 'Uống/TMC/TTM', solvent: 'NaCl 0,9%', note: 'Theo chỉ định.' },
+        { name: 'Dexamethasone', group: 'Corticoid', diseases: ['Viêm màng não', 'Croup', 'Sởi biến chứng'], dose: 'Theo bệnh cảnh; viêm màng não dùng cùng liều kháng sinh đầu nếu nghi vi khuẩn', route: 'TMC/TTM', solvent: '-', note: 'WHO meningitis: corticosteroid IV khởi cùng liều kháng sinh đầu trong nghi viêm màng não vi khuẩn ở bối cảnh phù hợp.' },
+        { name: 'Hydrocortisone', group: 'Corticoid', diseases: ['Sốc', 'Viêm màng não'], dose: 'Theo chỉ định', route: 'TMC/TTM', solvent: '-', note: 'Có thể là corticosteroid thay thế trong một số bối cảnh.' },
+        { name: 'Methylprednisolone', group: 'Corticoid', diseases: ['TCM sốt cao khó kiểm soát', 'Viêm não tự miễn/ADEM', 'Sởi biến chứng'], dose: 'TCM sốt >40°C thất bại: 10 mg/kg/lần IV chậm 30 phút x 2 lần/ngày, tối đa 3 ngày', route: 'TTM/TMC', solvent: '-', note: 'Viêm não tự miễn/ADEM dùng liều cao theo hội chẩn thần kinh.' },
+        { name: 'IVIG/Gammaglobulin', group: 'Miễn dịch', diseases: ['TCM độ 2b-3', 'Sởi nặng', 'Viêm não tự miễn/ADEM'], dose: 'TCM: 1 g/kg truyền chậm 6-12 giờ 1 liều. Sởi nặng: 0,25 g/kg/ngày x 3 ngày, tổng có thể 1 g/kg trong 2-4 ngày', route: 'TTM', solvent: '-', note: 'Sởi: chỉ định khi nhiễm trùng nặng có tăng đáp ứng viêm, suy hô hấp tiến triển nhanh, viêm não.' },
+        { name: 'Vitamin A', group: 'Vitamin/kẽm', diseases: ['Sởi'], dose: '<6 tháng 50.000 IU/ngày; 6-12 tháng 100.000 IU/ngày; >12 tháng 200.000 IU/ngày', route: 'Uống', solvent: '-', note: 'Sởi: dùng liều cao, thường 2 ngày liên tiếp; cân nhắc nhắc lại theo nguy cơ thiếu vitamin A/suy dinh dưỡng.' },
+        { name: 'Zinc', group: 'Vitamin/kẽm', diseases: ['Tiêu chảy'], dose: '<6 tháng 1 viên x 1 lần/ngày; >6 tháng 2 viên x 1 lần/ngày', route: 'Uống', solvent: '-', note: 'Theo nguồn Thuốc KH.' },
+        { name: 'N-Acetylcysteine', group: 'Khác', diseases: ['Ngộ độc paracetamol'], dose: 'Liều truyền theo phác đồ 3 giai đoạn', route: 'TTM', solvent: 'Dextrose 5%', note: 'Theo nguồn Thuốc KH.' },
+        { name: 'Chlorpheniramine 4 mg', group: 'Khác', diseases: ['Dị ứng'], dose: '<2 tuổi 1 mg x2; 2-6 tuổi 1 mg x4; 6-12 tuổi 2 mg x4; >12 tuổi 4 mg x4', route: 'Uống', solvent: '-', note: 'Theo nguồn Thuốc KH.' }
+      ];
 
-      const filteredDrugs = DRUGS.filter(drug => {
-        const haystack = normalizeText([
-          drug.name, drug.aliases, drug.group, drug.dose, drug.route, drug.solvent,
-          drug.preparation, drug.example, drug.source, ...(drug.diseases || [])
-        ].join(' '));
-        const matchQuery = !q || haystack.includes(q);
-        const matchDisease = selectedDisease === 'Tất cả' || drug.diseases.includes(selectedDisease);
-        const matchGroup = selectedGroup === 'Tất cả' || drug.group === selectedGroup;
-        return matchQuery && matchDisease && matchGroup;
+      const groups = ['Tất cả', ...Array.from(new Set(drugs.map(d => d.group)))];
+      const diseases = ['Tất cả', ...Array.from(new Set(drugs.flatMap(d => d.diseases)))];
+      const normalized = (value) => value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const q = normalized(query.trim());
+      const filtered = drugs.filter(d => {
+        const matchesCategory = category === 'Tất cả' || d.group === category;
+        const matchesDisease = disease === 'Tất cả' || d.diseases.includes(disease);
+        const haystack = normalized([d.name, d.group, d.diseases.join(' '), d.dose, d.route, d.solvent, d.note].join(' '));
+        return matchesCategory && matchesDisease && (!q || haystack.includes(q));
       });
 
       return (
         <div className="space-y-4 pb-6">
-          <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-            <div className="bg-blue-50 p-4 border-b border-blue-100">
-              <h2 className="font-bold text-blue-800 text-lg flex items-center gap-2"><IconPill size={20} /> Tra cứu thuốc</h2>
-              <p className="text-xs text-blue-700 mt-1">Tìm theo tên thuốc, nhóm thuốc, bệnh liên quan, liều, đường dùng hoặc dung môi.</p>
+          <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-3 space-y-3 sticky top-0 z-10">
+            <div className="flex items-center gap-2 border border-slate-200 rounded-lg px-3 py-2 bg-slate-50">
+              <IconSearch size={18} className="text-slate-400" />
+              <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search thuốc, bệnh, liều, đường dùng..." className="bg-transparent outline-none text-sm flex-1" />
             </div>
-            <div className="p-4 space-y-3">
-              <div className="relative">
-                <IconSearch size={18} className="absolute left-3 top-3 text-slate-400" />
-                <input
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="VD: acyclovir, TCM, sốc, Dex 5%, viêm màng não..."
-                  className="w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <select
-                  value={selectedDisease}
-                  onChange={(e) => { setSelectedDisease(e.target.value); setOpenIndex(null); }}
-                  className="w-full p-2 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  {diseases.map(d => <option key={d} value={d}>{d}</option>)}
-                </select>
-                <select
-                  value={selectedGroup}
-                  onChange={(e) => { setSelectedGroup(e.target.value); setOpenIndex(null); }}
-                  className="w-full p-2 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  {groups.map(g => <option key={g} value={g}>{g}</option>)}
-                </select>
-              </div>
-
-              <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
-                {['Tất cả', 'Tay chân miệng', 'Sởi', 'Meningitis', 'Encephalitis', 'HSV-1 Encephalitis', 'Sốc', 'Co giật', 'Cấp cứu'].map(d => (
-                  <button
-                    key={d}
-                    onClick={() => { setSelectedDisease(d); setOpenIndex(null); }}
-                    className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs border ${selectedDisease === d ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-600 border-slate-300'}`}
-                  >
-                    {d}
-                  </button>
-                ))}
-              </div>
-
-              <div className="text-xs text-slate-500 flex justify-between items-center">
-                <span>Tìm thấy <strong>{filteredDrugs.length}</strong> thuốc</span>
-                {(query || selectedDisease !== 'Tất cả' || selectedGroup !== 'Tất cả') && (
-                  <button onClick={() => { setQuery(''); setSelectedDisease('Tất cả'); setSelectedGroup('Tất cả'); setOpenIndex(null); }} className="text-blue-600 font-medium">Xóa lọc</button>
-                )}
-              </div>
+            <div className="grid grid-cols-2 gap-2">
+              <select value={category} onChange={e => setCategory(e.target.value)} className="p-2 rounded-lg border border-slate-200 text-sm bg-white">
+                {groups.map(g => <option key={g}>{g}</option>)}
+              </select>
+              <select value={disease} onChange={e => setDisease(e.target.value)} className="p-2 rounded-lg border border-slate-200 text-sm bg-white">
+                {diseases.map(d => <option key={d}>{d}</option>)}
+              </select>
+            </div>
+            <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+              {['TCM độ 3', 'TCM độ 4', 'Sởi', 'Viêm não', 'Co giật', 'Viêm màng não', 'Sốc'].map(tag => (
+                <button key={tag} onClick={() => setDisease(tag)} className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs border ${disease === tag ? 'bg-blue-700 text-white border-blue-700' : 'bg-white text-slate-600 border-slate-200'}`}>{tag}</button>
+              ))}
             </div>
           </div>
 
-          <div className="bg-yellow-50 text-yellow-800 p-3 rounded-lg border border-yellow-200 flex gap-2 items-start text-xs">
-            <IconAlertTriangle className="flex-shrink-0 mt-0.5" size={16} />
-            <p>Dữ liệu dùng để nhắc nhanh tại giường. Luôn đối chiếu phác đồ bệnh viện, chức năng gan thận, tuổi, cân nặng, chống chỉ định, nồng độ thuốc sẵn có và y lệnh bác sĩ trước khi dùng.</p>
-          </div>
+          <p className="text-xs text-slate-500">Tìm thấy {filtered.length} thuốc. Kiểm tra lại phác đồ bệnh viện trước khi kê/truyền.</p>
 
           <div className="space-y-3">
-            {filteredDrugs.length === 0 ? (
-              <div className="text-center text-slate-400 bg-white rounded-xl border border-slate-200 p-8">Không tìm thấy thuốc phù hợp.</div>
-            ) : (
-              filteredDrugs.map((drug, index) => (
-                <DrugCard
-                  key={`${drug.name}-${index}`}
-                  drug={drug}
-                  isOpen={openIndex === index}
-                  onToggle={() => setOpenIndex(openIndex === index ? null : index)}
-                />
-              ))
-            )}
+            {filtered.map((drug, idx) => (
+              <div key={idx} className="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+                <div className="flex justify-between gap-2">
+                  <div>
+                    <h3 className="font-bold text-slate-800">{drug.name}</h3>
+                    <p className="text-xs text-blue-700 font-semibold mt-0.5">{drug.group}</p>
+                  </div>
+                  <span className="text-xs bg-slate-100 text-slate-600 rounded-full px-2 py-1 h-max">{drug.route}</span>
+                </div>
+                <div className="mt-3 space-y-1 text-sm text-slate-700">
+                  <p><strong>Liều:</strong> {drug.dose}</p>
+                  <p><strong>Dung môi:</strong> {drug.solvent}</p>
+                  <p><strong>Ghi chú:</strong> {drug.note}</p>
+                </div>
+                <div className="flex flex-wrap gap-1 mt-3">
+                  {drug.diseases.map(tag => <span key={tag} className="text-xs bg-blue-50 text-blue-700 border border-blue-100 rounded-full px-2 py-1">{tag}</span>)}
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-      );
-    }
-
-    function DrugCard({ drug, isOpen, onToggle }) {
-      return (
-        <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-          <button onClick={onToggle} className="w-full p-4 text-left flex items-start justify-between gap-3 hover:bg-slate-50">
-            <div className="min-w-0">
-              <div className="flex items-center gap-2 flex-wrap">
-                <h3 className="font-bold text-slate-800">{drug.name}</h3>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 border border-slate-200">{drug.group}</span>
-              </div>
-              <p className="text-xs text-slate-500 mt-1 line-clamp-2">{drug.dose}</p>
-              <div className="flex flex-wrap gap-1 mt-2">
-                {drug.diseases.slice(0, 4).map(d => <span key={d} className="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">{d}</span>)}
-              </div>
-            </div>
-            {isOpen ? <IconChevronUp size={20} className="text-slate-400 flex-shrink-0" /> : <IconChevronDown size={20} className="text-slate-400 flex-shrink-0" />}
-          </button>
-          {isOpen && (
-            <div className="border-t border-slate-100 bg-slate-50 p-4 text-sm space-y-3">
-              <DrugInfoRow label="Liều" value={drug.dose} />
-              <DrugInfoRow label="Đường dùng" value={drug.route} />
-              <DrugInfoRow label="Dung môi" value={drug.solvent} />
-              <DrugInfoRow label="Cách pha / lưu ý" value={drug.preparation} />
-              <DrugInfoRow label="Ví dụ" value={drug.example} />
-              <div>
-                <div className="text-xs uppercase tracking-wide text-slate-400 font-bold mb-1">Bệnh / tình huống liên quan</div>
-                <div className="flex flex-wrap gap-1">{drug.diseases.map(d => <span key={d} className="text-xs bg-white text-slate-600 border border-slate-200 px-2 py-1 rounded-full">{d}</span>)}</div>
-              </div>
-              <p className="text-[11px] text-slate-400">Nguồn: {drug.source}</p>
-            </div>
-          )}
-        </div>
-      );
-    }
-
-    function DrugInfoRow({ label, value }) {
-      return (
-        <div>
-          <div className="text-xs uppercase tracking-wide text-slate-400 font-bold mb-1">{label}</div>
-          <div className="text-slate-700 leading-relaxed">{value}</div>
         </div>
       );
     }
 
     /* ==========================================
-       MODULE 3: PIMPING & ANKI
+       MODULE 4: PIMPING & ANKI
        ========================================== */
     function PimpingModule() {
       const flashcards = [
