@@ -118,7 +118,8 @@
        MODULE 1: SBAR HANDOVER
        ========================================== */
     function SBARModule() {
-      const [patients, setPatients] = useState([
+      const SBAR_STORAGE_KEY = 'clinicalRoundsAssistant_sbarPatients_v1';
+      const defaultPatients = [
         {
           id: 1,
           bed: '12',
@@ -130,11 +131,31 @@
           recommendation: 'Đề xuất: Đặt nội khí quản thở máy xâm nhập ngay. Đã chuẩn bị sẵn khay NKQ, Midazolam và thuốc dãn cơ. Xin ý kiến Trưởng khoa tiến hành.',
           watchOut: 'Canh sát tri giác và SpO2 mỗi 15 phút. Báo động ngay nếu ngưng thở hoặc SpO2 < 85%. Sẵn sàng bóp bóng.'
         }
-      ]);
+      ];
+      const [patients, setPatients] = useState(() => {
+        try {
+          const saved = localStorage.getItem(SBAR_STORAGE_KEY);
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (Array.isArray(parsed)) return parsed;
+          }
+        } catch (error) {
+          console.warn('Không đọc được dữ liệu SBAR đã lưu:', error);
+        }
+        return defaultPatients;
+      });
       const [currentForm, setCurrentForm] = useState({
         id: null, bed: '', name: '', age: '', situation: '', background: '', assessment: '', recommendation: '', watchOut: ''
       });
       const [isEditing, setIsEditing] = useState(false);
+
+      useEffect(() => {
+        try {
+          localStorage.setItem(SBAR_STORAGE_KEY, JSON.stringify(patients));
+        } catch (error) {
+          console.warn('Không lưu được dữ liệu SBAR:', error);
+        }
+      }, [patients]);
 
       const handleInputChange = (e) => {
         const { name, value } = e.target;
