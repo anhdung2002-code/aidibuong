@@ -239,84 +239,256 @@
        MODULE 2: QUICK PROTOCOLS
        ========================================== */
     function ProtocolModule() {
-      const protocols = [
+      const [mainMode, setMainMode] = useState('recognition');
+      const [selectedDept, setSelectedDept] = useState('all');
+
+      const departments = [
+        { id: 'all', label: 'Tất cả', icon: '🏥' },
+        { id: 'emergency', label: 'Cấp cứu', icon: '🚨' },
+        { id: 'infectious', label: 'Nhiễm', icon: '🦠' },
+        { id: 'respiratory', label: 'Hô hấp', icon: '🫁' },
+        { id: 'neuro', label: 'Thần kinh', icon: '🧠' },
+        { id: 'cardio', label: 'Tim mạch', icon: '❤️' },
+        { id: 'icu', label: 'Hồi sức', icon: '⚙️' },
+      ];
+
+      const recognitionData = [
         {
-          id: 'soc-phan-ve', title: 'Sốc Phản Vệ (TT51/BYT)', type: 'danger',
-          content: (
-            <div className="space-y-2 text-sm">
-              <p className="font-bold text-red-600">Ngừng ngay đường tiếp xúc dị nguyên!</p>
-              <div className="bg-red-50 p-2 rounded border border-red-100">
-                <span className="font-bold">Adrenaline (1mg/1ml) là thuốc cốt lõi:</span>
-                <ul className="list-disc pl-5 mt-1">
-                  <li>Người lớn: 1/2 ống tiêm bắp (IM).</li>
-                  <li>Trẻ em: Dưới 10kg (1/5 ống), 10kg-30kg (1/4 ống), &gt;30kg (1/3 ống).</li>
-                  <li>Nhắc lại sau mỗi 3-5 phút nếu huyết áp không lên.</li>
-                </ul>
-              </div>
-              <p><strong>Bổ sung:</strong> Nằm đầu thấp, thở O2. Lập đường truyền tĩnh mạch nhanh.</p>
-              <p><strong>Thuốc thứ 2:</strong> Methylprednisolone 1-2mg/kg IV + Diphenhydramine.</p>
-            </div>
-          )
+          dept: 'emergency', type: 'danger', title: 'Nhận diện cấp cứu toàn viện',
+          bullets: [
+            'ABCDE bất ổn: ngưng thở, tím tái, SpO2 < 92%, rối loạn nhịp thở, sốc, hôn mê/co giật.',
+            'Tụt huyết áp, mạch không bắt được, HA không đo được, CRT kéo dài, chi lạnh, da nổi bông.',
+            'Bất kỳ bệnh nào có suy hô hấp, suy tuần hoàn, rối loạn tri giác đều đưa vào nhóm cấp cứu trước khi chia khoa.'
+          ],
+          emergency: ['Sốc phản vệ', 'Sốc nhiễm khuẩn', 'Suy hô hấp cấp', 'Co giật kéo dài', 'Tay chân miệng độ 3-4', 'Hen cấp nguy kịch']
         },
         {
-          id: 'soc-nhiem-khuan', title: 'Sốc Nhiễm Khuẩn (Gói 1 giờ)', type: 'warning',
-          content: (
-            <div className="space-y-2 text-sm">
-              <p className="font-bold">Hành động ngay trong 1 giờ đầu (Hour-1 Bundle):</p>
-              <ol className="list-decimal pl-5 space-y-1">
-                <li>Đo Lactate máu (Làm lại nếu &gt; 2 mmol/L).</li>
-                <li>Cấy máu trước khi dùng kháng sinh.</li>
-                <li><strong>Kháng sinh phổ rộng:</strong> Tĩnh mạch (IV) sớm nhất có thể.</li>
-                <li><strong>Dịch truyền:</strong> Tinh thể (LR/NS) 30ml/kg truyền nhanh trong 3 giờ nếu tụt HA.</li>
-                <li><strong>Vận mạch:</strong> Noradrenaline sớm nếu HA không đáp ứng với dịch.</li>
-              </ol>
-            </div>
-          )
+          dept: 'infectious', type: 'warning', title: 'Khoa Nhiễm',
+          bullets: [
+            'Sốt kèm ban, loét miệng, dấu nhiễm trùng, nghi bệnh truyền nhiễm hoặc bệnh có nguy cơ thành dịch.',
+            'Tay chân miệng: giật mình, sốt ≥ 39°C, nôn nhiều, lừ đừ, mạch nhanh, tăng HA, thở nhanh là dấu hiệu chuyển nặng.',
+            'Sốt xuất huyết/nhiễm khuẩn huyết: chú ý sốc, xuất huyết, tay chân lạnh, đau bụng, nôn ói, lừ đừ.'
+          ],
+          emergency: ['Sốc nhiễm khuẩn', 'Tay chân miệng độ 3-4', 'Sốt xuất huyết Dengue có sốc']
         },
         {
-          id: 'hen-phoi', title: 'Xử Trí Cơn Hen Cấp Nặng', type: 'info',
+          dept: 'respiratory', type: 'info', title: 'Khoa Hô hấp',
+          bullets: [
+            'Thở nhanh, co kéo, rút lõm ngực, tím, SpO2 giảm, mệt cơ hô hấp hoặc ngực im lặng.',
+            'Hen cấp nặng: không nói được câu dài, SpO2 < 90%, lơ mơ, PaCO2 tăng, đáp ứng kém với SABA.',
+            'Viêm phổi nặng/suy hô hấp: cần oxy, HFNC/NIV hoặc đặt nội khí quản tùy mức độ.'
+          ],
+          emergency: ['Suy hô hấp cấp', 'Hen cấp nặng/nguy kịch', 'Ngưng thở']
+        },
+        {
+          dept: 'neuro', type: 'warning', title: 'Khoa Thần kinh',
+          bullets: [
+            'Co giật kéo dài, co giật tái diễn, rối loạn tri giác, dấu thần kinh khu trú, cổ gượng, hôn mê.',
+            'Trong TCM: giật mình chới với, run chi, thất điều, rung giật nhãn cầu, yếu/liệt chi, liệt dây sọ.',
+            'Luôn kiểm tra đường huyết nhanh và bảo vệ đường thở khi tri giác xấu.'
+          ],
+          emergency: ['Trạng thái động kinh', 'Hôn mê', 'Tăng áp lực nội sọ']
+        },
+        {
+          dept: 'cardio', type: 'danger', title: 'Khoa Tim mạch',
+          bullets: [
+            'Mạch nhanh không tương xứng sốt, mạch chậm bất thường, HA tăng hoặc tụt, CRT > 2 giây, chi lạnh, da nổi bông.',
+            'TCM nặng có thể viêm cơ tim, phù phổi cấp, rối loạn thần kinh thực vật, sốc.',
+            'Cần đo HA ở mọi trẻ có mạch nhanh/chậm và theo dõi sát SpO2, ran phổi, nước tiểu.'
+          ],
+          emergency: ['Sốc tim', 'Phù phổi cấp', 'Rối loạn nhịp ảnh hưởng huyết động']
+        },
+        {
+          dept: 'icu', type: 'danger', title: 'Khoa Hồi sức',
+          bullets: [
+            'Bệnh nhân cần đặt nội khí quản, vận mạch, theo dõi HA xâm lấn, lọc máu, ECMO hoặc chăm sóc cấp cứu liên tục.',
+            'TCM độ 3-4, sốc không đáp ứng, suy hô hấp nặng, phù phổi cấp, hôn mê/co giật là chỉ định hồi sức.',
+            'Ưu tiên ổn định ABC trước, sau đó mới hoàn thiện chẩn đoán nguyên nhân.'
+          ],
+          emergency: ['Thở máy xâm nhập', 'Sốc cần vận mạch', 'Lọc máu liên tục/ECMO']
+        }
+      ];
+
+      const protocolData = [
+        {
+          dept: 'emergency', type: 'danger', title: '🚨 Cấp cứu toàn viện - gom cấp cứu từ mọi khoa',
           content: (
-            <div className="space-y-2 text-sm">
-              <p><strong>Đánh giá nhanh:</strong> Khó thở không nói được câu dài, SpO2 &lt; 90%, lú lẫn, ngực im lặng.</p>
+            <div className="space-y-3 text-sm">
+              <p className="font-bold text-red-700">Mục này luôn đứng đầu trong phần phác đồ và chứa tất cả tình trạng cấp cứu của các khoa.</p>
               <ul className="list-disc pl-5 space-y-1">
-                <li><strong>Oxy:</strong> Duy trì SpO2 93-95% (trẻ em 94-98%).</li>
-                <li><strong>SABA (Salbutamol):</strong> Phun khí dung liên tục 3 liều đầu (mỗi 20 phút), sau đó tùy đáp ứng.</li>
-                <li><strong>Corticoid:</strong> Sớm! Hydrocortisone 100-200mg IV hoặc Methylprednisolone 40-80mg IV.</li>
-                <li><strong>Ipratropium:</strong> Phối hợp phun khí dung cùng Salbutamol.</li>
-                <li><strong>Cân nhắc:</strong> MgSO4 2g tiêm tĩnh mạch chậm trong 20p nếu không đáp ứng.</li>
+                <li><strong>Sốc phản vệ:</strong> ngừng dị nguyên, Adrenaline 1mg/ml tiêm bắp, nhắc lại mỗi 3-5 phút nếu chưa cải thiện.</li>
+                <li><strong>Sốc nhiễm khuẩn:</strong> lactate, cấy máu, kháng sinh sớm, dịch tinh thể, vận mạch nếu không đáp ứng.</li>
+                <li><strong>Suy hô hấp cấp:</strong> oxy, đánh giá SpO2/tri giác/công thở, chuẩn bị bóp bóng và đặt NKQ nếu thất bại.</li>
+                <li><strong>Co giật kéo dài:</strong> ABC, oxy, đường truyền, kiểm tra đường huyết, Midazolam/Diazepam.</li>
+                <li><strong>TCM độ 3-4:</strong> hồi sức tích cực, oxy tối đa 6 L/phút; đáp ứng kém sau 30-60 phút thì đặt NKQ sớm; độ 4 đặt NKQ thở máy.</li>
+                <li><strong>Hen cấp nguy kịch:</strong> oxy, SABA + Ipratropium khí dung, corticoid sớm, MgSO4 nếu không đáp ứng, cân nhắc NKQ khi lơ mơ/mệt cơ hô hấp.</li>
               </ul>
             </div>
           )
         },
         {
-          id: 'co-giat', title: 'Cắt Cơn Co Giật (Trạng thái ĐK)', type: 'warning',
+          dept: 'infectious', type: 'warning', title: '🦠 Nhiễm - Tay chân miệng',
           content: (
-            <div className="space-y-2 text-sm">
-              <p className="font-bold text-orange-600">Bảo vệ đường thở (A) - Thở Oxy (B) - Thiết lập đường truyền (C)</p>
-              <div className="bg-slate-100 p-2 rounded">
-                <span className="font-bold">Thuốc cắt cơn hàng 1:</span>
-                <ul className="list-disc pl-5">
-                  <li><strong>Midazolam:</strong> 0.2 mg/kg tiêm bắp (IM) hoặc 0.1 mg/kg IV chậm.</li>
-                  <li><strong>Diazepam:</strong> 0.1 - 0.2 mg/kg IV chậm (tốc độ max 5mg/phút).</li>
-                </ul>
-              </div>
-              <p><strong>Lưu ý:</strong> Đợi 5 phút đánh giá lại. Kiểm tra đường huyết (Dextrostix) ngay!</p>
+            <div className="space-y-3 text-sm">
+              <ProtocolSubHeader title="Cấp cứu của khoa Nhiễm" />
+              <ul className="list-disc pl-5 space-y-1">
+                <li>TCM độ 3: mạch &gt;170 lần/phút không sốt, HA tâm thu tăng theo tuổi, SpO2 &lt;94%, thở nhanh/khó thở, da nổi bông, vã mồ hôi, chi lạnh.</li>
+                <li>TCM độ 4: ngưng thở, rối loạn nhịp thở, tím tái hoặc SpO2 &lt;92%, phù phổi cấp, sốc.</li>
+              </ul>
+              <ProtocolSubHeader title="Phác đồ điều trị" />
+              <ol className="list-decimal pl-5 space-y-1">
+                <li><strong>Độ 1:</strong> ngoại trú, hạ sốt giảm đau, dinh dưỡng, vệ sinh miệng/da, tái khám 1-2 ngày.</li>
+                <li><strong>Độ 2a:</strong> nhập viện, điều trị như độ 1, Phenobarbital uống 5-7 mg/kg/ngày chia 2 lần, theo dõi sinh hiệu.</li>
+                <li><strong>Độ 2b:</strong> phòng cấp cứu/hồi sức, đầu cao 30°, oxy mũi tối đa 6 L/phút, Phenobarbital 10-20 mg/kg IV 30 phút, cân nhắc IVIG nhóm 2 hoặc không đáp ứng sau 6 giờ.</li>
+                <li><strong>Độ 3:</strong> hồi sức tích cực, oxy tối đa 6 L/phút; nếu đáp ứng kém sau 30-60 phút đặt NKQ sớm. IVIG 1 g/kg/ngày 6-12 giờ. Dobutamin nếu mạch &gt;170 không tăng HA. Milrinone khi tăng HA.</li>
+                <li><strong>Độ 4:</strong> đặt NKQ thở máy, chống sốc, Dobutamin ± Adrenaline/Noradrenaline, IVIG sau hồi sức sốc khi HATB ≥50 mmHg, cân nhắc lọc máu/ECMO.</li>
+              </ol>
             </div>
           )
         },
+        {
+          dept: 'infectious', type: 'warning', title: '🦠 Nhiễm - Sốc nhiễm khuẩn',
+          content: (
+            <div className="space-y-2 text-sm">
+              <ProtocolSubHeader title="Cấp cứu của khoa Nhiễm" />
+              <p className="font-bold">Gói xử trí 1 giờ đầu:</p>
+              <ol className="list-decimal pl-5 space-y-1">
+                <li>Đo lactate, làm lại nếu tăng.</li>
+                <li>Cấy máu trước kháng sinh nếu không làm chậm điều trị.</li>
+                <li>Kháng sinh phổ rộng đường tĩnh mạch càng sớm càng tốt.</li>
+                <li>Dịch tinh thể 30 ml/kg khi tụt HA hoặc giảm tưới máu, theo dõi quá tải.</li>
+                <li>Noradrenaline sớm nếu HA không đáp ứng dịch.</li>
+              </ol>
+            </div>
+          )
+        },
+        {
+          dept: 'respiratory', type: 'info', title: '🫁 Hô hấp - Hen cấp nặng',
+          content: (
+            <div className="space-y-2 text-sm">
+              <ProtocolSubHeader title="Cấp cứu của khoa Hô hấp" />
+              <p><strong>Dấu nặng:</strong> không nói được câu dài, SpO2 &lt;90%, lơ mơ, ngực im lặng, PaCO2 tăng, mệt cơ hô hấp.</p>
+              <ul className="list-disc pl-5 space-y-1">
+                <li>Oxy duy trì SpO2 93-95% ở người lớn, 94-98% ở trẻ em.</li>
+                <li>Salbutamol khí dung liên tục 3 liều đầu, mỗi 20 phút; phối hợp Ipratropium.</li>
+                <li>Corticoid toàn thân sớm: Hydrocortisone hoặc Methylprednisolone.</li>
+                <li>MgSO4 2 g IV chậm trong 20 phút nếu không đáp ứng.</li>
+                <li>Chuẩn bị đặt NKQ nếu lơ mơ, kiệt sức, ngưng thở, tăng CO2 hoặc SpO2 không cải thiện.</li>
+              </ul>
+            </div>
+          )
+        },
+        {
+          dept: 'neuro', type: 'warning', title: '🧠 Thần kinh - Cắt cơn co giật',
+          content: (
+            <div className="space-y-2 text-sm">
+              <ProtocolSubHeader title="Cấp cứu của khoa Thần kinh" />
+              <p className="font-bold text-orange-700">A-B-C, thở oxy, hút đàm, đặt đường truyền, kiểm tra đường huyết ngay.</p>
+              <ul className="list-disc pl-5 space-y-1">
+                <li><strong>Midazolam:</strong> 0,2 mg/kg IM hoặc 0,1 mg/kg IV chậm.</li>
+                <li><strong>Diazepam:</strong> 0,1-0,2 mg/kg IV chậm, tốc độ tối đa 5 mg/phút.</li>
+                <li>Đánh giá lại sau 5 phút; nếu còn co giật, xử trí theo trạng thái động kinh và chuẩn bị hồi sức hô hấp.</li>
+              </ul>
+            </div>
+          )
+        },
+        {
+          dept: 'cardio', type: 'danger', title: '❤️ Tim mạch - Sốc/phù phổi trong TCM nặng',
+          content: (
+            <div className="space-y-2 text-sm">
+              <ProtocolSubHeader title="Cấp cứu của khoa Tim mạch" />
+              <ul className="list-disc pl-5 space-y-1">
+                <li>Nếu phù phổi: ngừng dịch, hỗ trợ hô hấp, đo CVP/HA xâm lấn nếu có, tăng Dobutamin.</li>
+                <li>Nếu sốc không phù phổi: test LR/NS 5 ml/kg/15 phút, tối đa 3 lần giờ đầu, theo dõi quá tải.</li>
+                <li>Dobutamin 5-20 µg/kg/phút; nếu còn sốc phối hợp Adrenaline hoặc Noradrenaline theo huyết động.</li>
+                <li>Mục tiêu: HATT ≥100 mmHg, HATB ≥50-65 mmHg, ScvO2 ≥70%, lactate &lt;2 mmol/L.</li>
+              </ul>
+            </div>
+          )
+        },
+        {
+          dept: 'icu', type: 'danger', title: '⚙️ Hồi sức - Thở máy, lọc máu, ECMO trong TCM',
+          content: (
+            <div className="space-y-2 text-sm">
+              <ProtocolSubHeader title="Cấp cứu của khoa Hồi sức" />
+              <ul className="list-disc pl-5 space-y-1">
+                <li><strong>Đặt NKQ:</strong> TCM độ 4 hoặc độ 3 kèm thở bất thường, thở nhanh &gt;70 lần/phút, SpO2 dao động, da xanh tái, mạch &gt;180, hôn mê/gồng chi.</li>
+                <li><strong>Máy thở ban đầu:</strong> IP 12-20 cmH2O đạt Vt 6-8 ml/kg, PEEP 6-8, FiO2 60-100%, mục tiêu SpO2 94-98%.</li>
+                <li><strong>Lọc máu liên tục:</strong> TCM độ 3-4 đang thở máy kèm sốc không đáp ứng 1-2 giờ, sốt cao thất bại 6-12 giờ, hoặc mạch &gt;180 kèm da nổi bông.</li>
+                <li><strong>ECMO VA:</strong> cân nhắc khi độ 4 thất bại sau 6-12 giờ lọc máu, huyết động chưa ổn, VIS cao, EF &lt;30%, lactate &gt;5 mmol/L.</li>
+              </ul>
+            </div>
+          )
+        }
       ];
+
+      const filteredRecognition = recognitionData.filter(item => selectedDept === 'all' || item.dept === selectedDept);
+      const filteredProtocols = protocolData.filter(item => selectedDept === 'all' || item.dept === selectedDept || item.dept === 'emergency');
 
       return (
         <div className="space-y-4">
-          <div className="bg-yellow-50 text-yellow-800 p-3 rounded-lg border border-yellow-200 flex gap-2 items-start text-sm mb-4">
+          <div className="bg-yellow-50 text-yellow-800 p-3 rounded-lg border border-yellow-200 flex gap-2 items-start text-sm">
             <IconAlertTriangle className="flex-shrink-0 mt-0.5" size={18} />
-            <p>Phác đồ tóm tắt dùng để nhắc nhớ nhanh tại giường. Vui lòng đối chiếu phác đồ chi tiết của bệnh viện khi cần.</p>
+            <p>Phác đồ tóm tắt dùng để nhắc nhớ nhanh tại giường. Ưu tiên xử trí ABC và báo bác sĩ phụ trách khi có dấu hiệu cấp cứu.</p>
           </div>
-          {protocols.map(p => (
-            <AccordionItem key={p.id} title={p.title} type={p.type}>
-              {p.content}
-            </AccordionItem>
-          ))}
+
+          <div className="grid grid-cols-2 gap-2 bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
+            <button onClick={() => setMainMode('recognition')} className={`p-3 rounded-lg font-semibold text-sm ${mainMode === 'recognition' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>1. Nhận diện</button>
+            <button onClick={() => setMainMode('protocols')} className={`p-3 rounded-lg font-semibold text-sm ${mainMode === 'protocols' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}`}>2. Phác đồ</button>
+          </div>
+
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+            {departments.map(d => (
+              <button key={d.id} onClick={() => setSelectedDept(d.id)} className={`flex-shrink-0 px-3 py-2 rounded-full text-sm border ${selectedDept === d.id ? 'bg-blue-700 text-white border-blue-700' : 'bg-white text-slate-700 border-slate-200'}`}>
+                <span className="mr-1">{d.icon}</span>{d.label}
+              </button>
+            ))}
+          </div>
+
+          {mainMode === 'recognition' ? (
+            <div className="space-y-3">
+              {filteredRecognition.map(item => (
+                <RecognitionCard key={item.title} item={item} />
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {filteredProtocols.map(p => (
+                <AccordionItem key={p.title} title={p.title} type={p.type}>{p.content}</AccordionItem>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    function ProtocolSubHeader({ title }) {
+      return <div className="font-bold text-slate-800 bg-white border border-slate-200 rounded px-2 py-1">{title}</div>;
+    }
+
+    function RecognitionCard({ item }) {
+      const typeStyles = {
+        danger: 'border-red-200 bg-red-50 text-red-800',
+        warning: 'border-orange-200 bg-orange-50 text-orange-800',
+        info: 'border-blue-200 bg-blue-50 text-blue-800'
+      };
+      return (
+        <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div className={`p-3 font-bold border-b ${typeStyles[item.type]}`}>{item.title}</div>
+          <div className="p-4 text-sm space-y-3">
+            <div>
+              <p className="font-semibold text-slate-700 mb-1">Dấu hiệu nhận diện</p>
+              <ul className="list-disc pl-5 space-y-1 text-slate-700">
+                {item.bullets.map((b, idx) => <li key={idx}>{b}</li>)}
+              </ul>
+            </div>
+            <div className="bg-red-50 border border-red-100 rounded-lg p-2">
+              <p className="font-semibold text-red-700 mb-1">Tình trạng cấp cứu thuộc khoa này</p>
+              <div className="flex flex-wrap gap-1">
+                {item.emergency.map((e, idx) => <span key={idx} className="text-xs bg-white border border-red-200 text-red-700 px-2 py-1 rounded-full">{e}</span>)}
+              </div>
+            </div>
+          </div>
         </div>
       );
     }
