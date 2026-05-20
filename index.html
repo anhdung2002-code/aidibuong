@@ -36,13 +36,524 @@
     const IconSave = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>);
     const IconPill = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 0 0-7-7l-10 10a4.95 4.95 0 0 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg>);
     const IconSearch = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>);
+    const Calculator = ({ size = 24, className = "" }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect width="16" height="20" x="4" y="2" rx="2" />
+    <line x1="8" x2="16" y1="6" y2="6" />
+    <line x1="16" x2="16" y1="14" y2="18" />
+    <path d="M16 10h.01" />
+    <path d="M12 10h.01" />
+    <path d="M8 10h.01" />
+    <path d="M12 14h.01" />
+    <path d="M8 14h.01" />
+    <path d="M12 18h.01" />
+    <path d="M8 18h.01" />
+  </svg>
+);
     const IconTrash2 = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" x2="10" y1="11" y2="17"></line><line x1="14" x2="14" y1="11" y2="17"></line></svg>);
     const IconPlus = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>);
     const IconChevronDown = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>);
     const IconChevronUp = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>);
     const IconAlertTriangle = ({ size = 24, className = "" }) => (<svg className={className} xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>);
 
+// --- NEW MODULE: Công thức ---
+function FormulaModule() {
+  const [formulaSearch, setFormulaSearch] = React.useState('');
+  return (
+    <div className="p-4 space-y-4">
+      <h2 className="text-xl font-bold">Công thức</h2>
+      {/* THANH TÌM KIẾM CÔNG THỨC */}
+      <div className="mb-4 sticky top-0 bg-white z-10 pt-2 pb-2">
+        <input
+          type="text"
+          placeholder="Tìm kiếm công thức (VD: egfr, điện giải...)"
+          value={formulaSearch}
+          onChange={(e) => setFormulaSearch(e.target.value)}
+          className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      {/* Tab nhỏ: Tính eGFR */}
+      {"egfr độ lọc cầu thận".includes(formulaSearch.toLowerCase()) && (
+      <AccordionItem title="Tính egfr độ lọc cầu thận (trẻ <18 tuổi)">
+        <div className="space-y-2">
+          <h3 className="font-semibold">Schwartz formula</h3>
+          <p>
+            <strong>eGFR</strong> = k × <em>Chiều cao (cm)</em> / <em>Creatinine huyết thanh (mg/dL)</em>
+          </p>
+          <p>Đơn vị Scr = µmol/L: eGFR = k × 88.4 × Chiều cao (cm) / Scr (µmol/L)</p>
 
+          <h4 className="font-semibold">Giá trị k theo tuổi và giới</h4>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>Sơ sinh (&lt;1 tuổi): k = 0.45 (cả nam và nữ)</li>
+            <li>Trẻ 1–12 tuổi: k = 0.55 (cả nam và nữ)</li>
+            <li>Tuổi 13–18: Nam: k = 0.7</li>
+            <li>Tuổi 13–18: Nữ: k = 0.55</li>
+          </ul>
+
+          <p>Ghi chú:</p>
+          <ul className="list-disc pl-5">
+            <li>Chiều cao tính bằng cm</li>
+            <li>Scr = creatinine huyết thanh</li>
+            <li>Đơn vị Scr mg/dL hoặc µmol/L như trên</li>
+          </ul>
+        </div>
+      </AccordionItem>
+      )}
+      {/* ================= TAB ĐIỆN GIẢI ================= */}
+      {"điện giải".includes(formulaSearch.toLowerCase()) && (
+      <AccordionItem title="Điện giải và Liều dùng">
+        <div className="space-y-4 text-sm text-slate-700">
+          
+          {/* Natri */}
+          <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+            <h4 className="font-bold text-blue-700 mb-2">Natri (Na)</h4>
+            <div className="space-y-1">
+              <p><span className="font-semibold">Liều:</span> 3 mEq/kg/N (nhu nhi) hoặc mEq/100ml dịch/N (trẻ lớn)</p>
+              <p className="font-semibold mt-2">Dung dịch và nồng độ:</p>
+              <ul className="list-disc pl-5 space-y-1 text-slate-600">
+                <li>NaCl 10%: <span className="font-medium text-slate-800">1.7 mEq/ml</span></li>
+                <li>NaCl 0.9%: <span className="font-medium text-slate-800">0.15 mEq/ml</span></li>
+                <li>NaHCO₃ 8.4%: <span className="font-medium text-slate-800">1 mEq/ml</span></li>
+              </ul>
+            </div>
+          </div>
+
+         {/* Kali */}
+         <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+            <h4 className="font-bold text-orange-600 mb-2">Kali (K)</h4>
+            
+            <div className="space-y-3">
+              {/* Thông tin cơ bản */}
+              <div>
+                <p><span className="font-semibold">Liều:</span> 2 mEq/kg/N</p>
+                <p className="font-semibold mt-1">Dung dịch:</p>
+                <ul className="list-disc pl-5 text-slate-600">
+                  <li>KCl 10%: <span className="font-medium text-slate-800">1.34 mEq/ml</span></li>
+                </ul>
+              </div>
+
+              {/* Công thức tính */}
+              <div className="bg-orange-50 p-3 rounded-lg border border-orange-200 text-sm">
+                <p className="font-bold text-orange-800 mb-2">Công thức tính & Tốc độ truyền:</p>
+                
+                <div className="mb-3">
+                  <p className="font-semibold text-slate-700 text-xs">1. Nồng độ Kali ([K⁺]) trong dung dịch:</p>
+                  <div className="text-center bg-white py-1.5 rounded border border-orange-100 mt-1 font-mono text-[11px] text-slate-800">
+                    [K⁺] = Tổng số mEq K / Thể tích chai dịch (Lít)
+                  </div>
+                </div>
+                
+                <div>
+                  <p className="font-semibold text-slate-700 text-xs">2. Tốc độ truyền Kali (vK):</p>
+                  <div className="text-center bg-white py-1.5 rounded border border-orange-100 mt-1 font-mono text-[11px] text-slate-800 flex flex-col items-center justify-center">
+                    <span>([K⁺] × Tốc độ dịch ml/h)</span>
+                    <hr className="w-3/4 border-orange-200 my-0.5" />
+                    <span>(Cân nặng kg × 1000)</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Hướng dẫn theo dõi an toàn */}
+              <div>
+                <p className="font-semibold text-slate-800 mb-1.5">Hướng dẫn theo dõi (Giới hạn an toàn):</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="p-2 bg-white rounded border border-slate-200 shadow-sm">
+                    <p className="font-semibold text-red-600 text-xs mb-1">📍 Tĩnh mạch Ngoại biên (NB)</p>
+                    <ul className="list-disc pl-4 text-slate-600 text-xs space-y-0.5">
+                      <li>[K⁺] &lt; <span className="font-bold text-slate-800">40 mEq/L</span></li>
+                      <li>vK &le; <span className="font-bold text-slate-800">0.3 mEq/kg/h</span></li>
+                    </ul>
+                  </div>
+                  <div className="p-2 bg-white rounded border border-slate-200 shadow-sm">
+                    <p className="font-semibold text-red-600 text-xs mb-1">📍 Tĩnh mạch Trung tâm (TW)</p>
+                    <ul className="list-disc pl-4 text-slate-600 text-xs space-y-0.5">
+                      <li>[K⁺] &lt; <span className="font-bold text-slate-800">80 mEq/L</span></li>
+                      <li>vK &le; <span className="font-bold text-slate-800">0.5 mEq/kg/h</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Canxi */}
+          <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+            <h4 className="font-bold text-teal-600 mb-2">Canxi (Ca)</h4>
+            <div className="space-y-1">
+              <p><span className="font-semibold">Liều:</span> 1 mEq/kg/N</p>
+              <p className="font-semibold mt-2">Dung dịch:</p>
+              <ul className="list-disc pl-5 space-y-1 text-slate-600">
+                <li>CaCl₂ 10%: <span className="font-medium text-slate-800">1.36 mEq/ml</span> (tương đương 27 mg Ca)</li>
+                <li>Calcium gluconate 10%: <span className="font-medium text-slate-800">0.5 mEq/ml</span> (10 mg Ca)</li>
+              </ul>
+              <p className="text-xs text-amber-800 bg-amber-50 p-2 rounded mt-2 border border-amber-200">
+                <span className="font-bold">→ Lưu ý:</span> Truyền Calcium gluconate tốt hơn do ít tạo kết tủa phospho nếu chung đường truyền.
+              </p>
+            </div>
+          </div>
+
+          {/* Magie */}
+          <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+            <h4 className="font-bold text-purple-600 mb-2">Magie (Mg)</h4>
+            <div className="space-y-1">
+              <p><span className="font-semibold">Liều:</span> 0.5 mEq/kg/N</p>
+              <div className="mt-2">
+                <p className="font-semibold text-red-600">Hạ Mg khi Mg &lt; 0.6 mmol/l:</p>
+                <ul className="list-disc pl-5 text-slate-600">
+                  <li>25 – 50 mg/kg/liều (max 2 liều/N, TM/TB)</li>
+                  <li>hoặc 100 – 200 mg/kg/liều × 4 liều/N</li>
+                </ul>
+              </div>
+              <p className="font-semibold mt-2">Dung dịch:</p>
+              <ul className="list-disc pl-5 space-y-1 text-slate-600">
+                <li>MgSO₄ 15%: <span className="font-medium text-slate-800">2.5 mEq/ml</span></li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Phosphat */}
+          <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+            <h4 className="font-bold text-pink-600 mb-2">Phosphat (P)</h4>
+            <div className="space-y-1">
+              <p className="font-semibold">Liều nhu cầu:</p>
+              <div className="grid grid-cols-2 gap-1 pl-2 text-slate-600">
+                <p>• Sinh non: <span className="font-medium text-slate-800">0.75 - 3</span></p>
+                <p>• Mới sinh: <span className="font-medium text-slate-800">1 - 2.3</span></p>
+                <p>• SS-12th: <span className="font-medium text-slate-800">0.5</span></p>
+                <p>• &gt; 12th: <span className="font-medium text-slate-800">0.2</span></p>
+                <p className="col-span-2">• Người lớn: <span className="font-medium text-slate-800">10 - 30</span> (mmol/kg/N)</p>
+              </div>
+              <p className="mt-2"><span className="font-semibold text-red-600">Hạ phosphat máu</span> khi &lt; 2.7 mg/dL (0.87 mmol/l)</p>
+              
+              <div className="mt-2 p-2 border-l-2 border-pink-300 bg-pink-50/50 rounded">
+                <p className="font-semibold text-slate-800 mb-1">Dung dịch Phosphorus aguettant:</p>
+                <p className="text-slate-600 text-xs mb-1">1 ống 10 ml chứa phospho 0.66 mmol/ml</p>
+                <p className="text-pink-800 font-medium text-xs">→ Pha với G5%/NS 250 ml, truyền tĩnh mạch trong 20 giờ</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </AccordionItem>
+      )}
+    </div>
+  );
+}
+    // --- NEW MODULE: Bilan  ---
+function BilanModule() {
+  const [searchQuery, setSearchQuery] = React.useState('');
+  return (
+    <div className="space-y-4 p-4">
+      <h2 className="text-xl font-bold">Bilan</h2>
+      {/* THANH TÌM KIẾM */}
+      <div className="mb-4 sticky top-0 bg-white z-10 pt-2 pb-2">
+        <input
+          type="text"
+          placeholder="Tìm kiếm danh mục (VD: chuyển hóa, sốt...)"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      {/* Chuyển hóa */}
+      {"chuyển hóa".includes(searchQuery.toLowerCase()) && (
+      <AccordionItem title="Chuyển hóa">
+        <ul className="list-disc pl-5 space-y-1">
+          <li>CTM, chức năng gan thận</li>
+          <li>Lactate</li>
+          <li>NH3</li>
+          <li>Khí máu</li>
+          <li>Ceton</li>
+          <li>Điện giải, Calci, Mg, P</li>
+          <li>FT4, TSH</li>
+        </ul>
+      </AccordionItem>
+      )}
+       {/* Bảng xét nghiệm sốt kéo dài */}
+       {"sốt kéo dài".includes(searchQuery.toLowerCase()) && (
+       <AccordionItem title="Sốt kéo dài - Bảng xét nghiệm">
+        <div className="overflow-x-auto">
+          <table className="table-auto w-full border border-gray-300 text-left text-sm">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="border px-2 py-1">SỐ</th>
+                <th className="border px-2 py-1">XÉT NGHIỆM</th>
+                <th className="border px-2 py-1">KẾT QUẢ</th>
+                <th className="border px-2 py-1">GHI CHÚ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td className="border px-2 py-1">1</td><td className="border px-2 py-1">Huyết đồ</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">2</td><td className="border px-2 py-1">Phết máu ngoại biên</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">3</td><td className="border px-2 py-1">Tủy đồ</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">4</td><td className="border px-2 py-1">CRP</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">5</td><td className="border px-2 py-1">Procalcitonin</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">6</td><td className="border px-2 py-1">VS</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">7</td><td className="border px-2 py-1">IDR</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">8</td><td className="border px-2 py-1">BK đàm</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">9</td><td className="border px-2 py-1">Điện di đạm</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">10</td><td className="border px-2 py-1">Ferritin</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">11</td><td className="border px-2 py-1">Đông máu toàn bộ (Fib)</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">12</td><td className="border px-2 py-1">Widal</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">13</td><td className="border px-2 py-1">KST sốt rét/phết lam 3 lần</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">14</td><td className="border px-2 py-1">Kháng nguyên SR</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">15</td><td className="border px-2 py-1">Test nhanh HIV</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">16</td><td className="border px-2 py-1">AST/ALT</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">17</td><td className="border px-2 py-1">Ure/Creatinin</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">18</td><td className="border px-2 py-1">Ion đồ</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">19</td><td className="border px-2 py-1">TPTNT</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">20</td><td className="border px-2 py-1">Cấy nước tiểu</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">21</td><td className="border px-2 py-1">Soi phân</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">22</td><td className="border px-2 py-1">Cấy phân</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">23</td><td className="border px-2 py-1">Cấy máu</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">24</td><td className="border px-2 py-1">PCR EBV</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">25</td><td className="border px-2 py-1">PCR CMV</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">26</td><td className="border px-2 py-1">Huyết thanh M.pneu</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">27</td><td className="border px-2 py-1">Huyết thanh C.pneu</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">28</td><td className="border px-2 py-1">ANA</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">29</td><td className="border px-2 py-1">Anti ds DNA</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">30</td><td className="border px-2 py-1">ANCA</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">31</td><td className="border px-2 py-1">C3/C4</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">32</td><td className="border px-2 py-1">Xquang ngực thẳng</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">33</td><td className="border px-2 py-1">CT scan ngực</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">34</td><td className="border px-2 py-1">Siêu âm bụng</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">35</td><td className="border px-2 py-1">Siêu âm tim</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">36</td><td className="border px-2 py-1">MRI não</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">37</td><td className="border px-2 py-1">Chọc dò tủy sống</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">38</td><td className="border px-2 py-1">Cấy đàm</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">39</td><td className="border px-2 py-1">Đạm máu / Albumin máu</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+              <tr><td className="border px-2 py-1">40</td><td className="border px-2 py-1">Cholesterol / Triglycerid máu</td><td className="border px-2 py-1"></td><td className="border px-2 py-1"></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </AccordionItem>
+      )}
+      {"tay chân miệng".includes(searchQuery.toLowerCase()) && (
+      <AccordionItem title="Tay chân miệng 2b">
+        <ul className="list-disc pl-5 space-y-1">
+          <li>CTM</li>
+          <li>CRP</li>
+          <li>AST/ALT</li>
+          <li>Ure/Creatinine</li>
+          <li>Lactate máu</li>
+          <li>Xquang ngực</li>
+          <li>Troponin</li>
+          <li>đường huyết mao mạch  </li>
+          <li>Glucose máu </li>
+          <li>Cấy máu (nếu cần)</li>
+          <li>CDTL - nếu cần</li>
+        </ul>
+      </AccordionItem>
+      )}   
+      {"bilan thực bào".includes(searchQuery.toLowerCase()) && (
+      <AccordionItem title="Bilan thực bào">
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>Huyết đồ:</strong> khảo sát đầy đủ các thông số về hồng cầu, bạch cầu và tiểu cầu.</li>
+          <li><strong>Chức năng gan thận:</strong> men gan, bilirubin, albumin, LDH, creatinin, điện giải đồ.</li>
+          <li><strong>Đông máu toàn bộ:</strong> aPTT, PT, fibrinogen, D-dimers.</li>
+          <li><strong>Ferritin và triglycerid</strong></li>
+          <li><strong>Điện di đạm</strong></li>
+          <li><strong>Bộ lipid máu:</strong> HDL, VLDL</li>
+        </ul>
+        <p className="text-sm text-gray-500 mt-1">Nguồn: Phác đồ NĐ1</p>
+      </AccordionItem>
+      )}
+      {/* ================= TAB TIÊM CHỦNG ================= */}
+    {"tiêm chủng".includes(searchQuery.toLowerCase()) && (
+      <AccordionItem title="Lịch Tiêm Chủng Trẻ Em (Cập nhật 12/2025)">
+        <div className="space-y-4 text-sm text-slate-700">
+          <div className="p-2 bg-blue-50 text-blue-800 rounded text-xs font-medium mb-2">
+            * Các vắc xin có chữ màu xanh dương là hàng hiện có tại Khoa SKTE
+          </div>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="border-b border-slate-200 text-slate-500 font-semibold bg-slate-50">
+                  <th className="p-2 w-10">STT</th>
+                  <th className="p-2 w-1/3">Bệnh / Loại Vắc xin</th>
+                  <th className="p-2">Lịch tiêm chủng chi tiết</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {/* 1 & 2 */}
+                <tr>
+                  <td className="p-2 font-medium">1</td>
+                  <td className="p-2 font-bold text-slate-900">Lao</td>
+                  <td className="p-2 text-amber-700 font-medium">Tiêm ngay sau sinh càng sớm càng tốt</td>
+                </tr>
+                <tr>
+                  <td className="p-2 font-medium">2</td>
+                  <td className="p-2 text-slate-900">
+                    <span className="font-bold">Viêm gan B</span>
+                    <span className="text-blue-600 block font-medium">(Gene-HBvax)</span>
+                  </td>
+                  <td className="p-2 text-amber-700 font-medium">Tiêm ngay sau sinh càng sớm càng tốt</td>
+                </tr>
+                {/* 3 -> 6 */}
+                <tr>
+                  <td className="p-2 font-medium">3-6</td>
+                  <td className="p-2 font-bold text-slate-900">
+                    VGB - BH - UV - HG - Bại liệt - Hib
+                  </td>
+                  <td className="p-2 space-y-2">
+                    <div>
+                      <span className="text-slate-500 font-medium font-semibold block">• Chương trình TCMR (5-trong-1 + uống Bại liệt):</span>
+                      <span className="block pl-2 text-slate-600">Mũi 1: 2 tháng | Mũi 2: 3 tháng | Mũi 3: 4 tháng</span>
+                      <span className="block pl-2 text-slate-600">Nhắc: Tiêm bại liệt lúc 5 tháng & BH-UV-HG lúc 18 tháng</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-500 font-medium font-semibold block">• Chương trình Tiêu dùng/Dịch vụ (6-trong-1):</span>
+                      <span className="text-blue-600 font-medium block pl-2">Infanrix hexa, Hexaxim</span>
+                      <span className="block pl-2 text-slate-600">Mũi 1, 2, 3: Lúc 2, 3, 4 tháng | Mũi nhắc: 16 - 18 tháng</span>
+                    </div>
+                  </td>
+                </tr>
+                {/* 7 & 8 */}
+                <tr>
+                  <td className="p-2 font-medium">7-8</td>
+                  <td className="p-2 font-bold text-slate-900">Sởi / Sởi - Rubella</td>
+                  <td className="p-2 space-y-1">
+                    <div><strong className="text-slate-800">Sởi đơn:</strong> Tiêm khi trẻ đủ 9 tháng</div>
+                    <div><strong className="text-slate-800">Sởi - Rubella:</strong> Tiêm khi trẻ đủ 18 tháng</div>
+                  </td>
+                </tr>
+                {/* 9 */}
+                <tr>
+                  <td className="p-2 font-medium">9</td>
+                  <td className="p-2 font-bold text-slate-900">Viêm não Nhật Bản</td>
+                  <td className="p-2 space-y-2">
+                    <div>
+                      <span className="text-slate-500 font-medium block">• TCMR (Trẻ từ 12 tháng):</span>
+                      <span className="block pl-2 text-slate-600">M1: 12 tháng | M2: 1-2 tuần sau M1 | M3: 1 năm sau M2</span>
+                      <span className="block pl-2 text-slate-600">Nhắc lại mỗi 3 năm cho đến khi 15 tuổi</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-500 font-medium block">• Dịch vụ (Trẻ từ 9 tháng):</span>
+                      <span className="text-blue-600 font-medium block pl-2">Imojev</span>
+                      <span className="block pl-2 text-slate-600">Mũi 1: 12 tháng | Mũi 2: Cách 1 năm sau mũi 1</span>
+                    </div>
+                  </td>
+                </tr>
+                {/* 10 */}
+                <tr>
+                  <td className="p-2 font-medium">10</td>
+                  <td className="p-2 font-bold text-slate-900">Sởi - Quai bị - Rubella (MMR)</td>
+                  <td className="p-2">Mũi 1: 12 tháng | Mũi 2: Cách 3 năm sau mũi 1</td>
+                </tr>
+                {/* 11 */}
+                <tr>
+                  <td className="p-2 font-medium">11</td>
+                  <td className="p-2">
+                    <span className="font-bold text-slate-900 block">Phế cầu</span>
+                    <span className="text-blue-600 font-medium block">Synflorix (PVC 10)</span>
+                    <span className="text-blue-600 font-medium block">Prevenar (PVC 13)</span>
+                    <span className="text-blue-600 font-medium block">Vaxneuvance (PVC 15)</span>
+                  </td>
+                  <td className="p-2">M1: 2 tháng | M2: Sau 4 tuần | M3: Sau 4 tuần | M4: Cách mũi 3 là 6 tháng</td>
+                </tr>
+                {/* 12 */}
+                <tr>
+                  <td className="p-2 font-medium">12</td>
+                  <td className="p-2">
+                    <span className="font-bold text-slate-900 block">Rotavirus</span>
+                    <span className="text-blue-600 font-medium block">Rotarix, Rotateq</span>
+                  </td>
+                  <td className="p-2">M1: 2 tháng | M2: Sau 4 tuần | M3: Sau 4 tuần (chỉ dành cho Rotateq)</td>
+                </tr>
+                {/* 13 */}
+                <tr>
+                  <td className="p-2 font-medium">13</td>
+                  <td className="p-2">
+                    <span className="font-bold text-slate-900 block">Cúm</span>
+                    <span className="text-blue-600 font-medium block">Influvac tetra</span>
+                  </td>
+                  <td className="p-2">M1: 6 tháng | M2: 7 tháng | Mũi nhắc: Tiêm nhắc lại mỗi năm</td>
+                </tr>
+                {/* 14 */}
+                <tr>
+                  <td className="p-2 font-medium">14</td>
+                  <td className="p-2 font-bold text-slate-900">Não mô cầu</td>
+                  <td className="p-2 space-y-2">
+                    <div>
+                      <span className="text-blue-600 font-medium block">• Não mô cầu nhóm B (Bexsero - GSK):</span>
+                      <ul className="list-disc pl-4 text-[11px] text-slate-600 space-y-0.5">
+                        <li><strong>Từ 2-5 tháng:</strong> M1 (2th), M2 (sau 2th), Nhắc (năm thứ 2, cách M2 ≥ 6th)</li>
+                        <li><strong>Từ 6-11 tháng:</strong> M1, M2 (sau 2th), Nhắc (cách M2 từ 12-23th)</li>
+                        <li><strong>Từ 12-23 tháng:</strong> M1, M2 (sau 2th), Nhắc (năm thứ 2, cách M2 ≥ 2th)</li>
+                        <li><strong>Trên 2 tuổi:</strong> M1, M2 (sau mũi 1 là 1 tháng)</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <span className="text-blue-600 font-medium block">• Não mô cầu B+C (VA-Mengoc BC):</span>
+                      <span className="block pl-2 text-slate-600">Mũi 1: 6 tháng | Mũi 2: Cách mũi 1 là 8 tuần</span>
+                    </div>
+                    <div>
+                      <span className="text-blue-600 font-medium block">• Não mô cầu ACYW-135 (Menactra):</span>
+                      <span className="block pl-2 text-slate-600">Mũi 1: 9 tháng | Mũi 2: Cách mũi 1 là 3 tháng</span>
+                    </div>
+                  </td>
+                </tr>
+                {/* 15 */}
+                <tr>
+                  <td className="p-2 font-medium">15</td>
+                  <td className="p-2">
+                    <span className="font-bold text-slate-900 block">Thủy đậu</span>
+                    <span className="text-blue-600 font-medium block">Varivax (MSD)</span>
+                    <span className="text-blue-600 font-medium block">Varilrix (GSK)</span>
+                  </td>
+                  <td className="p-2">Mũi 1: 12 tháng | Mũi 2: Cách mũi 1 là 3 năm</td>
+                </tr>
+                {/* 16 */}
+                <tr>
+                  <td className="p-2 font-medium">16</td>
+                  <td className="p-2">
+                    <span className="font-bold text-slate-900 block">Viêm gan A</span>
+                    <span className="text-blue-600 font-medium block">Avaxim</span>
+                  </td>
+                  <td className="p-2">Mũi 1: 12 tháng | Mũi 2: Cách mũi 1 là 6 tháng</td>
+                </tr>
+                {/* 17 & 18 */}
+                <tr>
+                  <td className="p-2 font-medium">17-18</td>
+                  <td className="p-2 space-y-1">
+                    <div><span className="font-bold text-slate-900">Thương hàn</span> <span className="text-blue-600 font-medium">(Typhim VI)</span></div>
+                    <div><span className="font-bold text-slate-900">Tả</span> <span className="text-blue-600 font-medium">(mORCVAX)</span></div>
+                  </td>
+                  <td className="p-2 text-slate-600 font-medium">Trẻ đủ 2 tuổi: Tiêm (Thương hàn) / Uống (Tả)</td>
+                </tr>
+                {/* 19 */}
+                <tr>
+                  <td className="p-2 font-medium">19</td>
+                  <td className="p-2">
+                    <span className="font-bold text-slate-900 block">Sốt xuất huyết</span>
+                    <span className="text-blue-600 font-medium block">Qdenga</span>
+                  </td>
+                  <td className="p-2">Mũi 1: Trẻ từ 4 tuổi trở lên | Mũi 2: Cách mũi 1 là 3 tháng</td>
+                </tr>
+                {/* 20 */}
+                <tr>
+                  <td className="p-2 font-medium">20</td>
+                  <td className="p-2">
+                    <span className="font-bold text-slate-900 block">HPV</span>
+                    <span className="text-blue-600 font-medium block">Gardasil 9</span>
+                  </td>
+                  <td className="p-2 text-slate-600 space-y-1">
+                    <div>• <strong>Trẻ 9-15 tuổi:</strong> M1 lúc 9 tuổi | M2 cách mũi 1 là 6 tháng</div>
+                    <div>• <strong>Trẻ &gt; 15 tuổi:</strong> M1 (lúc đi tiêm) | M2 (sau 2 tháng) | M3 (sau 6 tháng)</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </AccordionItem>
+    )}
+    </div>
+  );
+}
+    
     // --- ỨNG DỤNG CHÍNH ---
     function ClinicalRoundsAssistant() {
       const [activeTab, setActiveTab] = useState('sbar');
@@ -64,6 +575,9 @@
             {activeTab === 'approach' && <ApproachModule />}
             {activeTab === 'protocols' && <ProtocolModule />}
             {activeTab === 'drugs' && <DrugDatabaseModule />}
+            {activeTab === 'bilan' && <BilanModule />}  
+            {activeTab === 'congthuc' && <FormulaModule />} 
+
           </main>
 
           {/* Bottom Navigation */}
@@ -91,6 +605,18 @@
               label="Thuốc" 
               isActive={activeTab === 'drugs'} 
               onClick={() => setActiveTab('drugs')} 
+            />
+            <NavButton
+              icon={<IconClipboardList size={24} />} // bạn có thể chọn icon khác
+              label="Bilan"
+              isActive={activeTab === 'bilan'}
+              onClick={() => setActiveTab('bilan')}
+            />
+            <NavButton
+              icon={<Calculator size={24} />}
+              label="Công thức"
+              isActive={activeTab === 'congthuc'}
+              onClick={() => setActiveTab('congthuc')}
             />
           </nav>
         </React.Fragment>
@@ -149,7 +675,7 @@
       const [currentForm, setCurrentForm] = useState(blankForm);
       const [isEditing, setIsEditing] = useState(false);
       const [expandedId, setExpandedId] = useState(null);
-
+      const [bilanSearchQuery, setBilanSearchQuery] = useState('');
       useEffect(() => {
         try { localStorage.setItem('clinical_rounds_sbar_patients_v2', JSON.stringify(patients)); } catch (e) {}
       }, [patients]);
@@ -206,11 +732,7 @@
 
       return (
         <div className="space-y-4 pb-6">
-          <div className="bg-blue-50 text-blue-900 p-3 rounded-xl border border-blue-200 text-sm leading-relaxed">
-            <strong>SBAR nhanh:</strong> Không bắt buộc điền đủ. Khi bận, chỉ cần nhập <strong>giường + tên + chẩn đoán + vấn đề cần nắm</strong> là lưu được; các mục S/B/A/R/W có thể bổ sung sau.
-          </div>
-
-          {!isEditing && (
+                    {!isEditing && (
             <button
               onClick={() => setIsEditing(true)}
               className="w-full bg-blue-600 text-white p-3 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-sm active:scale-[0.99]"
@@ -1116,9 +1638,9 @@
                 ],
                 "dose": "TTM 0,4–0,75 µg/kg/phút trong 24–72 giờ khi TCM có tăng huyết áp theo ngưỡng.",
                 "route": "TTM",
-                "solvent": "Dextrose 5% hoặc NaCl 0,9%,  pha tối thiểu 40 ml D5W .",
-                "note": "Theo dõi HA sát; giảm dần khi HA ổn định, không ngưng đột ngột nếu còn nguy cơ dao động huyết động.",
-                "example": "0,3 (0,45 mg/kg/24h) → 2 ml/giờ."
+                "solvent": "Dextrose 5% hoặc NaCl 0,9%, pha tối thiểu 40 ml D5W. .",
+                "note": "Điều chỉnh tốc độ truyền theo liều/kg/phút; pha tối thiểu 40 ml D5W.",
+                "example": "0,3 ug/kg/phút (0,45 mg/kg/24h) → 2 ml/giờ "
         },
         {
                 "name": "Prostaglandin E1 (Alprostadil/PGE1)",
@@ -1859,7 +2381,16 @@
                 "solvent": "Theo chế phẩm.",
                 "note": "Tránh quá liều; thận trọng bệnh gan/suy dinh dưỡng nặng.",
                 "example": "VD trẻ 10 kg: Paracetamol 100–150 mg/lần, cách 4–6 giờ nếu sốt."
-        }
+        },
+          // --- NEW DRUG ---
+          {
+  name: "Racecadotril",
+  group: "Thuốc chống tiêu chảy",
+  diseases: ["Tiêu chảy cấp trẻ em"],  // giống cấu trúc thuốc cũ
+  dose: "1,5 ml/kg mỗi 8 giờ (3 lần/ngày)",
+  route: "Uống",
+  example: "Uống trước ăn, theo cân nặng trẻ"
+}
 ];
 
       const diseaseTree = {
@@ -2254,12 +2785,11 @@
 
         const rows = [];
         roughParts.forEach(part => {
-          // Nếu trong cùng một câu có cả sơ sinh và trẻ em, tách mạnh để dễ nhìn.
           const subParts = part
-            .replace(/\s+(?=Sơ sinh)/g, '|Sơ sinh ')
-            .replace(/\s+(?=Trẻ em)/g, '|Trẻ em ')
-            .replace(/\s+(?=Trẻ nhỏ)/g, '|Trẻ nhỏ ')
-            .replace(/\s+(?=Trẻ lớn)/g, '|Trẻ lớn ')
+            .replace(/\s+(?=Sơ sinh)/g, '|Sơ sinh ')
+            .replace(/\s+(?=Trẻ em)/g, '|Trẻ em ')
+            .replace(/\s+(?=Trẻ nhỏ)/g, '|Trẻ nhỏ ')
+            .replace(/\s+(?=Trẻ lớn)/g, '|Trẻ lớn ')
             .split('|')
             .map(x => x.trim())
             .filter(Boolean);
