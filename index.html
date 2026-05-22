@@ -1204,10 +1204,15 @@ function BilanModule() {
         { id: 'cardio', label: 'Tim mạch', icon: '❤️' },
         { id: 'icu', label: 'Hồi sức', icon: '⚙️' },
         { id: 'thận', label: 'Thận - Tiết niệu' },
-        
+       
       ];
-
       const recognitionData = [
+      {
+            dept: 'thận',
+            type: 'warning',
+            title: '💧 Hội chứng thận hư (HCTH) - Điều trị biến chứng',
+            content: <NephroticProtocol />
+        },
         {
           dept: 'infectious', type: 'warning', title: '🦠 Tay chân miệng - nhận diện, chẩn đoán, phân độ',
           content: <HFMDRecognition />
