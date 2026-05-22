@@ -1225,33 +1225,6 @@ function BilanModule() {
           dept: 'neuro', type: 'danger', title: '🧠 Viêm não cấp / viêm màng não - nhận diện nguy cơ',
           content: <EncephalitisRecognition />
         },
-        {
-          dept: 'respiratory', type: 'info', title: '🫁 Dấu hiệu hô hấp cần báo động',
-          content: (
-            <div className="space-y-3 text-sm">
-              <ActionBlock title="Báo bác sĩ / nâng bậc hỗ trợ hô hấp khi có" color="blue" items={[
-                'SpO2 giảm hoặc dao động dù đã thở oxy.',
-                'Thở nhanh, rút lõm ngực, thở rên, thở bụng, thở nông, cơn ngưng thở.',
-                'Tím tái, vã mồ hôi, kiệt sức, lơ mơ hoặc mất phản xạ bảo vệ đường thở.',
-                'Trong TCM độ 3: đáp ứng kém sau 30-60 phút thở oxy qua mũi là dấu hiệu cần cân nhắc đặt nội khí quản sớm.',
-                'Trong sởi viêm phổi: khó thở hoặc SpO2 < 94% là mốc bắt đầu hỗ trợ oxy; thất bại oxy cannula thì nâng CPAP/HFNC; thất bại CPAP/HFNC thì đặt nội khí quản.'
-              ]} />
-            </div>
-          )
-        },
-        {
-          dept: 'icu', type: 'danger', title: '⚙️ Nhận diện ca cần hồi sức tích cực',
-          content: (
-            <div className="space-y-3 text-sm">
-              <ActionBlock title="Chuyển hồi sức / hội chẩn hồi sức ngay" color="red" items={[
-                'TCM độ 3 hoặc độ 4; TCM độ 2b nhóm 2 diễn tiến xấu hoặc không đáp ứng sau điều trị ban đầu.',
-                'Sởi có viêm phổi suy hô hấp tiến triển, ARDS, viêm não, nhiễm khuẩn huyết, suy giảm miễn dịch hoặc bệnh nền nặng.',
-                'Viêm não/viêm màng não có co giật kéo dài, rối loạn tri giác, GCS giảm, dấu thần kinh khu trú, sốc hoặc tăng áp lực nội sọ.',
-                'Cần đặt nội khí quản, thở máy, vận mạch, theo dõi huyết áp động mạch xâm lấn, lọc máu liên tục hoặc ECMO.'
-              ]} />
-            </div>
-          )
-        }
       ];
 
       const protocolData = [
@@ -1279,8 +1252,8 @@ function BilanModule() {
          },
       ];
 
-      const filteredRecognition = recognitionData.filter(item => selectedDept === 'all' || item.dept === selectedDept || (selectedDept === 'cardio' && item.title.includes('Tay chân miệng')) || (selectedDept === 'respiratory' && (item.title.includes('Sởi') || item.title.includes('Tay chân miệng'))));
-      const filteredProtocols = protocolData.filter(item => selectedDept === 'all' || item.dept === selectedDept || (selectedDept === 'icu' && item.title.includes('Tay chân miệng')) || (selectedDept === 'respiratory' && item.title.includes('Sởi')) || (selectedDept === 'cardio' && item.title.includes('Tay chân miệng')));
+      const filteredRecognition = recognitionData.filter(item => selectedDept === 'all' || item.dept === selectedDept);
+      const filteredProtocols = protocolData.filter(item => selectedDept === 'all' || item.dept === selectedDept);
 
       return (
         <div className="space-y-4">
