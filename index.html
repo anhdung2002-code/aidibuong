@@ -263,6 +263,83 @@ function FormulaModule() {
         </div>
       </AccordionItem>
     )}
+    {/* Lưu ý chủng ngừa khi dùng UCMD */}
+    {("chủng ngừa ucmd ức chế miễn dịch tiêm".includes(formulaSearch.toLowerCase())) && (
+        <AccordionItem title="⚠️ CHỦNG NGỪA (Lưu ý khi dùng ức chế miễn dịch)">
+          <div className="space-y-4 text-sm text-slate-700">
+            
+            {/* 1. Vaccine sống */}
+            <div className="bg-red-50 p-3 rounded-lg border border-red-100">
+              <h4 className="font-semibold text-red-800 mb-2">1. Các vaccine sống hoặc giảm độc lực</h4>
+              <p className="text-red-700 text-xs mb-2 italic">(Sởi, quai bị, Rubella, thủy đậu, Rotavirus, bại liệt uống)</p>
+              <ul className="list-disc pl-4 space-y-2 text-red-900">
+                <li>
+                  <span className="font-semibold">Chống chỉ định chủng ngừa cho đến khi:</span>
+                  <ul className="list-[circle] pl-5 mt-1 space-y-1 text-red-800">
+                    <li>Liều prednisone &lt; 1mg/kg/ngày (và &lt; 20 mg/ngày) hoặc &lt; 2 mg/kg cách ngày (và &lt; 40 mg cách ngày)</li>
+                    <li>Đã ngưng rituximab &gt; 6 tháng</li>
+                    <li>Đã ngưng các thuốc độc tế bào (cyclophosphamide, chlorambucil) &gt; 3 tháng</li>
+                    <li>Đã ngưng các thuốc ức chế miễn dịch khác (CNIs, levamisole, MMF) &gt; 1 tháng</li>
+                  </ul>
+                </li>
+                <li>Nếu khởi động lại thuốc ức chế miễn dịch nên đợi <strong>ít nhất 4 tuần</strong> sau khi chích vaccine sống và <strong>2 tuần</strong> sau khi chích vaccine bất hoạt.</li>
+                <li>Người khỏe mạnh có tiếp xúc với bệnh nhi có thể chủng ngừa vaccine sống nhưng hạn chế cho trẻ phơi nhiễm với dịch tiết từ đường tiêu hóa, tiết niệu hoặc hô hấp của người đó trong vòng <strong>3 – 6 tuần</strong> sau khi chích ngừa.</li>
+              </ul>
+            </div>
+
+            {/* 2. Vaccine bất hoạt */}
+            <div className="bg-blue-50 p-3 rounded-lg border border-blue-100">
+              <h4 className="font-semibold text-blue-800 mb-2">2. Các vaccine bất hoạt</h4>
+              <ul className="list-disc pl-4 space-y-2 text-blue-900">
+                <li>Khuyến cáo chủng ngừa <strong>sớm nhất có thể</strong>, khi bệnh ổn định và <strong>ít nhất 6 tháng</strong> sau khi sử dụng rituximab.</li>
+                <li>
+                  <span className="font-semibold">Ưu tiên sử dụng loại vaccine liên hợp hoặc protein hơn loại polysaccharide:</span>
+                  <ul className="list-[circle] pl-5 mt-1 space-y-1 text-blue-800">
+                    <li><strong>Phế cầu:</strong> PCV13, PPV23.</li>
+                    <li><strong>Viêm gan siêu vi B:</strong> Kiểm tra nồng độ kháng thể và xem xét liều nhắc lại để đạt nồng độ trên 10 mUI/ml.</li>
+                    <li><strong>Cúm:</strong> Chủng ngừa hằng năm cho trẻ và người tiếp xúc với trẻ.</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </AccordionItem>
+      )}
+      {/* Chỉ định sinh thiết thận */}
+      {("sinh thiết thận chỉ định hcth hội chứng thận hư".includes(formulaSearch.toLowerCase())) && (
+        <AccordionItem title="🔬 Chỉ định sinh thiết thận (HCTH)">
+          <div className="space-y-4 text-sm text-slate-700">
+            
+            {/* Chỉ định tuyệt đối */}
+            <div className="bg-red-50 p-3 rounded-lg border border-red-100">
+              <h4 className="font-semibold text-red-800 mb-2">1. Chỉ định tuyệt đối</h4>
+              <ul className="list-disc pl-4 space-y-1 text-red-900">
+                <li><span className="font-bold">HCTH kháng steroids.</span></li>
+              </ul>
+            </div>
+
+            {/* Chỉ định tương đối */}
+            <div className="bg-amber-50 p-3 rounded-lg border border-amber-100">
+              <h4 className="font-semibold text-amber-800 mb-2">2. Chỉ định tương đối</h4>
+              <ul className="list-disc pl-4 space-y-2 text-amber-900">
+                <li>Khởi bệnh sớm <strong>dưới 1 tuổi</strong>.</li>
+                <li>Khởi bệnh trễ <strong>trên 12 tuổi</strong>.</li>
+                <li>
+                  <span className="font-semibold">Lâm sàng:</span> Tăng huyết áp ở mức xác định và kéo dài, tiểu máu đại thể, hoặc suy thận tại thận.
+                </li>
+                <li>
+                  <span className="font-semibold">Có bằng chứng nghi ngờ HCTH thứ phát:</span> Giảm bổ thể, triệu chứng ngoài thận của bệnh toàn thể, bằng chứng viêm gan siêu vi đang hoạt động.
+                </li>
+                <li>
+                  <span className="font-semibold">HCTH lệ thuộc steroids liều cao</span>, trước hoặc trong khi sử dụng nhóm thuốc ức chế calcineurin (CNIs) hoặc có biểu hiện suy thận, kháng thứ phát.
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </AccordionItem>
+      )}
       {/* Tiểu đạm */}
       {"tiểu đạm".includes(formulaSearch.toLowerCase()) && (
         <AccordionItem title="Tiểu đạm (Protein niệu)">
@@ -1801,6 +1878,84 @@ function BilanModule() {
                 "example": "VD trẻ 8 kg cần 0,1 µg/kg/phút: Adrenaline 2,4 mg pha D5% đủ 50 ml, TTM 1 ml/giờ."
         },
         {
+            "name": "Mycophenolate Mofetil (MMF)",
+            "group": "Miễn dịch",
+            "diseases": [
+                "Hội chứng thận hư",
+                "Bệnh thận"
+            ],
+            "dose": "• Liều dùng: 600 – 1200 mg/m2/ngày, chia 2 lần (Tối đa 2 g/ngày).\n• Thời gian điều trị: Ít nhất 12 tháng.",
+            "route": "Uống",
+            "solvent": "Không áp dụng",
+            "note": "• Tác dụng phụ: Buồn nôn, ói, viêm dạ dày, đau bụng, tiêu chảy, giảm bạch cầu hạt, thiếu máu.\n• Theo dõi: Tổng phân tích tế bào máu sau 2 tuần đầu dùng thuốc, sau đó mỗi tháng 1 lần.\n⚠️ Chú ý: Nếu bệnh nhân có TDP đường tiêu hóa nhiều, nên khởi đầu liều thấp rồi tăng dần.",
+            "example": "Trẻ có diện tích da 1m2: Uống 600 - 1200 mg/ngày, chia 2 cữ."
+        },
+        {
+            "name": "CNIs (Cyclosporine A / Tacrolimus)",
+            "group": "Miễn dịch",
+            "diseases": [
+                "Hội chứng thận hư",
+                "Bệnh thận"
+            ],
+            "dose": "• Cyclosporine A: Khởi đầu 3 – 5 mg/kg/ngày chia 2 lần, tối đa 250 mg/ngày. Giữ nồng độ đáy 80 – 120 ng/ml.\n• Tacrolimus: Khởi đầu 0,1 – 0,2 mg/kg/ngày chia 2 lần, tối đa 5 mg/ngày. Giữ nồng độ đáy 4 – 8 ng/ml.\n• Mục tiêu: Giữ liều thấp nhất duy trì lui bệnh (Thời gian ≥ 12 tháng).",
+            "route": "Uống",
+            "solvent": "Không áp dụng",
+            "note": "• Tác dụng phụ: Phì đại nướu, rậm lông, THA, tăng K, giảm Mg, độc thận.\n• Theo dõi: Điện giải, Urê, Cre, Protein, Albumin máu; Nồng độ CNIs ngày 7, 15, 30 và mỗi tháng.\n⚠️ Tương tác: Erythromycine, bưởi đỏ, Ketoconazole... làm TĂNG nồng độ CNIs. Phenytoin, Rifampicine... làm GIẢM CNIs.\n⚠️ Ngừng/Giảm liều: Giảm 20-50% hoặc ngưng nếu Cre máu tăng ≥ 30% hoặc tăng Kali. Nếu tồn tại >15 ngày thì ngưng hẳn.",
+            "example": "Nếu tái phát khi đang dùng CNIs: Thêm steroids liều thấp. Sinh thiết thận lại sau 2 năm hoặc khi nghi ngờ ngộ độc."
+        },
+        {
+            "name": "Cyclophosphamide (Endoxan)",
+            "group": "Miễn dịch",
+            "diseases": [
+                "Hội chứng thận hư",
+                "Bệnh thận"
+            ],
+            "dose": "• Liều: 2 mg/kg/ngày (tối đa 2,5 mg/kg/ngày).\n• Thời gian: 8 tuần (Tổng liều chuẩn 168 mg/kg).",
+            "route": "Uống / TTM",
+            "solvent": "⚠️ Không dùng tay bẻ thuốc (gây độc da khi tiếp xúc trực tiếp). Có thể làm tròn liều uống theo viên 50 mg.",
+            "note": "• Tác dụng phụ: Viêm bàng quang xuất huyết, ức chế tuỷ xương, giảm bạch cầu, hói đầu, vô sinh, nguy cơ ác tính.\n• Theo dõi: Huyết đồ mỗi tuần.\n🛑 NGƯNG THUỐC NGAY KHI: \n1. Nhiễm trùng.\n2. Bạch cầu < 3000/mm3 hoặc Neutrophil < 1500/mm3.\n3. Tiểu cầu < 100.000/mm3.",
+            "example": "Khi các chỉ số máu hồi phục, có thể sử dụng lại với liều thấp và tiếp tục cho đủ tổng liều 168 mg/kg."
+        },
+        {
+            "name": "Prednisone / Prednisolone",
+            "group": "Corticoid",
+            "diseases": [
+                "Hội chứng thận hư",
+                "Bệnh thận"
+            ],
+            "dose": "• TẤN CÔNG: 60 mg/m2/ngày hoặc 2 mg/kg/ngày (tối đa 60 mg/ngày) trong 4-6 tuần.\n• DUY TRÌ: 40 mg/m2 hoặc 1,5 mg/kg (tối đa 40 mg) uống CÁCH NGÀY trong 6 tuần, sau đó ngưng (Tổng đợt ≥ 12 tuần).\n• TÁI PHÁT XA: 2 mg/kg/ngày đến khi Protein niệu (-) 3 ngày. Sau đó 1,5 mg/kg cách ngày x 4 tuần rồi giảm liều ngưng.\n• TÁI PHÁT TX / LỆ THUỘC STEROID:\n  - Liều thấp (≤ 0.5 mg/kg cách ngày): 2 mg/kg/ngày đến khi protein niệu (-) 3 ngày → cách ngày 0.1–0.5 mg/kg trong 6–12 tháng.\n  - Liều trung bình (0.5–1 mg/kg cách ngày): Phối hợp thuốc thứ 2 nếu có độc tính steroid hoặc tái phát nặng.\n  - Liều cao (≥ 1 mg/kg cách ngày): Phối hợp thuốc thứ 2.",
+            "route": "Uống",
+            "solvent": "Không áp dụng",
+            "note": "⚠️ NẾU SAU 4 TUẦN CHƯA LUI BỆNH: Tiếp tục uống đủ 6 tuần HOẶC truyền Methylprednisolone 1g/1.73m2 cách ngày x 3 liều.\n⚠️ HCTH KHÁNG STEROIDS: Phối hợp steroid liều tối thiểu với thuốc thứ 2 (Ưu tiên CNIs -> MMF -> Rituximab theo nguyên tắc bậc thang).",
+            "example": "Trẻ 15 kg (Tấn công): Uống 30 mg/ngày (thường uống 1 lần buổi sáng sau ăn). Khi lui bệnh chuyển Duy trì: Uống 22.5 mg (hoặc làm tròn 20-25mg) CÁCH NGÀY."
+        },
+        {
+            "name": "Rituximab",
+            "group": "Miễn dịch",
+            "diseases": [
+                "Hội chứng thận hư",
+                "Bệnh thận"
+            ],
+            "dose": "• Liều lượng: 375 mg/m2 da/lần truyền.\n• Có thể lặp lại tối đa 2 liều.",
+            "route": "TTM",
+            "solvent": "Pha truyền theo hướng dẫn chế phẩm sinh học.",
+            "note": "⚠️ Biến chứng nguy hiểm: Phản vệ, dị ứng, giảm Immunoglobuline, tái hoạt viêm gan, xơ phổi, giảm bạch cầu, tăng đường huyết, rối loạn đông máu.",
+            "example": "Chuẩn bị sẵn sàng hộp thuốc cấp cứu phản vệ trước khi truyền."
+        },
+        {
+            "name": "Albumin 20%",
+            "group": "Hồi sức / Thận",
+            "diseases": [
+                "Sốc",
+                "Hội chứng thận hư"
+            ],
+            "dose": "• Sốc giảm thể tích: 0.5 - 1 g/kg/liều.\n• Giảm phù nặng (HCTH): 1 - 2 g/kg/liều phối hợp lợi tiểu Furosemide.",
+            "route": "TTM",
+            "solvent": "• CHỐNG SỐC (Dùng dạng 5%): Pha loãng tỷ lệ 1:3 (1 phần Albumin 20% + 3 phần NaCl 0.9% hoặc Ringer Lactate).\n• GIẢM PHÙ: Không pha loãng, truyền trực tiếp dung dịch 20%.",
+            "note": "• Chống sốc: Truyền trong 30 - 60 phút (Tốc độ 7.5 - 15 ml/kg/giờ).\n• Giảm phù: Truyền rất chậm trong ít nhất 4 giờ (Tốc độ 1 - 2 ml/kg/giờ).\n⚠️ Nguy cơ: Theo dõi sát sinh hiệu, cẩn thận quá tải tuần hoàn, phù phổi cấp.",
+            "example": "Trẻ 10kg sốc cần 1g/kg (= 10g Albumin). Thể tích Albumin 20% cần lấy = 50ml. Để pha thành 5%: Lấy 50ml Albumin 20% + 150ml NaCl 0.9% = 200ml. Truyền TTM trong 60 phút."
+        },
+        {
                 "name": "Noradrenaline",
                 "group": "Vận mạch",
                 "diseases": [
@@ -2700,7 +2855,8 @@ function BilanModule() {
                 "Tim bẩm sinh phụ thuộc ống động mạch",
                 "SVT/loạn nhịp",
                 "Tăng huyết áp/suy tim"
-        ]
+        ],
+        "Hội chứng thận hư": []
 };
       const nodeDrugMap = {
         "Độ 1": [
@@ -3004,7 +3160,9 @@ function BilanModule() {
         'Rắn cắn': ['Rắn cắn', 'nọc rắn'],
         'Tiêu hóa': ['Tiêu hóa', 'Táo bón', 'Tiêu chảy', 'Loét miệng'],
         'Tim mạch': ['Tim mạch', 'SVT', 'Loạn nhịp', 'ống động mạch'], 
-        'Giang mai': ['Giang mai', 'Syphilis']
+        'Giang mai': ['Giang mai', 'Syphilis'],
+        'Hội chứng thận hư': ['Hội chứng thận hư', 'Thận hư', 'HCTH', 'Bệnh thận']
+        
       };
 
       const groups = ['Tất cả', ...Array.from(new Set(drugs.map(d => d.group)))];
@@ -3185,7 +3343,7 @@ function BilanModule() {
                   <div className="whitespace-pre-line">
                       <DoseDisplay dose={drug.dose} />
                     </div>
-                  <p><strong>Dung môi/cách pha:</strong> {drug.solvent}</p>
+                    <p className="whitespace-pre-line"><span className="font-semibold">Dung môi/cách pha:</span> {drug.solvent}</p>
                   {drug.example && <p className="whitespace-pre-line bg-amber-50 border border-amber-200 rounded-lg p-2 text-amber-900"><strong>Ví dụ:</strong> {drug.example}</p>}
                   <p style={{ whiteSpace: 'pre-line' }}><strong>Ghi chú:</strong> {drug.note}</p>
                 </div>
