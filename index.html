@@ -270,6 +270,61 @@ function BilanModule() {
         </ul>
       </AccordionItem>
       )}
+      {/* Giang mai */}
+      {"giang mai".includes(searchQuery.toLowerCase()) && (
+        <AccordionItem title="Giang mai">
+          <div className="space-y-3">
+            {/* 1. Máu */}
+            <div>
+              <h4 className="font-semibold text-sm text-gray-900">1. Máu:</h4>
+              <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
+                <li><strong>VDRL/RPR:</strong> Sàng lọc và theo dõi điều trị</li>
+                <li><strong>TPHA / FTA-ABS:</strong> Xác nhận chẩn đoán</li>
+                <li><strong>Huyết học cơ bản (CBC):</strong> Thiếu máu, bạch cầu</li>
+                <li><strong>Chức năng gan/thận:</strong> AST, ALT, Bilirubin, Creatinine, BUN</li>
+              </ul>
+            </div>
+
+            {/* 2. Dịch não tủy */}
+            <div>
+              <h4 className="font-semibold text-sm text-gray-900">2. Dịch não tủy (CSF):</h4>
+              <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
+                <li><strong>VDRL CSF:</strong> Khi nghi ngờ thần kinh giang mai</li>
+                <li><strong>Đếm bạch cầu, protein CSF:</strong> Đánh giá viêm thần kinh</li>
+              </ul>
+            </div>
+
+            {/* 3. Hình ảnh học */}
+            <div>
+              <h4 className="font-semibold text-sm text-gray-900">3. Hình ảnh học:</h4>
+              <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
+                <li><strong>X-quang xương dài / sọ:</strong> Phát hiện tổn thương xương bẩm sinh</li>
+                <li><strong>Siêu âm bụng:</strong> Đánh giá gan, lách, tim nếu cần</li>
+              </ul>
+            </div>
+
+            {/* 4. Khám chuyên khoa */}
+            <div>
+              <h4 className="font-semibold text-sm text-gray-900">4. Khám chuyên khoa:</h4>
+              <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
+                <li><strong>Mắt:</strong> Soi đáy mắt, phát hiện viêm võng mạc</li>
+                <li><strong>Thính lực:</strong> OAE / ABR</li>
+              </ul>
+            </div>
+
+            {/* Ghi chú */}
+            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 mt-3 text-sm text-yellow-900 rounded-r">
+              <p className="font-semibold mb-1">Ghi chú:</p>
+              <ul className="list-disc pl-5 space-y-1">
+                <li>Xét nghiệm máu VDRL/RPR làm sớm và theo dõi định kỳ.</li>
+                <li>CSF VDRL chỉ khi có dấu hiệu thần kinh.</li>
+                <li>Treponemal test (TPHA/FTA-ABS) xác nhận chẩn đoán, <strong>không dùng theo dõi điều trị</strong>.</li>
+                <li>Kết hợp các xét nghiệm khác để đánh giá toàn thân trước khi quyết định phác đồ điều trị.</li>
+              </ul>
+            </div>
+          </div>
+        </AccordionItem>
+      )}
        {/* Bảng xét nghiệm sốt kéo dài */}
        {"sốt kéo dài".includes(searchQuery.toLowerCase()) && (
        <AccordionItem title="Sốt kéo dài - Bảng xét nghiệm">
@@ -1260,7 +1315,14 @@ function BilanModule() {
           <GradeCard grade="Độ 3" title="Rối loạn thần kinh thực vật nặng" color="red">
             <ul className="list-disc pl-5 space-y-1">
               <li>Mạch nhanh &gt;170 lần/phút khi không sốt; một số ca có thể mạch chậm, phải đánh giá HA và tri giác.</li>
-              <li>Huyết áp tâm thu tăng theo tuổi.</li>
+              <li>
+                Huyết áp tâm thu tăng theo tuổi (Chỉ định dùng Milrinone):
+                <ul class="list-disc pl-5 mt-1 space-y-1 text-gray-700">
+                  <li>Trẻ dưới 12 tháng: HA tâm thu ≥ 110 mmHg</li>
+                  <li>Trẻ từ 12 đến &lt;24 tháng: HA tâm thu ≥ 115 mmHg</li>
+                  <li>Trẻ ≥ 24 tháng: HA tâm thu ≥ 120 mmHg</li>
+                </ul>
+              </li>
               <li>Thở nhanh, khó thở, thở rít hoặc SpO2 &lt;94%.</li>
               <li>Da nổi bông/vân tím, vã mồ hôi, chi lạnh.</li>
             </ul>
@@ -1630,17 +1692,17 @@ function BilanModule() {
                 "example": "VD trẻ 8 kg liều 5 µg/kg/phút: Dobutamin 24 mg pha D5% đủ 50 ml, TTM 5 ml/giờ."
         },
         {
-                "name": "Milrinone",
-                "group": "Vận mạch",
-                "diseases": [
-                        "TCM độ 3",
-                        "Sốc tim"
-                ],
-                "dose": "TTM 0,4–0,75 µg/kg/phút trong 24–72 giờ khi TCM có tăng huyết áp theo ngưỡng.",
-                "route": "TTM",
-                "solvent": "Dextrose 5% hoặc NaCl 0,9%, pha tối thiểu 40 ml D5W. .",
-                "note": "Điều chỉnh tốc độ truyền theo liều/kg/phút; pha tối thiểu 40 ml D5W.",
-                "example": "0,3 ug/kg/phút (0,45 mg/kg/24h) → 2 ml/giờ "
+            "name": "Milrinone",
+            "group": "Vận mạch",
+            "diseases": [
+                "TCM độ 3",
+                "Sốc tim"
+            ],
+            "dose": "TTM 0,4 – 0,75 µg/kg/phút, chỉ dùng khi HA cao và trong 24 – 72 giờ.",
+            "route": "TTM",
+            "solvent": "Dextrose 5% hoặc NaCl 0,9%, pha tối thiểu 40 ml D5W.",
+            "note": "- GIẢM LIỀU: Nếu HA ổn định (HA tâm thu 100–110 mmHg) trong 12-24 giờ, giảm dần 0,1 µg/kg/phút mỗi 30–60 phút đến liều tối thiểu 0,25 µg/kg/phút.\n- NGƯNG THUỐC: Xem xét ngưng nếu HA ổn định trong ít nhất 6 giờ.\n- NGƯNG NGAY NẾU: HA tâm thu < 90 mmHg (trẻ <12 tháng) hoặc < 100 mmHg (trẻ ≥12 tháng).",
+            "example": "0,3 ug/kg/phút (0,45 mg/kg/24h) → 2 ml/giờ"
         },
         {
                 "name": "Prostaglandin E1 (Alprostadil/PGE1)",
@@ -1886,6 +1948,18 @@ function BilanModule() {
                 "solvent": "NaCl 0,9% hoặc dung môi phù hợp; tránh pha/chạy cùng calci ở nhóm nguy cơ.",
                 "note": "Tránh ở sơ sinh vàng da hoặc đang dùng dung dịch chứa calci; kiểm tra tuổi thai/tuổi ngày.",
                 "example": "VD trẻ 30 kg VMN: Ceftriaxone 1,5 g pha NaCl 0,9% đủ 50 ml, TTM 100 ml/giờ × 2 lần/ngày."
+        },
+        {
+            "name": "Penicillin G",
+            "group": "Kháng sinh",
+            "diseases": [
+                "Giang mai"
+            ],
+            "dose": "- Điều trị: 50.000 đv/kg/liều TTM (10 ngày).\n- Dự phòng: 50.000 đv/kg Tiêm bắp (1 liều duy nhất).",
+            "route": "TTM / TB",
+            "solvent": "Pha theo hướng dẫn của từng loại chế phẩm (loại TTM hoặc loại TB).",
+            "note": "🎯 [ĐIỀU TRỊ - TTM]: Trẻ có triệu chứng hoặc bất thường dịch não tủy. LƯU Ý: Nếu gián đoạn > 24 giờ, bắt buộc phải điều trị lại từ ngày 1.\n\n🛡️ [DỰ PHÒNG - TIÊM BẮP]: Trẻ không triệu chứng (Dùng loại Benzathine Penicillin). Theo dõi chặt chẽ phản ứng Jarisch-Herxheimer (sốt, ớn lạnh, nhịp nhanh) sau tiêm.",
+            "example": "Trẻ 3 kg -> Điều trị: 150.000 đv/liều TTM. Dự phòng: 150.000 đv Tiêm bắp 1 lần."
         },
         {
                 "name": "Ceftazidime",
@@ -2394,6 +2468,9 @@ function BilanModule() {
 ];
 
       const diseaseTree = {
+        "Giang mai": [
+        "Giang mai"
+        ],
         "Tay chân miệng": [
                 "Tất cả phân độ/biến chứng",
                 "Độ 1",
@@ -2761,7 +2838,8 @@ function BilanModule() {
         'Nhiễm khuẩn': ['Nhiễm khuẩn', 'Kháng sinh', 'Gram âm', 'MRSA', 'MSSA'],
         'Rắn cắn': ['Rắn cắn', 'nọc rắn'],
         'Tiêu hóa': ['Tiêu hóa', 'Táo bón', 'Tiêu chảy', 'Loét miệng'],
-        'Tim mạch': ['Tim mạch', 'SVT', 'Loạn nhịp', 'ống động mạch']
+        'Tim mạch': ['Tim mạch', 'SVT', 'Loạn nhịp', 'ống động mạch'], 
+        'Giang mai': ['Giang mai', 'Syphilis']
       };
 
       const groups = ['Tất cả', ...Array.from(new Set(drugs.map(d => d.group)))];
@@ -2939,10 +3017,12 @@ function BilanModule() {
                   <span className="text-xs bg-slate-100 text-slate-600 rounded-full px-2 py-1 h-max">{drug.route}</span>
                 </div>
                 <div className="mt-3 space-y-2 text-sm text-slate-700">
-                  <DoseDisplay dose={drug.dose} />
+                  <div className="whitespace-pre-line">
+                      <DoseDisplay dose={drug.dose} />
+                    </div>
                   <p><strong>Dung môi/cách pha:</strong> {drug.solvent}</p>
-                  {drug.example && <p className="bg-amber-50 border border-amber-200 rounded-lg p-2 text-amber-900"><strong>Ví dụ:</strong> {drug.example}</p>}
-                  <p><strong>Ghi chú:</strong> {drug.note}</p>
+                  {drug.example && <p className="whitespace-pre-line bg-amber-50 border border-amber-200 rounded-lg p-2 text-amber-900"><strong>Ví dụ:</strong> {drug.example}</p>}
+                  <p style={{ whiteSpace: 'pre-line' }}><strong>Ghi chú:</strong> {drug.note}</p>
                 </div>
                 <div className="flex flex-wrap gap-1 mt-3">
                   {drug.diseases.map(tag => <span key={tag} className="text-xs bg-blue-50 text-blue-700 border border-blue-100 rounded-full px-2 py-1">{tag}</span>)}
