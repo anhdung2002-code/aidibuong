@@ -2555,7 +2555,7 @@
       /* ==========================================
        MODULE 3: QUICK PROTOCOLS
        ========================================== */
-      function ProtocolModule() {
+       function ProtocolModule() {
         const [mainMode, setMainMode] = useState('recognition');
         const [selectedDept, setSelectedDept] = useState('all');
         const [protocolSearch, setProtocolSearch] = useState('');
@@ -2634,12 +2634,6 @@
             type: 'warning',
             title: 'Thận: Hội chứng thận hư (HCTH) - Điều trị biến chứng',
             content: <NephroticProtocol />,
-          },
-          {
-            dept: 'miễn dịch', // Bạn có thể đổi thành 'thận' hoặc 'tổng hợp' tùy theo bộ lọc bạn muốn
-            type: 'info',
-            title: 'Bilan Lupus ban đỏ hệ thống (SLE)',
-            content: <LupusBilan />
           },
           {
             dept: 'thận',
@@ -3651,6 +3645,7 @@
           </div>
         );
       }
+
 
       /* ==========================================
        MODULE 3: DRUG DATABASE WITH SEARCH
