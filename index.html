@@ -1237,6 +1237,87 @@
                 </div>
               </AccordionItem>
             )}
+                        {/* Bilan Lupus */}
+            <AccordionItem title="Bilan Lupus ban đỏ hệ thống (SLE)">
+              <div className="space-y-4">
+                
+                {/* --- 1. XÉT NGHIỆM GIÚP CHẨN ĐOÁN --- */}
+                <div className="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                  <h3 className="font-bold text-blue-700 mb-2 border-b border-blue-200 pb-1">
+                    1. Xét nghiệm giúp chẩn đoán
+                  </h3>
+                  <div className="text-sm text-gray-800 space-y-3">
+                    
+                    <ul className="list-disc pl-5 space-y-2">
+                      <li><span className="font-semibold">C3, C4, ANA</span></li>
+                      <li>
+                        <span className="font-semibold text-blue-800">Anti-dsDNA:</span> Độ nhạy 75%, đặc hiệu 95%. Liên quan đến hoạt tính bệnh và tổn thương thận do lupus.
+                      </li>
+                      <li>
+                        <span className="font-semibold text-blue-800">Anti-ENA (bộ 6KT) (Extractable Nuclear Antigens):</span>
+                        <ul className="list-[circle] pl-5 mt-1 space-y-1">
+                          <li>Anti-Sm (độ nhạy 25%, đặc hiệu 55–100%)</li>
+                          <li>Anti-Ro (SSA), Anti-La (SSB)</li>
+                          <li>Anti-RNP (U1 RNP)</li>
+                          <li>Anti-SCL70, Anti-Jo1</li>
+                        </ul>
+                      </li>
+                      <li><span className="font-semibold text-blue-800">Anti-C1q:</span> Theo dõi đáp ứng điều trị.</li>
+                    </ul>
+
+                    <div className="bg-white p-2 rounded border border-blue-200">
+                      <p className="font-semibold text-blue-700 mb-1">🩸 Tầm soát hội chứng kháng phospholipid:</p>
+                      <ul className="list-[square] pl-5 space-y-1">
+                        <li>PT và aPTT, fibrinogen</li>
+                        <li>Lupus anticoagulant tests</li>
+                        <li>Anticardiolipin antibody IgG và IgM</li>
+                        <li>Anti-&beta;2 glycoprotein-I IgG và IgM</li>
+                      </ul>
+                    </div>
+                    
+                  </div>
+                </div>
+
+    {/* --- 2. XÉT NGHIỆM ĐÁNH GIÁ TỔN THƯƠNG CƠ QUAN --- */}
+    <div className="bg-purple-50 p-3 rounded-lg border border-purple-100">
+      <h3 className="font-bold text-purple-700 mb-2 border-b border-purple-200 pb-1">
+        2. Xét nghiệm đánh giá tổn thương cơ quan
+      </h3>
+      <div className="text-sm text-gray-800 space-y-2">
+        
+        <ul className="list-disc pl-5 space-y-3">
+          <li>
+            <span className="font-semibold text-purple-800">🩸 Máu:</span><br/>
+            TPTTBM, Test Coomb's.
+          </li>
+          
+          <li>
+            <span className="font-semibold text-purple-800">🫀 Tim – Phổi – Thần kinh:</span>
+            <ul className="list-[circle] pl-5 mt-1 space-y-1">
+              <li>X quang phổi</li>
+              <li>ECG, Echo tim màu</li>
+              <li>Điện não đồ</li>
+              <li>Chọc dò tủy sống nếu cần</li>
+            </ul>
+          </li>
+
+          <li>
+            <span className="font-semibold text-purple-800">💧 Thận:</span>
+            <ul className="list-[circle] pl-5 mt-1 space-y-1">
+              <li>Chức năng thận</li>
+              <li>Tổng phân tích nước tiểu</li>
+              <li>Cặn lắng nước tiểu</li>
+              <li>Đạm niệu / Creatinine niệu</li>
+              <li>Đạm niệu 24 giờ</li>
+            </ul>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+    
+  </div>
+</AccordionItem>
             {/* HCTH */}
             {'hcth hội chứng thận hư'.includes(searchQuery.toLowerCase()) && (
               <AccordionItem title="Hội chứng thận hư (HCTH)">
@@ -2553,6 +2634,12 @@
             type: 'warning',
             title: 'Thận: Hội chứng thận hư (HCTH) - Điều trị biến chứng',
             content: <NephroticProtocol />,
+          },
+          {
+            dept: 'miễn dịch', // Bạn có thể đổi thành 'thận' hoặc 'tổng hợp' tùy theo bộ lọc bạn muốn
+            type: 'info',
+            title: 'Bilan Lupus ban đỏ hệ thống (SLE)',
+            content: <LupusBilan />
           },
           {
             dept: 'thận',
