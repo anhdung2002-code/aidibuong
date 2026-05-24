@@ -2647,6 +2647,11 @@
           },
           {
             dept: 'thận',
+            title: 'Thận: Viêm cầu thận cấp (VCTC) hậu nhiễm trùng',
+            content: <GlomerulonephritisProtocol />
+          },
+          {
+            dept: 'thận',
             type: 'warning',
             title: 'Thận: Hội chứng thận hư (HCTH) - Điều trị biến chứng',
             content: <NephroticProtocol />,
@@ -2856,7 +2861,7 @@
                 <strong>Hội chứng thận hư (HCTH)</strong> là hội chứng lâm sàng
                 đặc trưng bởi: tiểu đạm ngưỡng thận hư, giảm albumin máu, phù
                 toàn thân và tăng lipid máu. Trong đó,{' '}
-                <strong>tiểu đạm ngưỡng thận hư</strong> và{' '}
+                <strong>tiểu đạm ngưỡng thận hư (50mg/kg/ngày) </strong> và{' '}
                 <strong>albumin máu ≤ 30 g/L</strong> là 2 tiêu chuẩn bắt buộc
                 để chẩn đoán.
               </p>
@@ -3646,6 +3651,62 @@
           </div>
         );
       }
+      function GlomerulonephritisProtocol() {
+  return (
+    <div className="space-y-4 text-sm text-gray-700">
+      
+      {/* Đổi màu thẻ bao ngoài thành màu Tím (purple) */}
+      <GradeCard 
+        grade="Phác đồ xử trí" 
+        title="Viêm Cầu Thận Cấp" 
+        color="purple" 
+      >
+        
+        {/* Đổi mục 1 thành Xanh lá */}
+        <ActionBlock
+          color="green"
+          title="1. Nguyên tắc & Kháng sinh"
+          items={[
+            'Nguyên tắc: Không có điều trị đặc hiệu; điều trị nhiễm liên cầu nếu còn, điều trị triệu chứng và biến chứng.',
+            'Kháng sinh: Không thường quy. Chỉ dùng khi còn viêm họng/viêm da/nhiễm liên cầu tiến triển.',
+            'Thuốc: Penicillin V 100.000 đv/kg/ngày x 10 ngày. Nếu dị ứng: Erythromycin 30–50 mg/kg/ngày x 10 ngày.'
+          ]}
+        />
+        
+        {/* Mục 2 giữ nguyên Xanh dương */}
+        <ActionBlock
+          color="blue"
+          title="2. Chế độ ăn & Sinh hoạt"
+          items={[
+            'Chế độ ăn: Hạn chế muối, nước. Nếu suy thận: giảm đạm, hạn chế kali.',
+            'Sinh hoạt: Nghỉ ngơi khi tăng huyết áp.'
+          ]}
+        />
+
+        {/* Đổi mục 3 thành Đỏ vì liên quan đến cấp cứu/huyết áp */}
+        <ActionBlock
+          color="red"
+          title="3. Xử trí triệu chứng"
+          items={[
+            'Phù/Quá tải dịch: Hạn chế dịch, ăn nhạt. Dùng Furosemide TM 1–2 mg/kg/liều mỗi 6–8 giờ hoặc khoảng 2 mg/kg/ngày uống đến khi hết phù.',
+            'Tăng huyết áp: Furosemide là lựa chọn hàng đầu; có thể phối hợp Nifedipine nếu chưa kiểm soát được.',
+            'Lưu ý: Tránh dùng thuốc ức chế men chuyển (ACEi) khi có nguy cơ suy thận/tăng kali.'
+          ]}
+        />
+
+        {/* Đổi mục 4 thành Cam (theo dõi/biến chứng) */}
+        <ActionBlock
+          color="orange"
+          title="4. Biến chứng & Theo dõi"
+          items={[
+            'Biến chứng: Xử trí cao huyết áp nặng, phù phổi cấp, suy tim, suy thận cấp, tăng kali máu theo phác đồ riêng.',
+            'Theo dõi: Huyết áp, phù, cân nặng, nước tiểu, ure/creatinine, điện giải, kali máu.'
+          ]}
+        />
+      </GradeCard>
+    </div>
+  );
+}
       function NephroticProtocol() {
         return (
           <div className="space-y-4 text-sm text-gray-700">
