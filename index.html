@@ -43,6 +43,340 @@
       const { useState, useEffect } = React;
 
       // --- ICON COMPONENTS (Nhúng trực tiếp để chạy offline) ---
+      const VaccineScheduleTabs = () => {
+  const [activeTab, setActiveTab] = React.useState('new-age');
+
+  return (
+    <div className="space-y-4 text-sm text-slate-700">
+      {/* Thanh chuyển đổi Tab */}
+      <div className="flex border-b border-slate-200 overflow-x-auto hide-scrollbar">
+        <button
+          onClick={() => setActiveTab('new-age')}
+          className={`py-2 px-3 whitespace-nowrap font-semibold text-xs border-b-2 transition-colors ${
+            activeTab === 'new-age'
+              ? 'border-blue-500 text-blue-600 bg-blue-50/50'
+              : 'border-transparent text-slate-500 hover:text-slate-700'
+          }`}
+        >
+          ✨ Lịch Mới (Theo Tuổi)
+        </button>
+        <button
+          onClick={() => setActiveTab('new-disease')}
+          className={`py-2 px-3 whitespace-nowrap font-semibold text-xs border-b-2 transition-colors ${
+            activeTab === 'new-disease'
+              ? 'border-blue-500 text-blue-600 bg-blue-50/50'
+              : 'border-transparent text-slate-500 hover:text-slate-700'
+          }`}
+        >
+          ✨ Lịch Mới (Theo Bệnh)
+        </button>
+        <button
+          onClick={() => setActiveTab('old')}
+          className={`py-2 px-3 whitespace-nowrap font-semibold text-xs border-b-2 transition-colors ${
+            activeTab === 'old'
+              ? 'border-blue-500 text-blue-600 bg-blue-50/50'
+              : 'border-transparent text-slate-500 hover:text-slate-700'
+          }`}
+        >
+          🕒 Lịch Hiện Tại (12/2025)
+        </button>
+      </div>
+
+      <div className="p-2 bg-blue-50 text-blue-800 rounded text-xs font-medium">
+        * (áp dụng cho tab lịch hiện tại) Các vắc xin có chữ màu xanh dương là hàng hiện có tại Khoa SKTE
+      </div>
+
+      {/* ================= TAB 1: LỊCH MỚI (THEO ĐỘ TUỔI) ================= */}
+      {activeTab === 'new-age' && (
+        <div className="space-y-3">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="bg-slate-100 border-b border-slate-300">
+                  <th className="p-2 font-semibold whitespace-nowrap w-1/4">Tuổi</th>
+                  <th className="p-2 font-semibold">Vắc xin cần tiêm/uống</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-semibold text-slate-800">Sơ sinh</td>
+                  <td className="p-2 align-top">
+                    <strong className="text-blue-700">Vắc xin viêm gan B sơ sinh</strong> <em>(VGB/HepB)</em>: tiêm trong 24 giờ sau sinh
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200 bg-slate-50">
+                  <td className="p-2 align-top font-semibold text-slate-800">Trong 1 tháng đầu</td>
+                  <td className="p-2 align-top">
+                    <strong className="text-blue-700">Vắc xin phòng lao</strong> <em>(BCG)</em>: tiêm 1 lần
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-semibold text-slate-800">2 tháng</td>
+                  <td className="p-2 align-top">
+                    <strong className="text-blue-700">Vắc xin phối hợp chứa viêm gan B – bạch hầu – ho gà – uốn ván – Hib</strong> <em>(VGB/HepB – DPT – Hib)</em> mũi 1; <br/>
+                    <strong className="text-blue-700">Vắc xin bại liệt uống</strong> <em>(OPV)</em> lần 1; <br/>
+                    <strong className="text-blue-700">Vắc xin Rota</strong> lần 1; <br/>
+                    <strong className="text-blue-700">Vắc xin phế cầu</strong> <em>(PCV)</em> mũi 1
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200 bg-slate-50">
+                  <td className="p-2 align-top font-semibold text-slate-800">3 tháng</td>
+                  <td className="p-2 align-top">
+                    <strong className="text-blue-700">Vắc xin phối hợp</strong> <em>(VGB/HepB – DPT – Hib)</em> mũi 2; <br/>
+                    <strong className="text-blue-700">Vắc xin bại liệt uống</strong> <em>(OPV)</em> lần 2; <br/>
+                    <strong className="text-blue-700">Vắc xin Rota</strong> lần 2
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-semibold text-slate-800">4 tháng</td>
+                  <td className="p-2 align-top">
+                    <strong className="text-blue-700">Vắc xin phối hợp</strong> <em>(VGB/HepB – DPT – Hib)</em> mũi 3; <br/>
+                    <strong className="text-blue-700">Vắc xin bại liệt uống</strong> <em>(OPV)</em> lần 3
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200 bg-slate-50">
+                  <td className="p-2 align-top font-semibold text-slate-800">Từ 4 tháng trở đi</td>
+                  <td className="p-2 align-top">
+                    <strong className="text-blue-700">Vắc xin phế cầu</strong> <em>(PCV)</em> mũi 2, cách mũi 1 ít nhất 2 tháng
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-semibold text-slate-800">5 tháng</td>
+                  <td className="p-2 align-top">
+                    <strong className="text-blue-700">Vắc xin bại liệt tiêm</strong> <em>(IPV)</em> mũi 1
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200 bg-slate-50">
+                  <td className="p-2 align-top font-semibold text-slate-800">9 tháng</td>
+                  <td className="p-2 align-top">
+                    <strong className="text-blue-700">Vắc xin sởi</strong> mũi 1; <br/>
+                    <strong className="text-blue-700">Vắc xin bại liệt tiêm</strong> <em>(IPV)</em> mũi 2
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-semibold text-slate-800">12 tháng</td>
+                  <td className="p-2 align-top">
+                    <strong className="text-blue-700">Vắc xin viêm não Nhật Bản</strong> <em>(VNNB/JEV)</em> mũi 1
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200 bg-slate-50">
+                  <td className="p-2 align-top font-semibold text-slate-800">Sau mũi VNNB 1 từ 1–2 tuần</td>
+                  <td className="p-2 align-top">
+                    <strong className="text-blue-700">Vắc xin viêm não Nhật Bản</strong> <em>(VNNB/JEV)</em> mũi 2
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-semibold text-slate-800">18 tháng</td>
+                  <td className="p-2 align-top">
+                    <strong className="text-blue-700">Vắc xin bạch hầu – ho gà – uốn ván nhắc lại</strong> <em>(DPT)</em>; <br/>
+                    <strong className="text-blue-700">Vắc xin sởi – rubella</strong> <em>(MR)</em>
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200 bg-slate-50">
+                  <td className="p-2 align-top font-semibold text-slate-800">Sau mũi VNNB 1 khoảng 1 năm</td>
+                  <td className="p-2 align-top">
+                    <strong className="text-blue-700">Vắc xin viêm não Nhật Bản</strong> <em>(VNNB/JEV)</em> mũi 3
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-semibold text-slate-800">7 tuổi</td>
+                  <td className="p-2 align-top">
+                    <strong className="text-blue-700">Vắc xin uốn ván – bạch hầu giảm liều</strong> <em>(Td)</em> nhắc lại
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* ================= TAB 2: LỊCH MỚI (THEO BỆNH) ================= */}
+      {activeTab === 'new-disease' && (
+        <div className="space-y-3">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="bg-slate-100 border-b border-slate-300">
+                  <th className="p-2 font-semibold whitespace-nowrap">STT</th>
+                  <th className="p-2 font-semibold">Bệnh / Loại Vắc xin</th>
+                  <th className="p-2 font-semibold">Lịch tiêm chi tiết (Theo TT 52/2025 & Dịch vụ)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">1</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Lao (BCG)</td>
+                  <td className="p-2 align-top"><strong>• TCMR:</strong> Tiêm 1 lần trong 1 tháng đầu sau sinh.<br/><em className="text-slate-500">(Khuyến cáo: Tiêm ngay sau sinh càng sớm càng tốt)</em></td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">2</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Viêm gan B</td>
+                  <td className="p-2 align-top"><strong>• TCMR:</strong> Tiêm trong 24 giờ sau sinh.</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">3-6</td>
+                  <td className="p-2 align-top font-medium text-blue-700">VGB - BH - UV - HG - Bại liệt - Hib</td>
+                  <td className="p-2 align-top">
+                    <strong>• Chương trình TCMR:</strong><br/>
+                    - <span className="font-semibold">2, 3, 4 tháng:</span> VGB-DPT-Hib (M1,2,3) + Bại liệt OPV (L1,2,3)<br/>
+                    - <span className="font-semibold">5 tháng:</span> Bại liệt tiêm IPV (Mũi 1)<br/>
+                    - <span className="font-semibold">9 tháng:</span> Bại liệt tiêm IPV (Mũi 2)<br/>
+                    - <span className="font-semibold">18 tháng:</span> Bạch hầu - Ho gà - Uốn ván (DPT) nhắc lại<br/>
+                    - <span className="font-semibold">7 tuổi:</span> Uốn ván - Bạch hầu giảm liều (Td) nhắc lại<br/>
+                    <strong>• Dịch vụ (6-in-1):</strong> M1, 2, 3 lúc 2, 3, 4 tháng | Nhắc: 16-18 tháng.
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">7-8</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Sởi / Sởi - Rubella</td>
+                  <td className="p-2 align-top"><strong>• Chương trình TCMR:</strong> 9 tháng: Sởi mũi 1 | 18 tháng: Sởi-Rubella (MR).</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">9</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Viêm não Nhật Bản</td>
+                  <td className="p-2 align-top">
+                    <strong>• Chương trình TCMR:</strong> M1 (12th) | M2 (1-2 tuần sau M1) | M3 (1 năm sau M1).<br/>
+                    <strong>• Dịch vụ (Imojev):</strong> M1 (12th) | M2 (cách 1 năm sau M1).
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">10</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Sởi - Quai bị - Rubella (MMR)</td>
+                  <td className="p-2 align-top"><strong>• Dịch vụ:</strong> M1 lúc 12 tháng | M2 cách 3-4 năm (hoặc 4-6 tuổi).</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">11</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Phế cầu (PCV)</td>
+                  <td className="p-2 align-top">
+                    <strong>• TCMR (Mới):</strong> M1 lúc 2 tháng | M2 từ 4 tháng trở đi (cách M1 ≥ 2 tháng).<br/>
+                    <strong>• Dịch vụ:</strong> M1 (2th) | M2 (sau 4 tuần) | M3 (sau 4 tuần) | M4 (cách M3 ≥ 6 tháng).
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">12</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Rotavirus</td>
+                  <td className="p-2 align-top">
+                    <strong>• TCMR (Mới):</strong> Lần 1 lúc 2 tháng | Lần 2 lúc 3 tháng.<br/>
+                    <strong>• Dịch vụ:</strong> L1 (2th) | L2 (sau 4 tuần) | L3 (sau 4 tuần - chỉ cho Rotateq).
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">13</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Cúm (Influvac)</td>
+                  <td className="p-2 align-top"><strong>• Dịch vụ:</strong> Trẻ tiêm lần đầu: M1 (6th) | M2 (cách 4 tuần). Tiêm nhắc lại mỗi năm.</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">14</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Não mô cầu (dịch vụ)</td>
+                  <td className="p-2 align-top">
+                    <strong>• B (Bexsero):</strong> 2-5th (M1, M2 cách 2th, nhắc ≥12th); 6-11th (M1, M2 cách 2th, nhắc năm t2); ≥12th (2 mũi cách 2th, nhắc ≥2th); &gt;2t (2 mũi cách 1th).<br/>
+                    <strong>• B+C (Mengoc BC):</strong> M1 (6th) | M2 (cách 8 tuần).<br/>
+                    <strong>• ACYW (Menactra):</strong> M1 (9th) | M2 (cách 3 tháng).
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">15</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Thủy đậu</td>
+                  <td className="p-2 align-top"><strong>• Dịch vụ:</strong> M1 lúc 12 tháng | M2 cách 3 năm.</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">16</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Viêm gan A</td>
+                  <td className="p-2 align-top"><strong>• Dịch vụ:</strong> M1 lúc 12 tháng | M2 cách 6-12 tháng.</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">17-18</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Thương hàn / Tả</td>
+                  <td className="p-2 align-top"><strong>• Dịch vụ:</strong> Trẻ đủ 2 tuổi. Thương hàn tiêm 1 mũi, nhắc mỗi 3 năm. Tả uống 2 liều cách 2 tuần.</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">19</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Sốt xuất huyết (Qdenga)</td>
+                  <td className="p-2 align-top"><strong>• Dịch vụ:</strong> Từ 4 tuổi. Gồm 2 mũi cách 3 tháng.</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">20</td>
+                  <td className="p-2 align-top font-medium text-blue-700">HPV (Gardasil 9)</td>
+                  <td className="p-2 align-top"><strong>• Dịch vụ:</strong> 9-14 tuổi (2 mũi cách 6-12 tháng). ≥ 15 tuổi (3 mũi: 0-2-6 tháng).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* ================= TAB 3: LỊCH CŨ / HIỆN TẠI (12/2025) ================= */}
+      {activeTab === 'old' && (
+        <div className="space-y-3">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="bg-slate-100 border-b border-slate-300">
+                  <th className="p-2 font-semibold whitespace-nowrap">STT</th>
+                  <th className="p-2 font-semibold">Bệnh / Loại Vắc xin</th>
+                  <th className="p-2 font-semibold">Lịch tiêm chủng chi tiết (Hiện tại)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">1</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Lao (BCG)</td>
+                  <td className="p-2 align-top">Tiêm ngay sau sinh càng sớm càng tốt (trong vòng 30 ngày đầu).</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">2</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Viêm gan B</td>
+                  <td className="p-2 align-top">Tiêm liều sơ sinh trong vòng 24 giờ đầu sau sinh.</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">3-6</td>
+                  <td className="p-2 align-top font-medium text-blue-700">VGB - BH - UV - HG - Bại liệt - Hib</td>
+                  <td className="p-2 align-top">
+                    <strong>• TCMR (5-in-1 SII/ComBE Five):</strong> Tiêm mũi 1, 2, 3 lúc 2, 3, 4 tháng kèm uống OPV. Bại liệt IPV lúc 5 tháng. Nhắc DPT lúc 18 tháng.<br/>
+                    <strong>• Dịch vụ (6-in-1 Hexaxim/Infanrix):</strong> Tiêm mũi 1, 2, 3 lúc 2, 3, 4 tháng. Nhắc lúc 16-18 tháng.
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">7-8</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Sởi / Sởi - Rubella</td>
+                  <td className="p-2 align-top">Sởi đơn lúc 9 tháng (TCMR). Sởi-Rubella (MR) lúc 18 tháng (TCMR).</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">9</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Viêm não Nhật Bản</td>
+                  <td className="p-2 align-top">
+                    <strong>• TCMR:</strong> M1 (12th). M2 (1-2 tuần sau M1). M3 (1 năm sau M2). Nhắc mỗi 3 năm.<br/>
+                    <strong>• Dịch vụ (Imojev):</strong> M1 từ 12 tháng. M2 cách 1 năm.
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">10</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Sởi - Quai bị - Rubella (MMR)</td>
+                  <td className="p-2 align-top">Mũi 1 từ 12 tháng. Mũi 2 cách mũi 1 là 3 năm.</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">11</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Phế cầu (Synflorix/Prevenar)</td>
+                  <td className="p-2 align-top"><em className="text-amber-600 font-medium">Chỉ áp dụng diện dịch vụ:</em> Tiêm 3 liều cơ bản (2,3,4 tháng) và nhắc thứ 4 lúc 11-15 tháng.</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">12</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Rotavirus (Rotarix/Rotateq)</td>
+                  <td className="p-2 align-top"><em className="text-amber-600 font-medium">Chỉ áp dụng diện dịch vụ:</em> Uống từ 2 tháng, hoàn thành trước 6 hoặc 8 tháng.</td>
+                </tr>
+                <tr className="border-b border-slate-200">
+                  <td className="p-2 align-top font-medium">13-20</td>
+                  <td className="p-2 align-top font-medium text-blue-700">Cúm, Não mô cầu, Thủy đậu, Gan A, SXH, HPV...</td>
+                  <td className="p-2 align-top">Tuân thủ phác đồ của hệ thống tiêm chủng dịch vụ hiện hành.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
       const IconActivity = ({ size = 24, className = '' }) => (
         <svg
           className={className}
@@ -263,343 +597,11 @@
             </div>
             {/* Tiêm chủng */}
             {'tiêm chủng'.includes(formulaSearch.toLowerCase()) && (
-              <AccordionItem title="Lịch Tiêm Chủng Trẻ Em (Cập nhật 12/2025)">
-                <div className="space-y-4 text-sm text-slate-700">
-                  <div className="p-2 bg-blue-50 text-blue-800 rounded text-xs font-medium mb-2">
-                    * Các vắc xin có chữ màu xanh dương là hàng hiện có tại Khoa
-                    SKTE
-                  </div>
-
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse text-xs">
-                      <thead>
-                        <tr className="border-b border-slate-200 text-slate-500 font-semibold bg-slate-50">
-                          <th className="p-2 w-10">STT</th>
-                          <th className="p-2 w-1/3">Bệnh / Loại Vắc xin</th>
-                          <th className="p-2">Lịch tiêm chủng chi tiết</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-100">
-                        {/* 1 & 2 */}
-                        <tr>
-                          <td className="p-2 font-medium">1</td>
-                          <td className="p-2 font-bold text-slate-900">Lao</td>
-                          <td className="p-2 text-amber-700 font-medium">
-                            Tiêm ngay sau sinh càng sớm càng tốt
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="p-2 font-medium">2</td>
-                          <td className="p-2 text-slate-900">
-                            <span className="font-bold">Viêm gan B</span>
-                            <span className="text-blue-600 block font-medium">
-                              (Gene-HBvax)
-                            </span>
-                          </td>
-                          <td className="p-2 text-amber-700 font-medium">
-                            Tiêm ngay sau sinh càng sớm càng tốt
-                          </td>
-                        </tr>
-                        {/* 3 -> 6 */}
-                        <tr>
-                          <td className="p-2 font-medium">3-6</td>
-                          <td className="p-2 font-bold text-slate-900">
-                            VGB - BH - UV - HG - Bại liệt - Hib
-                          </td>
-                          <td className="p-2 space-y-2">
-                            <div>
-                              <span className="text-slate-500 font-medium font-semibold block">
-                                • Chương trình TCMR (5-trong-1 + uống Bại liệt):
-                              </span>
-                              <span className="block pl-2 text-slate-600">
-                                Mũi 1: 2 tháng | Mũi 2: 3 tháng | Mũi 3: 4 tháng
-                              </span>
-                              <span className="block pl-2 text-slate-600">
-                                Nhắc: Tiêm bại liệt lúc 5 tháng & BH-UV-HG lúc
-                                18 tháng
-                              </span>
-                            </div>
-                            <div>
-                              <span className="text-slate-500 font-medium font-semibold block">
-                                • Chương trình Tiêu dùng/Dịch vụ (6-trong-1):
-                              </span>
-                              <span className="text-blue-600 font-medium block pl-2">
-                                Infanrix hexa, Hexaxim
-                              </span>
-                              <span className="block pl-2 text-slate-600">
-                                Mũi 1, 2, 3: Lúc 2, 3, 4 tháng | Mũi nhắc: 16 -
-                                18 tháng
-                              </span>
-                            </div>
-                          </td>
-                        </tr>
-                        {/* 7 & 8 */}
-                        <tr>
-                          <td className="p-2 font-medium">7-8</td>
-                          <td className="p-2 font-bold text-slate-900">
-                            Sởi / Sởi - Rubella
-                          </td>
-                          <td className="p-2 space-y-1">
-                            <div>
-                              <strong className="text-slate-800">
-                                Sởi đơn:
-                              </strong>{' '}
-                              Tiêm khi trẻ đủ 9 tháng
-                            </div>
-                            <div>
-                              <strong className="text-slate-800">
-                                Sởi - Rubella:
-                              </strong>{' '}
-                              Tiêm khi trẻ đủ 18 tháng
-                            </div>
-                          </td>
-                        </tr>
-                        {/* 9 */}
-                        <tr>
-                          <td className="p-2 font-medium">9</td>
-                          <td className="p-2 font-bold text-slate-900">
-                            Viêm não Nhật Bản
-                          </td>
-                          <td className="p-2 space-y-2">
-                            <div>
-                              <span className="text-slate-500 font-medium block">
-                                • TCMR (Trẻ từ 12 tháng):
-                              </span>
-                              <span className="block pl-2 text-slate-600">
-                                M1: 12 tháng | M2: 1-2 tuần sau M1 | M3: 1 năm
-                                sau M2
-                              </span>
-                              <span className="block pl-2 text-slate-600">
-                                Nhắc lại mỗi 3 năm cho đến khi 15 tuổi
-                              </span>
-                            </div>
-                            <div>
-                              <span className="text-slate-500 font-medium block">
-                                • Dịch vụ (Trẻ từ 9 tháng):
-                              </span>
-                              <span className="text-blue-600 font-medium block pl-2">
-                                Imojev
-                              </span>
-                              <span className="block pl-2 text-slate-600">
-                                Mũi 1: 12 tháng | Mũi 2: Cách 1 năm sau mũi 1
-                              </span>
-                            </div>
-                          </td>
-                        </tr>
-                        {/* 10 */}
-                        <tr>
-                          <td className="p-2 font-medium">10</td>
-                          <td className="p-2 font-bold text-slate-900">
-                            Sởi - Quai bị - Rubella (MMR)
-                          </td>
-                          <td className="p-2">
-                            Mũi 1: 12 tháng | Mũi 2: Cách 3 năm sau mũi 1
-                          </td>
-                        </tr>
-                        {/* 11 */}
-                        <tr>
-                          <td className="p-2 font-medium">11</td>
-                          <td className="p-2">
-                            <span className="font-bold text-slate-900 block">
-                              Phế cầu
-                            </span>
-                            <span className="text-blue-600 font-medium block">
-                              Synflorix (PVC 10)
-                            </span>
-                            <span className="text-blue-600 font-medium block">
-                              Prevenar (PVC 13)
-                            </span>
-                            <span className="text-blue-600 font-medium block">
-                              Vaxneuvance (PVC 15)
-                            </span>
-                          </td>
-                          <td className="p-2">
-                            M1: 2 tháng | M2: Sau 4 tuần | M3: Sau 4 tuần | M4:
-                            Cách mũi 3 là 6 tháng
-                          </td>
-                        </tr>
-                        {/* 12 */}
-                        <tr>
-                          <td className="p-2 font-medium">12</td>
-                          <td className="p-2">
-                            <span className="font-bold text-slate-900 block">
-                              Rotavirus
-                            </span>
-                            <span className="text-blue-600 font-medium block">
-                              Rotarix, Rotateq
-                            </span>
-                          </td>
-                          <td className="p-2">
-                            M1: 2 tháng | M2: Sau 4 tuần | M3: Sau 4 tuần (chỉ
-                            dành cho Rotateq)
-                          </td>
-                        </tr>
-                        {/* 13 */}
-                        <tr>
-                          <td className="p-2 font-medium">13</td>
-                          <td className="p-2">
-                            <span className="font-bold text-slate-900 block">
-                              Cúm
-                            </span>
-                            <span className="text-blue-600 font-medium block">
-                              Influvac tetra
-                            </span>
-                          </td>
-                          <td className="p-2">
-                            M1: 6 tháng | M2: 7 tháng | Mũi nhắc: Tiêm nhắc lại
-                            mỗi năm
-                          </td>
-                        </tr>
-                        {/* 14 */}
-                        <tr>
-                          <td className="p-2 font-medium">14</td>
-                          <td className="p-2 font-bold text-slate-900">
-                            Não mô cầu
-                          </td>
-                          <td className="p-2 space-y-2">
-                            <div>
-                              <span className="text-blue-600 font-medium block">
-                                • Não mô cầu nhóm B (Bexsero - GSK):
-                              </span>
-                              <ul className="list-disc pl-4 text-[11px] text-slate-600 space-y-0.5">
-                                <li>
-                                  <strong>Từ 2-5 tháng:</strong> M1 (2th), M2
-                                  (sau 2th), Nhắc (năm thứ 2, cách M2 ≥ 6th)
-                                </li>
-                                <li>
-                                  <strong>Từ 6-11 tháng:</strong> M1, M2 (sau
-                                  2th), Nhắc (cách M2 từ 12-23th)
-                                </li>
-                                <li>
-                                  <strong>Từ 12-23 tháng:</strong> M1, M2 (sau
-                                  2th), Nhắc (năm thứ 2, cách M2 ≥ 2th)
-                                </li>
-                                <li>
-                                  <strong>Trên 2 tuổi:</strong> M1, M2 (sau mũi
-                                  1 là 1 tháng)
-                                </li>
-                              </ul>
-                            </div>
-                            <div>
-                              <span className="text-blue-600 font-medium block">
-                                • Não mô cầu B+C (VA-Mengoc BC):
-                              </span>
-                              <span className="block pl-2 text-slate-600">
-                                Mũi 1: 6 tháng | Mũi 2: Cách mũi 1 là 8 tuần
-                              </span>
-                            </div>
-                            <div>
-                              <span className="text-blue-600 font-medium block">
-                                • Não mô cầu ACYW-135 (Menactra):
-                              </span>
-                              <span className="block pl-2 text-slate-600">
-                                Mũi 1: 9 tháng | Mũi 2: Cách mũi 1 là 3 tháng
-                              </span>
-                            </div>
-                          </td>
-                        </tr>
-                        {/* 15 */}
-                        <tr>
-                          <td className="p-2 font-medium">15</td>
-                          <td className="p-2">
-                            <span className="font-bold text-slate-900 block">
-                              Thủy đậu
-                            </span>
-                            <span className="text-blue-600 font-medium block">
-                              Varivax (MSD)
-                            </span>
-                            <span className="text-blue-600 font-medium block">
-                              Varilrix (GSK)
-                            </span>
-                          </td>
-                          <td className="p-2">
-                            Mũi 1: 12 tháng | Mũi 2: Cách mũi 1 là 3 năm
-                          </td>
-                        </tr>
-                        {/* 16 */}
-                        <tr>
-                          <td className="p-2 font-medium">16</td>
-                          <td className="p-2">
-                            <span className="font-bold text-slate-900 block">
-                              Viêm gan A
-                            </span>
-                            <span className="text-blue-600 font-medium block">
-                              Avaxim
-                            </span>
-                          </td>
-                          <td className="p-2">
-                            Mũi 1: 12 tháng | Mũi 2: Cách mũi 1 là 6 tháng
-                          </td>
-                        </tr>
-                        {/* 17 & 18 */}
-                        <tr>
-                          <td className="p-2 font-medium">17-18</td>
-                          <td className="p-2 space-y-1">
-                            <div>
-                              <span className="font-bold text-slate-900">
-                                Thương hàn
-                              </span>{' '}
-                              <span className="text-blue-600 font-medium">
-                                (Typhim VI)
-                              </span>
-                            </div>
-                            <div>
-                              <span className="font-bold text-slate-900">
-                                Tả
-                              </span>{' '}
-                              <span className="text-blue-600 font-medium">
-                                (mORCVAX)
-                              </span>
-                            </div>
-                          </td>
-                          <td className="p-2 text-slate-600 font-medium">
-                            Trẻ đủ 2 tuổi: Tiêm (Thương hàn) / Uống (Tả)
-                          </td>
-                        </tr>
-                        {/* 19 */}
-                        <tr>
-                          <td className="p-2 font-medium">19</td>
-                          <td className="p-2">
-                            <span className="font-bold text-slate-900 block">
-                              Sốt xuất huyết
-                            </span>
-                            <span className="text-blue-600 font-medium block">
-                              Qdenga
-                            </span>
-                          </td>
-                          <td className="p-2">
-                            Mũi 1: Trẻ từ 4 tuổi trở lên | Mũi 2: Cách mũi 1 là
-                            3 tháng
-                          </td>
-                        </tr>
-                        {/* 20 */}
-                        <tr>
-                          <td className="p-2 font-medium">20</td>
-                          <td className="p-2">
-                            <span className="font-bold text-slate-900 block">
-                              HPV
-                            </span>
-                            <span className="text-blue-600 font-medium block">
-                              Gardasil 9
-                            </span>
-                          </td>
-                          <td className="p-2 text-slate-600 space-y-1">
-                            <div>
-                              • <strong>Trẻ 9-15 tuổi:</strong> M1 lúc 9 tuổi |
-                              M2 cách mũi 1 là 6 tháng
-                            </div>
-                            <div>
-                              • <strong>Trẻ &gt; 15 tuổi:</strong> M1 (lúc đi
-                              tiêm) | M2 (sau 2 tháng) | M3 (sau 6 tháng)
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </AccordionItem>
+              <AccordionItem title="Lịch Tiêm Chủng Trẻ Em (Tra Cứu Song Song 2 Lịch)">
+              <VaccineScheduleTabs />
+          </AccordionItem>
             )}
+            
             {/* Lưu ý chủng ngừa khi dùng UCMD */}
             {'chủng ngừa ucmd ức chế miễn dịch tiêm'.includes(
               formulaSearch.toLowerCase()
@@ -689,6 +691,53 @@
                 </div>
               </AccordionItem>
             )}
+                        {/* Chống chỉ định chọc dò thắt lưng (PL) */}
+            {('chọc dò thắt lưng pl chống chỉ định').includes(formulaSearch.toLowerCase()) && (
+              <AccordionItem title="Chống chỉ định chọc dò thắt lưng (PL)">
+                <div className="space-y-3 text-sm">
+                  
+                  {/* Nhóm 1: Thần kinh - Khẩn cấp (Màu Đỏ) */}
+                  <div className="bg-red-50 p-3 rounded-lg border border-red-100">
+                    <h4 className="font-bold text-red-900 text-xs uppercase tracking-wide">1. Dấu hiệu thần kinh và áp lực nội sọ</h4>
+                    <ul className="list-disc pl-5 mt-1.5 space-y-1 text-xs text-red-800">
+                      <li>Tăng áp lực nội sọ.</li>
+                      <li>Suy giảm tri giác nặng với điểm GCS &le; 8.</li>
+                      <li>Xuất hiện các dấu hiệu thần kinh khu trú.</li>
+                      <li>Các cơn co giật liên tục hoặc chưa được kiểm soát <span className="italic opacity-80">(phải đợi sau co giật cho đến khi bệnh nhân ổn định)</span>.</li>
+                    </ul>
+                  </div>
+
+                  {/* Nhóm 2: Chức năng cơ quan (Màu Cam) */}
+                  <div className="bg-orange-50 p-3 rounded-lg border border-orange-100">
+                    <h4 className="font-bold text-orange-900 text-xs uppercase tracking-wide">2. Suy chức năng cơ quan nặng (Huyết động & Hô hấp)</h4>
+                    <ul className="list-disc pl-5 mt-1.5 space-y-1 text-xs text-orange-800">
+                      <li>Bệnh nhân đang trong tình trạng sốc nhiễm khuẩn hoặc có các dấu hiệu nhiễm khuẩn huyết nặng, tử ban tiến triển nhanh.</li>
+                      <li>Suy hô hấp hoặc suy tim mạch.</li>
+                    </ul>
+                  </div>
+
+                  {/* Nhóm 3: Rối loạn đông máu (Màu Vàng) */}
+                  <div className="bg-yellow-50 p-3 rounded-lg border border-yellow-200">
+                    <h4 className="font-bold text-yellow-900 text-xs uppercase tracking-wide">3. Rối loạn đông máu</h4>
+                    <ul className="list-disc pl-5 mt-1.5 space-y-1 text-xs text-yellow-800">
+                      <li>Rối loạn đông máu.</li>
+                      <li>Số lượng tiểu cầu giảm thấp dưới 50.000/mm³.</li>
+                      <li>Bệnh nhân đang trong quá trình điều trị bằng thuốc chống đông.</li>
+                    </ul>
+                  </div>
+
+                  {/* Nhóm 4: Tại chỗ (Màu Xanh lá) */}
+                  <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                    <h4 className="font-bold text-green-900 text-xs uppercase tracking-wide">4. Yếu tố tại chỗ</h4>
+                    <ul className="list-disc pl-5 mt-1.5 space-y-1 text-xs text-green-800">
+                      <li>Có tình trạng nhiễm trùng bề mặt ngay tại vị trí dự định chọc dò tủy sống.</li>
+                    </ul>
+                  </div>
+
+                </div>
+              </AccordionItem>
+            )}
+
             {/* Chỉ định sinh thiết thận */}
             {'sinh thiết thận chỉ định hcth hội chứng thận hư'.includes(
               formulaSearch.toLowerCase()
@@ -1125,6 +1174,46 @@
                 className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
+            {/* Viêm não - màng não */}
+{'viêm não màng não'.includes(searchQuery.toLowerCase()) && (
+  <AccordionItem title="Viêm não - màng não">
+    <div className="space-y-3 text-sm">
+      {/* Tờ đỏ */}
+      <div>
+        <p className="font-bold text-red-600">Tờ đỏ:</p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>1. TPTTBM</li>
+        </ul>
+      </div>
+
+      {/* Tờ xanh */}
+      <div>
+        <p className="font-bold text-green-600">Tờ xanh:</p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>2. CRP</li>
+          <li>3. Chức năng gan, thận</li>
+          <li>4. Điện giải đồ, calci, glucose máu (cùng lúc chọc dò tủy sống)</li>
+          <li>5. Lactat máu</li>
+        </ul>
+      </div>
+
+      {/* Tờ vàng (Vi sinh) */}
+      <div>
+        <p className="font-bold text-yellow-600">Tờ vàng (Vi sinh):</p>
+        <ul className="list-disc pl-5 space-y-1">
+          <li>6. DNT: (tế bào, lactat, glucose, protein, cấy vi khuẩn), HSV PCR, JEV igM</li>
+          <li>7. Cấy máu</li>
+          <li>8. JEV IgM máu</li>
+        </ul>
+      </div>
+
+      {/* Lưu ý */}
+      <div className="mt-2 p-2 bg-blue-50 text-blue-700 rounded-md border border-blue-100 italic">
+        <strong>* Lưu ý:</strong> Lưu 2 lọ DNT (mỗi lọ 20 giọt)
+      </div>
+    </div>
+  </AccordionItem>
+)}
             {/* Chuyển hóa */}
             {'chuyển hóa'.includes(searchQuery.toLowerCase()) && (
               <AccordionItem title="Chuyển hóa">
@@ -1190,7 +1279,7 @@
                     </h4>
                     <ul className="list-disc pl-5 space-y-1 text-sm text-gray-700">
                       <li>
-                        <strong>X-quang xương dài / sọ:</strong> Phát hiện tổn
+                        <strong>X-quang đầu xương cẳng tay, khớp gối:</strong> Phát hiện tổn
                         thương xương bẩm sinh
                       </li>
                       <li>
@@ -1237,30 +1326,24 @@
                 </div>
               </AccordionItem>
             )}
-            {/* Bilan Lupus */}
+                        {/* Bilan Lupus */}
             <AccordionItem title="Bilan Lupus ban đỏ hệ thống (SLE)">
               <div className="space-y-4">
+                
                 {/* --- 1. XÉT NGHIỆM GIÚP CHẨN ĐOÁN --- */}
                 <div className="bg-blue-50 p-3 rounded-lg border border-blue-100">
                   <h3 className="font-bold text-blue-700 mb-2 border-b border-blue-200 pb-1">
                     1. Xét nghiệm giúp chẩn đoán
                   </h3>
                   <div className="text-sm text-gray-800 space-y-3">
+                    
                     <ul className="list-disc pl-5 space-y-2">
+                      <li><span className="font-semibold">C3, C4, ANA</span></li>
                       <li>
-                        <span className="font-semibold">C3, C4, ANA</span>
+                        <span className="font-semibold text-blue-800">Anti-dsDNA:</span> Độ nhạy 75%, đặc hiệu 95%. Liên quan đến hoạt tính bệnh và tổn thương thận do lupus.
                       </li>
                       <li>
-                        <span className="font-semibold text-blue-800">
-                          Anti-dsDNA:
-                        </span>{' '}
-                        Độ nhạy 75%, đặc hiệu 95%. Liên quan đến hoạt tính bệnh
-                        và tổn thương thận do lupus.
-                      </li>
-                      <li>
-                        <span className="font-semibold text-blue-800">
-                          Anti-ENA (bộ 6KT) (Extractable Nuclear Antigens):
-                        </span>
+                        <span className="font-semibold text-blue-800">Anti-ENA (bộ 6KT) (Extractable Nuclear Antigens):</span>
                         <ul className="list-[circle] pl-5 mt-1 space-y-1">
                           <li>Anti-Sm (độ nhạy 25%, đặc hiệu 55–100%)</li>
                           <li>Anti-Ro (SSA), Anti-La (SSB)</li>
@@ -1268,18 +1351,11 @@
                           <li>Anti-SCL70, Anti-Jo1</li>
                         </ul>
                       </li>
-                      <li>
-                        <span className="font-semibold text-blue-800">
-                          Anti-C1q:
-                        </span>{' '}
-                        Theo dõi đáp ứng điều trị.
-                      </li>
+                      <li><span className="font-semibold text-blue-800">Anti-C1q:</span> Theo dõi đáp ứng điều trị.</li>
                     </ul>
 
                     <div className="bg-white p-2 rounded border border-blue-200">
-                      <p className="font-semibold text-blue-700 mb-1">
-                        🩸 Tầm soát hội chứng kháng phospholipid:
-                      </p>
+                      <p className="font-semibold text-blue-700 mb-1">🩸 Tầm soát hội chứng kháng phospholipid:</p>
                       <ul className="list-[square] pl-5 space-y-1">
                         <li>PT và aPTT, fibrinogen</li>
                         <li>Lupus anticoagulant tests</li>
@@ -1287,53 +1363,50 @@
                         <li>Anti-&beta;2 glycoprotein-I IgG và IgM</li>
                       </ul>
                     </div>
+                    
                   </div>
                 </div>
 
-                {/* --- 2. XÉT NGHIỆM ĐÁNH GIÁ TỔN THƯƠNG CƠ QUAN --- */}
-                <div className="bg-purple-50 p-3 rounded-lg border border-purple-100">
-                  <h3 className="font-bold text-purple-700 mb-2 border-b border-purple-200 pb-1">
-                    2. Xét nghiệm đánh giá tổn thương cơ quan
-                  </h3>
-                  <div className="text-sm text-gray-800 space-y-2">
-                    <ul className="list-disc pl-5 space-y-3">
-                      <li>
-                        <span className="font-semibold text-purple-800">
-                          🩸 Máu:
-                        </span>
-                        <br />
-                        TPTTBM, Test Coomb's.
-                      </li>
+    {/* --- 2. XÉT NGHIỆM ĐÁNH GIÁ TỔN THƯƠNG CƠ QUAN --- */}
+    <div className="bg-purple-50 p-3 rounded-lg border border-purple-100">
+      <h3 className="font-bold text-purple-700 mb-2 border-b border-purple-200 pb-1">
+        2. Xét nghiệm đánh giá tổn thương cơ quan
+      </h3>
+      <div className="text-sm text-gray-800 space-y-2">
+        
+        <ul className="list-disc pl-5 space-y-3">
+          <li>
+            <span className="font-semibold text-purple-800">🩸 Máu:</span><br/>
+            TPTTBM, Test Coomb's.
+          </li>
+          
+          <li>
+            <span className="font-semibold text-purple-800">🫀 Tim – Phổi – Thần kinh:</span>
+            <ul className="list-[circle] pl-5 mt-1 space-y-1">
+              <li>X quang phổi</li>
+              <li>ECG, Echo tim màu</li>
+              <li>Điện não đồ</li>
+              <li>Chọc dò tủy sống nếu cần</li>
+            </ul>
+          </li>
 
-                      <li>
-                        <span className="font-semibold text-purple-800">
-                          🫀 Tim – Phổi – Thần kinh:
-                        </span>
-                        <ul className="list-[circle] pl-5 mt-1 space-y-1">
-                          <li>X quang phổi</li>
-                          <li>ECG, Echo tim màu</li>
-                          <li>Điện não đồ</li>
-                          <li>Chọc dò tủy sống nếu cần</li>
-                        </ul>
-                      </li>
+          <li>
+            <span className="font-semibold text-purple-800">💧 Thận:</span>
+            <ul className="list-[circle] pl-5 mt-1 space-y-1">
+              <li>Chức năng thận</li>
+              <li>Tổng phân tích nước tiểu</li>
+              <li>Cặn lắng nước tiểu</li>
+              <li>Đạm niệu / Creatinine niệu</li>
+              <li>Đạm niệu 24 giờ</li>
+            </ul>
+          </li>
+        </ul>
 
-                      <li>
-                        <span className="font-semibold text-purple-800">
-                          💧 Thận:
-                        </span>
-                        <ul className="list-[circle] pl-5 mt-1 space-y-1">
-                          <li>Chức năng thận</li>
-                          <li>Tổng phân tích nước tiểu</li>
-                          <li>Cặn lắng nước tiểu</li>
-                          <li>Đạm niệu / Creatinine niệu</li>
-                          <li>Đạm niệu 24 giờ</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </AccordionItem>
+      </div>
+    </div>
+    
+  </div>
+</AccordionItem>
             {/* HCTH */}
             {'hcth hội chứng thận hư'.includes(searchQuery.toLowerCase()) && (
               <AccordionItem title="Hội chứng thận hư (HCTH)">
@@ -2571,7 +2644,7 @@
       /* ==========================================
        MODULE 3: QUICK PROTOCOLS
        ========================================== */
-      function ProtocolModule() {
+       function ProtocolModule() {
         const [mainMode, setMainMode] = useState('recognition');
         const [selectedDept, setSelectedDept] = useState('all');
         const [protocolSearch, setProtocolSearch] = useState('');
@@ -2585,19 +2658,19 @@
           { id: 'icu', label: 'Hồi sức', icon: '⚙️' },
           { id: 'thận', label: 'Thận - Tiết niệu' },
         ];
-
+        
         const recognitionData = [
           {
             dept: 'thận',
             type: 'warning',
             title: '💧 Hội chứng thận hư (HCTH)',
-            content: <NephroticSyndrome />,
+            content: <div className="text-gray-500 italic p-4 text-center">Nội dung đang cập nhật...</div>,
           },
           {
             dept: 'thận',
-            type: 'info',
+            type: 'info', 
             title: 'Nhiễm trùng tiểu (NTT)',
-            content: <UTIRecognition />,
+            content: <UTIRecognition />
           },
           {
             dept: 'infectious',
@@ -2647,11 +2720,6 @@
           },
           {
             dept: 'thận',
-            title: 'Thận: Viêm cầu thận cấp (VCTC) hậu nhiễm trùng',
-            content: <GlomerulonephritisProtocol />
-          },
-          {
-            dept: 'thận',
             type: 'warning',
             title: 'Thận: Hội chứng thận hư (HCTH) - Điều trị biến chứng',
             content: <NephroticProtocol />,
@@ -2660,7 +2728,7 @@
             dept: 'thận',
             type: 'danger', // Dùng màu đỏ/cam cảnh báo cho phác đồ
             title: 'Nhiễm trùng tiểu (NTT) - Phác đồ xử trí',
-            content: <UTIProtocol />,
+            content: <UTIProtocol />
           },
         ];
         const searchLower = protocolSearch ? protocolSearch.toLowerCase() : '';
@@ -2849,178 +2917,7 @@
           </div>
         );
       }
-      const NephroticSyndrome = () => {
-        return (
-          <div className="flex flex-col gap-4 text-sm text-gray-700 p-4 bg-white rounded-lg">
-            {/* 1. Định nghĩa */}
-            <section>
-              <h3 className="font-semibold text-blue-600 text-base mb-1">
-                1. Định nghĩa
-              </h3>
-              <p>
-                <strong>Hội chứng thận hư (HCTH)</strong> là hội chứng lâm sàng
-                đặc trưng bởi: tiểu đạm ngưỡng thận hư, giảm albumin máu, phù
-                toàn thân và tăng lipid máu. Trong đó,{' '}
-                <strong>tiểu đạm ngưỡng thận hư (50mg/kg/ngày) </strong> và{' '}
-                <strong>albumin máu ≤ 30 g/L</strong> là 2 tiêu chuẩn bắt buộc
-                để chẩn đoán.
-              </p>
-            </section>
 
-            {/* 2. Đánh giá đáp ứng điều trị */}
-            <section>
-              <h3 className="font-semibold text-blue-600 text-base mb-1">
-                2. Đánh giá đáp ứng điều trị
-              </h3>
-              <ul className="list-disc pl-5 space-y-1">
-                <li>
-                  <strong>Lui bệnh hoàn toàn:</strong> hết phù,
-                  protein/creatinine niệu &lt; 20 mg/mmol hoặc que thử nước tiểu
-                  sáng “âm/vết” trong 3 ngày liên tiếp.
-                </li>
-                <li>
-                  <strong>Lui bệnh một phần:</strong> protein niệu giảm ≥ 50%
-                  hoặc protein/creatinine niệu 20–200 mg/mmol.
-                </li>
-                <li>
-                  <strong>Đáp ứng steroids:</strong> đạt lui bệnh hoàn toàn sau
-                  điều trị tấn công.
-                </li>
-                <li>
-                  <strong>Kháng steroids:</strong> không đạt lui bệnh hoàn toàn
-                  sau giai đoạn tấn công.
-                </li>
-                <li>
-                  <strong>Kháng cyclosporine:</strong> không lui bệnh sau 6
-                  tháng điều trị cyclosporine A.
-                </li>
-              </ul>
-            </section>
-
-            {/* 3. Tái phát */}
-            <section>
-              <h3 className="font-semibold text-blue-600 text-base mb-1">
-                3. Tái phát
-              </h3>
-              <p className="mb-2">
-                <strong>Tái phát:</strong> xuất hiện lại protein/creatinine niệu
-                &gt; 200 mg/mmol, protein niệu &gt; 40 mg/m²/giờ hoặc que thử
-                nước tiểu sáng ≥ 2+ kèm/không kèm phù, giảm albumin máu trong 3
-                ngày liên tiếp sau khi đã lui bệnh.
-              </p>
-              <ul className="list-disc pl-5 space-y-1">
-                <li>
-                  <strong>Tái phát không thường xuyên:</strong> &lt; 2 lần/6
-                  tháng sau lần đáp ứng đầu tiên hoặc &lt; 4 lần/năm.
-                </li>
-                <li>
-                  <strong>Tái phát thường xuyên:</strong> ≥ 2 lần/6 tháng sau
-                  lần đáp ứng đầu tiên hoặc ≥ 4 lần/năm.
-                </li>
-                <li>
-                  <strong>Lệ thuộc steroids:</strong> tái phát 2 lần liên tiếp
-                  khi đang dùng steroids hoặc trong vòng 14 ngày sau ngưng
-                  thuốc.
-                </li>
-              </ul>
-            </section>
-
-            {/* 4. Phân loại */}
-            <section>
-              <h3 className="font-semibold text-blue-600 text-base mb-1">
-                4. Phân loại
-              </h3>
-              <ul className="list-disc pl-5 space-y-1">
-                <li>
-                  <strong>HCTH nguyên phát:</strong> không liên quan bệnh hệ
-                  thống hoặc nguyên nhân thứ phát khác.
-                </li>
-                <li>
-                  <strong>HCTH thứ phát:</strong> liên quan bệnh hệ thống hoặc
-                  bệnh lý gây tổn thương cầu thận.
-                </li>
-                <li>
-                  <strong>HCTH bẩm sinh/nhũ nhi:</strong> khởi phát &lt; 12
-                  tháng tuổi, có thể nguyên phát hoặc thứ phát.
-                </li>
-              </ul>
-            </section>
-
-            {/* 5. Lâm sàng */}
-            <section>
-              <h3 className="font-semibold text-blue-600 text-base mb-1">
-                5. Lâm sàng
-              </h3>
-              <p className="mb-2">
-                HCTH nguyên phát thường gặp ở trẻ &lt; 6 tuổi, nam nhiều hơn nữ,
-                hay khởi phát sau nhiễm siêu vi hô hấp hoặc dị ứng thức ăn.
-                Triệu chứng thường gặp:
-              </p>
-              <ul className="list-disc pl-5 space-y-1 mb-2">
-                <li>
-                  Phù trắng, mềm, ấn lõm, không đau; thường bắt đầu ở mi mắt rồi
-                  lan toàn thân.
-                </li>
-                <li>Có thể kèm báng bụng, tràn dịch đa màng.</li>
-                <li>Nước tiểu ít trong giai đoạn phù.</li>
-                <li>Tăng huyết áp ít gặp trong sang thương tối thiểu.</li>
-                <li>Có thể tiểu máu vi thể; tiểu máu đại thể hiếm gặp.</li>
-                <li>
-                  Triệu chứng không đặc hiệu: đau bụng, khó thở, đau đầu, mệt
-                  mỏi.
-                </li>
-              </ul>
-              <p className="italic text-gray-600">
-                * Cần chú ý dấu hiệu gợi ý nguyên nhân khác: sốt, gan lách to,
-                sụt cân, xuất huyết da niêm, ban da, đau khớp, điếc, triệu chứng
-                thần kinh, tiền căn dùng thuốc/độc chất hoặc bệnh thận gia đình.
-              </p>
-            </section>
-
-            {/* 6. Biến chứng chính */}
-            <section>
-              <h3 className="font-semibold text-blue-600 text-base mb-1">
-                6. Biến chứng chính
-              </h3>
-              <ul className="list-disc pl-5 space-y-1">
-                <li>
-                  <strong>Nhiễm trùng:</strong> viêm phúc mạc nguyên phát, viêm
-                  mô tế bào, viêm phổi, nhiễm trùng tiểu, nhiễm trùng huyết; tác
-                  nhân thường gặp gồm <em>S. pneumoniae</em>, <em>E. coli</em>,{' '}
-                  <em>Haemophilus</em>, virus thủy đậu.
-                </li>
-                <li>
-                  <strong>Thuyên tắc mạch:</strong> do tăng đông; thường gặp ở
-                  tĩnh mạch chi dưới, tĩnh mạch thận, động mạch phổi.
-                </li>
-                <li>
-                  <strong>Suy thận:</strong> thường do giảm thể tích; có thể do
-                  hoại tử ống thận cấp, thuốc ức chế calcineurin hoặc bệnh cầu
-                  thận nền.
-                </li>
-                <li>
-                  <strong>Giảm thể tích:</strong> mạch nhanh, co mạch ngoại
-                  biến, tiểu ít, có thể hạ huyết áp/sốc.
-                </li>
-                <li>
-                  <strong>Rối loạn tăng trưởng – nội tiết:</strong> chậm tăng
-                  trưởng, loãng xương, béo phì, rối loạn lipid máu, thiếu máu
-                  thiếu sắt, rối loạn tuyến giáp.
-                </li>
-                <li>
-                  <strong>Biến chứng do phù:</strong> hạn chế đi lại, suy hô hấp
-                  do tràn dịch màng phổi/báng bụng, nứt da hoặc viêm mô tế bào.
-                </li>
-                <li>
-                  <strong>Biến chứng do steroids:</strong> chậm tăng trưởng, đục
-                  thủy tinh thể, Cushing, ức chế trục hạ đồi–yên–thượng thận,
-                  thay đổi hành vi, tăng huyết áp, loãng xương.
-                </li>
-              </ul>
-            </section>
-          </div>
-        );
-      };
       function HFMDRecognition() {
         return (
           <div className="space-y-3 text-sm">
@@ -3135,204 +3032,137 @@
         );
       }
       function UTIProtocol() {
-        return (
-          <div className="space-y-4">
-            {/* --- 1. VIÊM ĐÀI BỂ THẬN CẤP --- */}
-            <div className="bg-red-50 p-3 rounded-lg border border-red-100">
-              <h3 className="font-bold text-red-600 mb-2 border-b border-red-200 pb-1">
-                1. Viêm đài bể thận cấp
-              </h3>
-              <div className="text-sm text-gray-800 space-y-3">
-                <div>
-                  <p className="font-semibold text-red-700">
-                    💊 Kháng sinh đường tĩnh mạch (TTM):
-                  </p>
-                  <ul className="list-disc pl-5 space-y-1 mt-1">
-                    <li>
-                      Cephalosporin thế hệ 3 (100 mg/kg/ngày chia 3 lần){' '}
-                      <span className="font-semibold">HOẶC</span> Ceftriaxone 75
-                      mg/kg/ngày.
-                    </li>
-                    <li>
-                      Thảo luận tùy ca: Phối hợp với Netromycine (6-7,5
-                      mg/kg/ngày) <span className="font-semibold">HOẶC</span>{' '}
-                      Amikacine (10-15 mg/kg/ngày) TTM 1 lần duy nhất/ngày
-                      &times; 72 giờ.
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <p className="font-semibold text-red-700">
-                    ⏳ Thời gian & Đánh giá:
-                  </p>
-                  <ul className="list-disc pl-5 space-y-1 mt-1">
-                    <li>
-                      Nếu đáp ứng tốt sau 4 ngày và cấy nước tiểu kiểm tra âm
-                      tính:{' '}
-                      <span className="text-green-600 font-medium">
-                        Có thể chuyển sang đường uống.
-                      </span>
-                    </li>
-                    <li>
-                      <span className="font-medium">
-                        Tổng thời gian điều trị:
-                      </span>{' '}
-                      14 ngày.
-                    </li>
-                    <li>
-                      Kháng sinh tĩnh mạch{' '}
-                      <span className="font-medium text-red-600">
-                        ít nhất 10 ngày
-                      </span>{' '}
-                      trong những trường hợp giãn nặng hệ niệu.
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="bg-white p-2 rounded border border-red-200">
-                  <p className="font-semibold text-red-700 mb-1">
-                    ⚠️ Xử trí đặc biệt:
-                  </p>
-                  <ul className="list-[circle] pl-5 space-y-1">
-                    <li>
-                      <strong>Nhiễm trùng tiểu sơ sinh:</strong> Điều trị như
-                      nhiễm trùng huyết sơ sinh.
-                    </li>
-                    <li>
-                      <strong>Dị tật tiết niệu đi kèm:</strong> Phối hợp ngoại
-                      khoa.
-                    </li>
-                  </ul>
-
-                  <p className="font-semibold text-red-700 mt-2 mb-1">
-                    🔄 Nếu không đáp ứng:
-                  </p>
-                  <ul className="list-[circle] pl-5 space-y-1">
-                    <li>
-                      Tìm nguyên nhân bất thường hệ tiết niệu hay áp xe thận để
-                      giải quyết.
-                    </li>
-                    <li>
-                      <strong>Nếu phân lập được vi trùng:</strong> Chọn lựa
-                      kháng sinh theo kháng sinh đồ.
-                    </li>
-                    <li>
-                      <strong>Nếu không phân lập được:</strong> Cấy lại nước
-                      tiểu, lựa chọn kháng sinh tùy diễn tiến bệnh cảnh lâm
-                      sàng.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* --- 2. VIÊM BÀNG QUANG --- */}
-            <div className="bg-blue-50 p-3 rounded-lg border border-blue-100">
-              <h3 className="font-bold text-blue-600 mb-2 border-b border-blue-200 pb-1">
-                2. Viêm bàng quang
-              </h3>
-              <div className="text-sm text-gray-800 space-y-2">
-                <p className="font-semibold text-blue-700">
-                  💊 Kháng sinh đường uống:
-                </p>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li>
-                    Amoxicilline-clavulanate (20-40 mg/kg/ngày chia 3 lần){' '}
-                    <span className="font-semibold">HOẶC</span>
-                  </li>
-                  <li>Cefixim (8 mg/kg/ngày chia 1-2 lần)</li>
-                </ul>
-
-                <div className="mt-2 p-2 bg-white rounded border border-blue-100">
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>
-                      <strong>Thời gian:</strong> 7 - 10 ngày.
-                    </li>
-                    <li>
-                      <strong>Đánh giá lại:</strong> Sau 2 ngày không đáp ứng có
-                      thể thay đổi kháng sinh khác.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+  return (
+    <div className="space-y-4">
+      {/* --- 1. VIÊM ĐÀI BỂ THẬN CẤP --- */}
+      <div className="bg-red-50 p-3 rounded-lg border border-red-100">
+        <h3 className="font-bold text-red-600 mb-2 border-b border-red-200 pb-1">
+          1. Viêm đài bể thận cấp
+        </h3>
+        <div className="text-sm text-gray-800 space-y-3">
+          
+          <div>
+            <p className="font-semibold text-red-700">💊 Kháng sinh đường tĩnh mạch (TTM):</p>
+            <ul className="list-disc pl-5 space-y-1 mt-1">
+              <li>Cephalosporin thế hệ 3 (100 mg/kg/ngày chia 3 lần) <span className="font-semibold">HOẶC</span> Ceftriaxone 75 mg/kg/ngày.</li>
+              <li>Thảo luận tùy ca: Phối hợp với Netromycine (6-7,5 mg/kg/ngày) <span className="font-semibold">HOẶC</span> Amikacine (10-15 mg/kg/ngày) TTM 1 lần duy nhất/ngày &times; 72 giờ.</li>
+            </ul>
           </div>
-        );
-      }
+
+          <div>
+            <p className="font-semibold text-red-700">⏳ Thời gian & Đánh giá:</p>
+            <ul className="list-disc pl-5 space-y-1 mt-1">
+              <li>Nếu đáp ứng tốt sau 4 ngày và cấy nước tiểu kiểm tra âm tính: <span className="text-green-600 font-medium">Có thể chuyển sang đường uống.</span></li>
+              <li><span className="font-medium">Tổng thời gian điều trị:</span> 14 ngày.</li>
+              <li>Kháng sinh tĩnh mạch <span className="font-medium text-red-600">ít nhất 10 ngày</span> trong những trường hợp giãn nặng hệ niệu.</li>
+            </ul>
+          </div>
+
+          <div className="bg-white p-2 rounded border border-red-200">
+            <p className="font-semibold text-red-700 mb-1">⚠️ Xử trí đặc biệt:</p>
+            <ul className="list-[circle] pl-5 space-y-1">
+              <li><strong>Nhiễm trùng tiểu sơ sinh:</strong> Điều trị như nhiễm trùng huyết sơ sinh.</li>
+              <li><strong>Dị tật tiết niệu đi kèm:</strong> Phối hợp ngoại khoa.</li>
+            </ul>
+            
+            <p className="font-semibold text-red-700 mt-2 mb-1">🔄 Nếu không đáp ứng:</p>
+            <ul className="list-[circle] pl-5 space-y-1">
+              <li>Tìm nguyên nhân bất thường hệ tiết niệu hay áp xe thận để giải quyết.</li>
+              <li><strong>Nếu phân lập được vi trùng:</strong> Chọn lựa kháng sinh theo kháng sinh đồ.</li>
+              <li><strong>Nếu không phân lập được:</strong> Cấy lại nước tiểu, lựa chọn kháng sinh tùy diễn tiến bệnh cảnh lâm sàng.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      {/* --- 2. VIÊM BÀNG QUANG --- */}
+      <div className="bg-blue-50 p-3 rounded-lg border border-blue-100">
+        <h3 className="font-bold text-blue-600 mb-2 border-b border-blue-200 pb-1">
+          2. Viêm bàng quang
+        </h3>
+        <div className="text-sm text-gray-800 space-y-2">
+          
+          <p className="font-semibold text-blue-700">💊 Kháng sinh đường uống:</p>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>Amoxicilline-clavulanate (20-40 mg/kg/ngày chia 3 lần) <span className="font-semibold">HOẶC</span></li>
+            <li>Cefixim (8 mg/kg/ngày chia 1-2 lần)</li>
+          </ul>
+          
+          <div className="mt-2 p-2 bg-white rounded border border-blue-100">
+            <ul className="list-disc pl-5 space-y-1">
+              <li><strong>Thời gian:</strong> 7 - 10 ngày.</li>
+              <li><strong>Đánh giá lại:</strong> Sau 2 ngày không đáp ứng có thể thay đổi kháng sinh khác.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      
+    </div>
+  );
+}
       function UTIRecognition() {
-        return (
-          <div className="space-y-4">
-            {/* --- MỤC CON: ĐẠI CƯƠNG --- */}
-            <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
-              <h3 className="font-bold text-blue-600 mb-3 border-b pb-1">
-                I. Đại cương
-              </h3>
-
-              <div className="space-y-4 text-sm">
-                <div>
-                  <h4 className="font-semibold text-gray-800">
-                    1. Nhiễm trùng tiểu phức tạp:
-                  </h4>
-                  <ul className="list-disc pl-5 space-y-1 mt-1 text-gray-700">
-                    <li>Kèm bất thường hệ niệu</li>
-                    <li>Bệnh cảnh nặng</li>
-                    <li>Nhiễm trùng huyết</li>
-                    <li>Tăng creatinine</li>
-                    <li>Kèm tia nước tiểu yếu</li>
-                    <li>Vi trùng khác loại E. Coli</li>
-                    <li>Không đáp ứng kháng sinh sau 72 giờ</li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-gray-800">
-                    2. Nhiễm trùng tiểu tái phát:
-                  </h4>
-                  <ul className="list-disc pl-5 space-y-1 mt-1 text-gray-700">
-                    <li>&ge; 2 đợt viêm đài bể thận cấp</li>
-                    <li>&ge; 3 đợt NTT dưới</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* --- MỤC CON: II. CHẨN ĐOÁN --- */}
-            <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
-              <h3 className="font-bold text-blue-600 mb-3 border-b pb-1">
-                II. Chẩn đoán
-              </h3>
-
-              <div className="space-y-4 text-sm">
-                <div>
-                  <h4 className="font-semibold text-gray-800">
-                    c. Cận lâm sàng:
-                  </h4>
-                  <p className="mt-1 font-medium text-blue-700">
-                    Chỉ định VCUG (Chụp bàng quang – niệu đạo ngược dòng lúc
-                    tiểu):
-                  </p>
-                  <ul className="list-disc pl-5 space-y-2 mt-2 text-gray-700">
-                    <li>
-                      Tỷ lệ trẻ bị NTT có trào ngược bàng quang - niệu quản cao.
-                      VCUG là xét nghiệm giúp chẩn đoán xác định bệnh lý này.
-                    </li>
-                    <li>
-                      Chỉ định chụp bàng quang - niệu đạo ngược dòng lúc tiểu là
-                      một thủ thuật xâm lấn, có chỉ định thực hiện khi:
-                      <ul className="list-[circle] pl-5 mt-2 space-y-1 font-medium">
-                        <li>Trẻ &lt; 6 tháng</li>
-                        <li>NTT phức tạp (nguy cơ cao)</li>
-                        <li>NTT tái phát</li>
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+  return (
+    <div className="space-y-4">
+      {/* --- MỤC CON: ĐẠI CƯƠNG --- */}
+      <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
+        <h3 className="font-bold text-blue-600 mb-3 border-b pb-1">I. Đại cương</h3>
+        
+        <div className="space-y-4 text-sm">
+          <div>
+            <h4 className="font-semibold text-gray-800">1. Nhiễm trùng tiểu phức tạp:</h4>
+            <ul className="list-disc pl-5 space-y-1 mt-1 text-gray-700">
+              <li>Kèm bất thường hệ niệu</li>
+              <li>Bệnh cảnh nặng</li>
+              <li>Nhiễm trùng huyết</li>
+              <li>Tăng creatinine</li>
+              <li>Kèm tia nước tiểu yếu</li>
+              <li>Vi trùng khác loại E. Coli</li>
+              <li>Không đáp ứng kháng sinh sau 72 giờ</li>
+            </ul>
           </div>
-        );
-      }
+
+          <div>
+            <h4 className="font-semibold text-gray-800">2. Nhiễm trùng tiểu tái phát:</h4>
+            <ul className="list-disc pl-5 space-y-1 mt-1 text-gray-700">
+              <li>&ge; 2 đợt viêm đài bể thận cấp</li>
+              <li>&ge; 3 đợt NTT dưới</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    
+        {/* --- MỤC CON: II. CHẨN ĐOÁN --- */}
+      <div className="bg-gray-50 p-3 rounded-lg border border-gray-100">
+        <h3 className="font-bold text-blue-600 mb-3 border-b pb-1">II. Chẩn đoán</h3>
+        
+        <div className="space-y-4 text-sm">
+          <div>
+            <h4 className="font-semibold text-gray-800">c. Cận lâm sàng:</h4>
+            <p className="mt-1 font-medium text-blue-700">
+              Chỉ định VCUG (Chụp bàng quang – niệu đạo ngược dòng lúc tiểu):
+            </p>
+            <ul className="list-disc pl-5 space-y-2 mt-2 text-gray-700">
+              <li>
+                Tỷ lệ trẻ bị NTT có trào ngược bàng quang - niệu quản cao. VCUG là xét nghiệm giúp chẩn đoán xác định bệnh lý này.
+              </li>
+              <li>
+                Chỉ định chụp bàng quang - niệu đạo ngược dòng lúc tiểu là một thủ thuật xâm lấn, có chỉ định thực hiện khi:
+                <ul className="list-[circle] pl-5 mt-2 space-y-1 font-medium">
+                  <li>Trẻ &lt; 6 tháng</li>
+                  <li>NTT phức tạp (nguy cơ cao)</li>
+                  <li>NTT tái phát</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  );
+}
 
       function MeaslesRecognition() {
         return (
@@ -3651,62 +3481,6 @@
           </div>
         );
       }
-      function GlomerulonephritisProtocol() {
-  return (
-    <div className="space-y-4 text-sm text-gray-700">
-      
-      {/* Đổi màu thẻ bao ngoài thành màu Tím (purple) */}
-      <GradeCard 
-        grade="Phác đồ xử trí" 
-        title="Viêm Cầu Thận Cấp" 
-        color="purple" 
-      >
-        
-        {/* Đổi mục 1 thành Xanh lá */}
-        <ActionBlock
-          color="green"
-          title="1. Nguyên tắc & Kháng sinh"
-          items={[
-            'Nguyên tắc: Không có điều trị đặc hiệu; điều trị nhiễm liên cầu nếu còn, điều trị triệu chứng và biến chứng.',
-            'Kháng sinh: Không thường quy. Chỉ dùng khi còn viêm họng/viêm da/nhiễm liên cầu tiến triển.',
-            'Thuốc: Penicillin V 100.000 đv/kg/ngày x 10 ngày. Nếu dị ứng: Erythromycin 30–50 mg/kg/ngày x 10 ngày.'
-          ]}
-        />
-        
-        {/* Mục 2 giữ nguyên Xanh dương */}
-        <ActionBlock
-          color="blue"
-          title="2. Chế độ ăn & Sinh hoạt"
-          items={[
-            'Chế độ ăn: Hạn chế muối, nước. Nếu suy thận: giảm đạm, hạn chế kali.',
-            'Sinh hoạt: Nghỉ ngơi khi tăng huyết áp.'
-          ]}
-        />
-
-        {/* Đổi mục 3 thành Đỏ vì liên quan đến cấp cứu/huyết áp */}
-        <ActionBlock
-          color="red"
-          title="3. Xử trí triệu chứng"
-          items={[
-            'Phù/Quá tải dịch: Hạn chế dịch, ăn nhạt. Dùng Furosemide TM 1–2 mg/kg/liều mỗi 6–8 giờ hoặc khoảng 2 mg/kg/ngày uống đến khi hết phù.',
-            'Tăng huyết áp: Furosemide là lựa chọn hàng đầu; có thể phối hợp Nifedipine nếu chưa kiểm soát được.',
-            'Lưu ý: Tránh dùng thuốc ức chế men chuyển (ACEi) khi có nguy cơ suy thận/tăng kali.'
-          ]}
-        />
-
-        {/* Đổi mục 4 thành Cam (theo dõi/biến chứng) */}
-        <ActionBlock
-          color="orange"
-          title="4. Biến chứng & Theo dõi"
-          items={[
-            'Biến chứng: Xử trí cao huyết áp nặng, phù phổi cấp, suy tim, suy thận cấp, tăng kali máu theo phác đồ riêng.',
-            'Theo dõi: Huyết áp, phù, cân nặng, nước tiểu, ure/creatinine, điện giải, kali máu.'
-          ]}
-        />
-      </GradeCard>
-    </div>
-  );
-}
       function NephroticProtocol() {
         return (
           <div className="space-y-4 text-sm text-gray-700">
@@ -3762,7 +3536,7 @@
                 title="Truyền Albumin chống sốc"
                 items={[
                   'Liều: 1–2 g/kg (Albumin 20%). Pha loãng 1:3 với NS nếu cần.',
-                  'Tốc độ: 7,5–15 ml/kg/giờ. (trong 30–60 phút).Theo dõi sát huyết động.',
+                  'Tốc độ: 7,5–15 ml/kg/giờ. Theo dõi sát huyết động.',
                 ]}
               />
             </GradeCard>
@@ -3960,6 +3734,7 @@
           </div>
         );
       }
+
 
       /* ==========================================
        MODULE 3: DRUG DATABASE WITH SEARCH
