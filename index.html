@@ -3751,7 +3751,60 @@
           useState('Tất cả thủ thuật');
 
         const drugs = [
+        {
+            name: 'Hydrocortisone',
+            group: 'Hô hấp',
+            diseases: ['Suyễn'],
+            dose: '• Liều: 5 mg/kg/lần mỗi 6 giờ.\n• Trẻ < 2 tuổi: 25 mg/lần.\n• Trẻ 2–5 tuổi: 50 mg/lần.\n• Trẻ > 5 tuổi: 100 mg/lần.',
+            route: '💉 Tiêm tĩnh mạch (TM)',
+            note: '• Tác dụng: Kháng viêm, giảm phù nề phế quản sau 1–2 giờ qua đường toàn thân.\n• <b>CHỈ ĐỊNH:</b> Cơn suyễn nặng; Cơn suyễn trung bình không đáp ứng 1 lần PKD Salbutamol hoặc có yếu tố nguy cơ nặng tử vong.\n• Ghi chú: Dùng khi không uống được Prednisolone. Hiệu quả tương đương Methylprednisolone.',
+          },
           {
+            name: 'Methylprednisolone',
+            group: 'Hô hấp',
+            diseases: ['Suyễn'],
+            dose: '• Liều: 1 mg/kg/lần mỗi 6 giờ.',
+            route: '💉 Tiêm tĩnh mạch (TM)',
+            note: '• Tác dụng: Kháng viêm, giảm phù nề phế quản sau 1–2 giờ qua đường toàn thân.\n• <b>CHỈ ĐỊNH:</b> Cơn suyễn nặng; Cơn suyễn trung bình không đáp ứng 1 lần PKD Salbutamol hoặc có yếu tố nguy cơ nặng tử vong.',
+          },
+          {
+            name: 'Prednisolone',
+            group: 'Hô hấp',
+            diseases: ['Suyễn'],
+            dose: '• Liều: 1 mg/kg/ngày (Tối đa 40 mg/ngày).\n• Ngày đầu: Dùng mỗi 6–8 giờ.\n  - Trẻ < 2 tuổi: 20 mg/ngày.\n  - Trẻ 2–5 tuổi: 30 mg/ngày.\n  - Trẻ > 5 tuổi: 40 mg/ngày.\n• Sau đó: Ngày dùng 2 lần.',
+            route: '💊 Đường Uống',
+            note: '• Tác dụng: Kháng viêm, giảm phù nề phế quản sau 1–2 giờ.\n• <b>CHỈ ĐỊNH:</b> Cơn suyễn nhẹ và trung bình thất bại với liều đầu PKD Salbutamol; Cơn suyễn nặng nhưng bệnh nhân còn uống được.\n• Thời gian điều trị ngắn: 3–5 ngày.',
+          },
+          {
+            name: 'Budesonide 1mg/2mL (PKD)',
+            group: 'Hô hấp',
+            diseases: ['Suyễn'],
+            dose: '• Liều cao: 1 mg/liều.\n• Lặp lại lần 2 sau 30–60 phút nếu cần.\n• Sau đó: mỗi 12 giờ.',
+            route: '💨 Phun khí dung (PKD)',
+            solvent: 'Có thể PKD riêng hoặc pha chung với Salbutamol.',
+            note: '• PKD Corticoide tác dụng nhanh khoảng 15 phút so với đường toàn thân (1–2 giờ).\n• <b>CHỈ ĐỊNH:</b> Chọn lựa khi có chống chỉ định Corticoide toàn thân hoặc nôn ói, không uống được. Phối hợp Corticoide toàn thân trong cơn nguy kịch.',
+          },
+        {
+            name: 'Salbutamol (PKD)',
+            group: 'Hô hấp',
+            diseases: ['Suyễn'],
+            dose: '• Liều: 0,15 mg/kg/lần.\n• Trẻ ≤ 5 tuổi / ≤ 20 kg: 2,5 mg/lần.\n• Trẻ > 5 tuổi / > 20 kg: 5 mg/lần.\n(Tối thiểu: 2,5 mg/lần - Tối đa: 5 mg/lần).\n\nNHỊP ĐỘ:\n• Giờ đầu: mỗi 20 phút.\n• Sau đó: mỗi 1–2 giờ trong 6 giờ đầu và mỗi 4–6 giờ trong 24 giờ.',
+            route: 'Phun khí dung',
+            solvent: 'Pha thêm với NaCl 0.9% để đảm bảo thể tích bầu khí dung đạt tối thiểu 2,5–3 mL/lần.',
+            note: '• PKD bằng khí nén hoặc Oxy 6–8 L/phút.\n• Cơn suyễn nặng: Bắt buộc PKD với nguồn Oxy.',
+            example: 'VD trẻ 15 kg (≤ 5 tuổi): Dùng 1 ống Nebules 2.5mg, pha thêm 0.5-1ml NaCl 0.9% để đủ thể tích 3ml, PKD mỗi 20 phút trong giờ đầu.',
+          },
+          {
+            name: 'Ipratropium (PKD)',
+            group: 'Hô hấp',
+            diseases: ['Suyễn'],
+            dose: '• Trẻ < 2 tuổi: 125 µg/lần.\n• Trẻ 2–12 tuổi: 250 µg/lần.\n• Trẻ > 12 tuổi: 500 µg/lần.\n\nNHỊP ĐỘ:\n• Trong giờ đầu: lặp lại 3 lần, mỗi 20 phút.\n• Sau đó: mỗi 1–2 giờ trong 6 giờ đầu và mỗi 4–6 giờ trong 24 giờ.',
+            route: 'Phun khí dung',
+            solvent: 'Có thể trộn chung vào bầu khí dung cùng với Salbutamol.',
+            note: '• Thuốc đối kháng với hệ đối giao cảm. Hiệu quả DPQ < salbutamol và thời điểm tác dụng chậm sau 30 phút.\n• CHỈ ĐỊNH: Phối hợp cùng PKD Salbutamol trong cơn suyễn nặng HOẶC cơn suyễn trung bình thất bại với liều đầu PKD Salbutamol.',
+            example: 'VD trẻ 4 tuổi: Ipratropium 250 µg trộn chung với Salbutamol 2.5mg, PKD lặp lại 3 lần mỗi 20 phút trong giờ đầu xử trí suyễn nặng.',
+          },
+        {
             name: 'Adrenaline',
             group: 'Vận mạch',
             diseases: ['Sốc', 'TCM độ 4', 'Phản vệ'],
@@ -4524,6 +4577,7 @@
         ];
 
         const diseaseTree = {
+          'Suyễn': ['Suyễn'],
           'Giang mai': ['Giang mai'],
           'Tay chân miệng': [
             'Tất cả phân độ/biến chứng',
@@ -5178,8 +5232,8 @@
                       </p>
                     )}
                     <p style={{ whiteSpace: 'pre-line' }}>
-                      <strong>Ghi chú:</strong> {drug.note}
-                    </p>
+  <strong>Ghi chú:</strong> <span dangerouslySetInnerHTML={{ __html: drug.note }} />
+</p>
                   </div>
                   <div className="flex flex-wrap gap-1 mt-3">
                     {drug.diseases.map((tag) => (
